@@ -1,17 +1,20 @@
 import './App.css'
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import HomePage from "./screens/home/home";
-import Admin from "./screens/admin/admin"
+import NavBar from './components/header/NavBar'
+import { BrowserRouter as Router,Routes,Route } from 'react-router-dom';
+import HomePage from './pages/home/Home';
 
 function App() {
-  
+
   return (
-      <BrowserRouter>
-        <Routes>
-          <Route path="" element={<HomePage />}></Route>
-          <Route path="/admin" element={<Admin />}></Route>
-        </Routes>
-      </BrowserRouter>
+    <div>
+      <Router>
+      <Routes>
+        <Route exact path='/' element={<NavBar/>}/>
+        <Route path='/' element={<HomePage />} />
+      </Routes>
+
+      </Router>
+    </div>
   )
 }
 
