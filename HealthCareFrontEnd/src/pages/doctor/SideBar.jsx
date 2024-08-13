@@ -3,9 +3,16 @@ import { TbLogout2 } from "react-icons/tb";
 import { MdOutlineSpaceDashboard } from "react-icons/md";
 import { RiCalendarScheduleLine } from "react-icons/ri";
 import { IoPeopleOutline } from "react-icons/io5";
+import { useState } from 'react';
+import DoctorDashboard from './DoctorDashboard';
+import PatientsListPage from './PatientsListPage';
+import SchedulePage from './SchedulePage';
 
 
 function SideBar() {
+
+  const [activePage, setActivePage] = useState('dashboard');
+
   return (
     <div className="flex flex-row flex-1 w-screen h-screen">
       <div className="flex flex-col justify-start w-1/4 h-full bg-[#00394C] items-center pt-10">
@@ -25,19 +32,31 @@ function SideBar() {
         {/* Navigation buttons */}
         <div className='flex flex-col w-full gap-4 pt-16 pl-4'>
         {/* Dashboard Button */}
-          <button className='flex flex-row text-[#EEEEEE] items-center h-[60px] w-full bg-[#00394C] justify-center rounded-l-full pr-4 hover:bg-[#E6F2F6] hover:text-[#00394C]'>
+          <button
+            className={`flex flex-row items-center h-[60px] w-full justify-center rounded-l-full pr-4 ${activePage === 'dashboard' ? 'bg-[#E6F2F6] text-[#00394C]' : 'bg-[#00394C] text-[#EEEEEE]'
+              } hover:bg-[#E6F2F6] hover:text-[#00394C]`}
+            onClick={() => setActivePage('dashboard')}
+          >
             <div><MdOutlineSpaceDashboard className='w-8 h-8' /></div>
             <div className='pl-4 text-lg font-semibold'>Dashboard</div>
           </button>
 
           {/* Schedules buttons */}
-          <button className='flex flex-row text-[#EEEEEE] items-center h-[60px] w-full bg-[#00394C] justify-center rounded-l-full pr-4 font-semibold hover:bg-[#E6F2F6] hover:text-[#00394C]'>
+          <button
+            className={`flex flex-row items-center h-[60px] w-full justify-center rounded-l-full pr-4 font-semibold ${activePage === 'schedule' ? 'bg-[#E6F2F6] text-[#00394C]' : 'bg-[#00394C] text-[#EEEEEE]'
+              } hover:bg-[#E6F2F6] hover:text-[#00394C]`}
+            onClick={() => setActivePage('schedule')}
+          >
             <div className='w-8'><RiCalendarScheduleLine className='w-8 h-8' /></div>
             <div className='pl-4 text-lg'>Schedules</div>
           </button>
 
           {/* Patients List buttons */}
-          <button className='flex flex-row text-[#EEEEEE] items-center h-[60px] w-full bg-[#00394C] justify-center rounded-l-full pr-4 font-semibold hover:bg-[#E6F2F6] hover:text-[#00394C]'>
+          <button
+            className={`flex flex-row items-center h-[60px] w-full justify-center rounded-l-full pr-4 font-semibold ${activePage === 'patients' ? 'bg-[#E6F2F6] text-[#00394C]' : 'bg-[#00394C] text-[#EEEEEE]'
+              } hover:bg-[#E6F2F6] hover:text-[#00394C]`}
+            onClick={() => setActivePage('patients')}
+          >
             <div className='w-8'><IoPeopleOutline className='w-8 h-8' /></div>
             <div className='pl-4 text-lg'>Patients List</div>
           </button>
@@ -52,6 +71,14 @@ function SideBar() {
 
           </button>
         </div>
+      </div>
+
+
+      {/* Screen */}
+      <div className='w-3/4 h-full bg-slate-800'>
+        {activePage === 'dashboard' && <div><DoctorDashboard/></div>}
+        {activePage === 'schedule' && <div><SchedulePage/></div>}
+        {activePage === 'patients' && <div><PatientsListPage/></div>}
       </div>
     </div>
   )
