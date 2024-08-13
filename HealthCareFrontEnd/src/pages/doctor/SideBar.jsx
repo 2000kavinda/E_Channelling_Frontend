@@ -75,7 +75,7 @@ function SideBar() {
 
 
       {/* Screen */}
-      <div className='w-3/4 h-full bg-slate-800'>
+      <div className='w-3/4 h-full'>
         {activePage === 'dashboard' && <div><DoctorDashboard/></div>}
         {activePage === 'schedule' && <div><SchedulePage/></div>}
         {activePage === 'patients' && <div><PatientsListPage/></div>}
