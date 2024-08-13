@@ -6,6 +6,7 @@ import { AiOutlineFieldTime } from "react-icons/ai";
 import { BiCabinet } from "react-icons/bi";
 import { useRef } from 'react';
 import DoctorPicture from '../../assets/Images/Ellipse34.png';
+import { Button } from "@headlessui/react";
 
 function DoctorDashboard() {
 
@@ -225,9 +226,70 @@ function DoctorDashboard() {
 
 
 
+
+        {/* Next Patient Details */}
         <div className="flex flex-col w-1/2 h-full gap-4">
-          <div className="text-base font-semibold text-[#414141]">Today Appointment Amounts</div>
-          <div className="w-full h-[350px] bg-[#E6F2F6] rounded-xl"></div>
+          <div className="text-base font-semibold text-[#414141]">Next Patient Details</div>
+          <div className="w-full h-[350px] bg-[#E6F2F6] rounded-xl px-4 py-4">
+            <div className="flex flex-row items-center gap-4">
+              <div className="flex w-[70px] h-[70px] bg-black rounded-full">
+                <img src={DoctorPicture} alt="ProfileImage" className="w-full h-full" />
+              </div>
+
+              {/*Patient Name */}
+              <div className="flex flex-col">
+                <div className="text-lg font-semibold">Mr.Hiran Welagedara</div>
+                {/* Room No */}
+                <div className="flex flex-row">
+                  <div>Room No:</div>
+                  <div>02</div>
+                </div>
+              </div>
+
+              <div className="pl-10">
+                <Button className="px-4 py-2 bg-[#00394C] rounded-lg text-white font-semibold text-sm">View Documents</Button>
+              </div>
+            </div>
+
+            <div className="flex flex-row w-full gap-10 px-2 pt-4">
+            {/* Date of Birth */}
+              <div className="flex flex-col">
+                <div className="text-base font-semibold">Date of Birth</div>
+                <div className="text-sm">2024/07/14</div>
+              </div>
+              <div className="flex flex-col">
+                <div className="text-base font-semibold">Weight</div>
+                <div className="text-sm">54</div>
+              </div>
+              <div className="flex flex-col">
+                <div className="text-base font-semibold">Height</div>
+                <div className="text-sm">176cm</div>
+              </div>
+
+            </div>
+
+            <div className="flex flex-row w-full gap-10 px-2 pt-4">
+              {/* Date of Birth */}
+              <div className="flex flex-col">
+                <div className="text-base font-semibold">Gender</div>
+                <div className="text-sm">Male</div>
+              </div>
+              <div className="flex flex-col">
+                <div className="text-base font-semibold">Appointment Registered</div>
+                <div className="text-sm">2024/07/22</div>
+              </div>
+
+            </div>
+
+            <div className="flex flex-row w-full gap-10 px-2 pt-4">
+              {/* Date of Birth */}
+              <div className="flex flex-col">
+                <div className="text-base font-semibold">Allergies</div>
+                <div className="text-sm">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat laboris nisi ut.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat laboris nisi ut.</div>
+              </div>
+
+            </div>
+          </div>
         
         </div>
       </div>
