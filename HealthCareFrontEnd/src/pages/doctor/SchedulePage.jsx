@@ -16,7 +16,7 @@ function SchedulePage() {
       <div className="flex flex-row justify-between w-full">
         {/* Greeting message */}
         <div className="flex flex-col">
-          <div className="text-3xl font-bold text-[#00394C]">Today Patient List</div>
+          <div className="text-3xl font-bold text-[#00394C]">Today Schedule List</div>
         </div>
 
         {/* Buttons */}
