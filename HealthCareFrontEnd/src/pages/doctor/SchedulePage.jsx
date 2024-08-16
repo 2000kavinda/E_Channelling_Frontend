@@ -6,6 +6,8 @@ import { GrNext } from "react-icons/gr";
 import { useEffect, useRef } from 'react';
 import { useState } from "react";
 import { listSchedules } from "../../service/DoctorScheduleServices";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function SchedulePage() {
@@ -15,14 +17,21 @@ function SchedulePage() {
   const [schedule,setSchedule]= useState([]);
 
   useEffect(() => {
-    const drRegNo = 66;
+    const drRegNo = 6;
+    const toastId = 'unique-toast-id';
     listSchedules(drRegNo)
       .then((response) => {
         console.log(response.data); // Check the data structure
         setSchedule(response.data);
+        if (!toast.isActive(toastId)) {
+          toast.success('Registration successful!', { toastId });
+        }
       })
       .catch((error) => {
         console.error(error);
+        if (!toast.isActive(toastId)) {
+          toast.error('Image upload failed!', { toastId });
+        }
       });
   }, []);
 
@@ -30,6 +39,7 @@ function SchedulePage() {
 
   return (
     <div className="flex flex-col px-10 pt-10">
+      <ToastContainer/>
       <div className="flex flex-row justify-between w-full">
         {/* Greeting message */}
         <div className="flex flex-col">
