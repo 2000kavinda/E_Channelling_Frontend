@@ -3,12 +3,29 @@ import { FaQuestion } from "react-icons/fa6";
 import { IoSettingsOutline } from "react-icons/io5";
 import DoctorPicture from '../../assets/Images/Ellipse34.png';
 import { GrNext } from "react-icons/gr";
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
+import { useState } from "react";
+import { listSchedules } from "../../service/DoctorScheduleServices";
 
 
 function SchedulePage() {
   const divRef = useRef(null);
   const bottomRef = useRef(null);
+
+  const [schedule,setSchedule]= useState([]);
+
+  useEffect(() => {
+    const drRegNo = 66;
+    listSchedules(drRegNo)
+      .then((response) => {
+        console.log(response.data); // Check the data structure
+        setSchedule(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
+
 
 
   return (
@@ -67,172 +84,58 @@ function SchedulePage() {
             style={{ overflowY: 'scroll', height: '480px' }}
           >
 
-            {/* Card */}
-            <div className="w-full h-[100px] bg-white rounded-lg flex flex-row justify-between px-4 items-center mb-3">
-              <div className="flex flex-row gap-5">
-                {/* Profile Picture */}
-                <div className="flex w-[70px] h-[70px] bg-black rounded-full">
-                  <img src={DoctorPicture} alt="ProfileImage" className="w-full h-full" />
-                </div>
-                {/* Patient Details */}
-                <div className="flex flex-col">
-                  <div className="text-lg font-semibold text-[#666767]">Mr.Hiran Welagedara</div>
-                  <div className="flex flex-row gap-4 text-sm text-[#666767]">
-                    <div className="flex flex-row">
-                      <div className="pr-1">Age: </div>
-                      <div>22</div>
-                    </div>
-
-                    <div className="flex flex-row">
-                      <div className="pr-1">Gender: </div>
-                      <div>Male</div>
-                    </div>
-                  </div>
-
-                  <div className="flex flex-row text-sm text-[#666767]">
-                    <div className="pr-1">Room No: </div>
-                    <div>22</div>
-                  </div>
-                </div>
-              </div>
-
-              <GrNext />
-            </div>
-
-
 
             {/* Card */}
-            <div className="w-full h-[100px] bg-white rounded-lg flex flex-row justify-between px-4 items-center mb-3">
-              <div className="flex flex-row gap-5">
-                {/* Profile Picture */}
-                <div className="flex w-[70px] h-[70px] bg-black rounded-full">
-                  <img src={DoctorPicture} alt="ProfileImage" className="w-full h-full" />
-                </div>
-                {/* Patient Details */}
-                <div className="flex flex-col">
-                  <div className="text-lg font-semibold text-[#666767]">Mr.Hiran Welagedara</div>
-                  <div className="flex flex-row gap-4 text-sm text-[#666767]">
-                    <div className="flex flex-row">
-                      <div className="pr-1">Age: </div>
-                      <div>22</div>
+            {
+              schedule && schedule.length > 0 ? (
+                schedule.map((scheduleItem) => (
+                  <div
+                    key={scheduleItem.sId}
+                    className="w-full h-[100px] bg-white rounded-lg flex flex-row justify-between px-4 items-center mb-3"
+                  >
+                    <div className="flex flex-row gap-5">
+                      {/* Profile Picture */}
+                      <div className="flex w-[70px] h-[70px] bg-black rounded-full">
+                        <img
+                          src={DoctorPicture}
+                          alt="ProfileImage"
+                          className="w-full h-full"
+                        />
+                      </div>
+                      {/* Patient Details */}
+                      <div className="flex flex-col">
+                        <div className="text-lg font-semibold text-[#666767] flex flex-row gap-2">
+                          <div>Room No:</div>
+                          {scheduleItem.roomNo}
+                        </div>
+                        <div className="flex flex-row gap-4 text-sm text-[#666767]">
+                          <div className="flex flex-row">
+                            <div className="pr-1">From: </div>
+                            <div>{scheduleItem.start}</div>
+                          </div>
+
+                          <div className="flex flex-row">
+                            <div className="pr-1">To: </div>
+                            <div>{scheduleItem.end}</div>
+                          </div>
+                        </div>
+
+                        <div className="flex flex-row text-sm text-[#666767]">
+                          <div className="pr-1">Date: </div>
+                          <div>{scheduleItem.date}</div>
+                        </div>
+                      </div>
                     </div>
 
-                    <div className="flex flex-row">
-                      <div className="pr-1">Gender: </div>
-                      <div>Male</div>
-                    </div>
+                    <GrNext />
                   </div>
+                ))
+              ) : (
+                  <div className="flex flex-col justify-center w-full h-full text-lg text-center text-[#005F7E] font-semibold">No schedules available</div>
+              )
+            }
 
-                  <div className="flex flex-row text-sm text-[#666767]">
-                    <div className="pr-1">Room No: </div>
-                    <div>22</div>
-                  </div>
-                </div>
-              </div>
-
-              <GrNext />
-            </div>
-
-
-            {/* Card */}
-            <div className="w-full h-[100px] bg-white rounded-lg flex flex-row justify-between px-4 items-center mb-3">
-              <div className="flex flex-row gap-5">
-                {/* Profile Picture */}
-                <div className="flex w-[70px] h-[70px] bg-black rounded-full">
-                  <img src={DoctorPicture} alt="ProfileImage" className="w-full h-full" />
-                </div>
-                {/* Patient Details */}
-                <div className="flex flex-col">
-                  <div className="text-lg font-semibold text-[#666767]">Mr.Hiran Welagedara</div>
-                  <div className="flex flex-row gap-4 text-sm text-[#666767]">
-                    <div className="flex flex-row">
-                      <div className="pr-1">Age: </div>
-                      <div>22</div>
-                    </div>
-
-                    <div className="flex flex-row">
-                      <div className="pr-1">Gender: </div>
-                      <div>Male</div>
-                    </div>
-                  </div>
-
-                  <div className="flex flex-row text-sm text-[#666767]">
-                    <div className="pr-1">Room No: </div>
-                    <div>22</div>
-                  </div>
-                </div>
-              </div>
-
-              <GrNext />
-            </div>
-
-
-
-            {/* Card */}
-            <div className="w-full h-[100px] bg-white rounded-lg flex flex-row justify-between px-4 items-center mb-3">
-              <div className="flex flex-row gap-5">
-                {/* Profile Picture */}
-                <div className="flex w-[70px] h-[70px] bg-black rounded-full">
-                  <img src={DoctorPicture} alt="ProfileImage" className="w-full h-full" />
-                </div>
-                {/* Patient Details */}
-                <div className="flex flex-col">
-                  <div className="text-lg font-semibold text-[#666767]">Mr.Hiran Welagedara</div>
-                  <div className="flex flex-row gap-4 text-sm text-[#666767]">
-                    <div className="flex flex-row">
-                      <div className="pr-1">Age: </div>
-                      <div>22</div>
-                    </div>
-
-                    <div className="flex flex-row">
-                      <div className="pr-1">Gender: </div>
-                      <div>Male</div>
-                    </div>
-                  </div>
-
-                  <div className="flex flex-row text-sm text-[#666767]">
-                    <div className="pr-1">Room No: </div>
-                    <div>22</div>
-                  </div>
-                </div>
-              </div>
-
-              <GrNext />
-            </div>
-
-
-
-            {/* Card */}
-            <div className="w-full h-[100px] bg-white rounded-lg flex flex-row justify-between px-4 items-center mb-3">
-              <div className="flex flex-row gap-5">
-                {/* Profile Picture */}
-                <div className="flex w-[70px] h-[70px] bg-black rounded-full">
-                  <img src={DoctorPicture} alt="ProfileImage" className="w-full h-full" />
-                </div>
-                {/* Patient Details */}
-                <div className="flex flex-col">
-                  <div className="text-lg font-semibold text-[#666767]">Mr.Hiran Welagedara</div>
-                  <div className="flex flex-row gap-4 text-sm text-[#666767]">
-                    <div className="flex flex-row">
-                      <div className="pr-1">Age: </div>
-                      <div>22</div>
-                    </div>
-
-                    <div className="flex flex-row">
-                      <div className="pr-1">Gender: </div>
-                      <div>Male</div>
-                    </div>
-                  </div>
-
-                  <div className="flex flex-row text-sm text-[#666767]">
-                    <div className="pr-1">Room No: </div>
-                    <div>22</div>
-                  </div>
-                </div>
-              </div>
-
-              <GrNext />
-            </div>
+            
 
 
             <div ref={bottomRef}></div>
