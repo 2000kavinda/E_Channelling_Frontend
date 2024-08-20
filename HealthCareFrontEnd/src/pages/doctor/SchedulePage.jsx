@@ -24,13 +24,13 @@ function SchedulePage() {
         console.log(response.data); // Check the data structure
         setSchedule(response.data);
         if (!toast.isActive(toastId)) {
-          toast.success('Registration successful!', { toastId });
+          // toast.success('Registration successful!', { toastId });
         }
       })
       .catch((error) => {
         console.error(error);
         if (!toast.isActive(toastId)) {
-          toast.error('Image upload failed!', { toastId });
+          toast.error('No Schedules available!', { toastId });
         }
       });
   }, []);
