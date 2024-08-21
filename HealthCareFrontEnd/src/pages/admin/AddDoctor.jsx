@@ -1,6 +1,6 @@
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { useNavigate } from 'react-router-dom';
-import Profile from '../../assets/Images/Ellipse34.png'
+import ImageUpload from "../../components/admin/ImageUpload";
 
 function AddDoctor() {
     const navigate = useNavigate();
@@ -23,13 +23,7 @@ function AddDoctor() {
             <div className="w-11/12 h-full bg-[#c9e2eb] rounded-lg px-10 py-10 flex flex-col">
 
                 {/* Profile Picture */}
-                <div className="flex flex-row h-[120px] w-full items-center gap-5 justify-center">
-                    <div className="w-[120px] h-[120px] bg-black rounded-full">
-                        <img src={Profile} />
-                    </div>
-
-                    <button className="w-[120px] h-[40px] py-2 bg-[#005F7E] rounded-lg text-white text-sm font-semibold">Upload</button>
-                </div>
+                <ImageUpload/>
 
 
                 {/* Text Boxes */}
