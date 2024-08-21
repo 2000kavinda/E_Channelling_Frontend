@@ -2,10 +2,17 @@ import { IoNotificationsOutline } from "react-icons/io5";
 import { FaQuestion } from "react-icons/fa6";
 import { IoSettingsOutline } from "react-icons/io5";
 import { useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function PatientsList() {
     const divRef = useRef(null);
     const bottomRef = useRef(null);
+
+    const navigate = useNavigate();
+
+    const handleAddNewClick = () => {
+        navigate('/AddPatients');
+    };
 
     return (
         <div className="flex flex-col px-10 pt-10">
@@ -54,7 +61,7 @@ function PatientsList() {
                 </button>
             </div>
 
-                <button className="w-[150px] h-full bg-[#007F6D] mt-10 rounded-lg text-white font-semibold">Add New +</button>
+                <button className="w-[150px] h-full bg-[#007F6D] mt-10 rounded-lg text-white font-semibold" onClick={handleAddNewClick}>Add New +</button>
             </div>
 
 

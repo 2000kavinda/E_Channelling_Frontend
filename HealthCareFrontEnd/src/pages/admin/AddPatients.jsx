@@ -2,7 +2,7 @@ import { IoMdArrowRoundBack } from "react-icons/io";
 import { useNavigate } from 'react-router-dom';
 import Profile from '../../assets/Images/Ellipse34.png'
 
-function AddDoctor() {
+function AddPatients() {
     const navigate = useNavigate();
 
     const handleAddNewClick = () => {
@@ -10,7 +10,7 @@ function AddDoctor() {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center w-full h-[860px] py-10 bg-white">
+        <div className="flex flex-col items-center justify-center w-full h-[900px] py-10 bg-white">
             <div className="flex flex-row justify-start w-full gap-8 px-16 pb-5">
                 <button className="w-[120px] py-2 bg-[#005F7E] text-white rounded-lg flex flex-row items-center gap-1 font-semibold text-lg justify-center" onClick={handleAddNewClick}>
                     <IoMdArrowRoundBack />
@@ -20,7 +20,7 @@ function AddDoctor() {
             </div>
 
             {/* Details Pages */}
-            <div className="w-11/12 h-full bg-[#c9e2eb] rounded-lg px-10 py-10 flex flex-col">
+            <div className="w-11/12 h-[800px] bg-[#c9e2eb] rounded-lg px-10 py-10 flex flex-col">
 
                 {/* Profile Picture */}
                 <div className="flex flex-row h-[120px] w-full items-center gap-5 justify-center">
@@ -55,7 +55,7 @@ function AddDoctor() {
                     {/* Input Row */}
                     <div className="flex flex-row gap-16">
                         <div className="flex flex-col gap-1">
-                            <div className="text-normal text-[#1b5f75] font-semibold">Registration number</div>
+                            <div className="text-normal text-[#1b5f75] font-semibold">Age</div>
                             <input type="text"
                                 placeholder="Registration number..."
                                 className="px-4 py-2 bg-[#f1f1f1] text-gray-800 text-sm w-[400px] h-[45px] rounded-md focus:outline-none focus:ring-1 focus:ring-[#00394C]" />
@@ -63,7 +63,7 @@ function AddDoctor() {
 
 
                         <div className="flex flex-col gap-1">
-                            <div className="text-normal text-[#1b5f75] font-semibold">NIC number</div>
+                            <div className="text-normal text-[#1b5f75] font-semibold">Height</div>
                             <input type="text"
                                 placeholder="NIC number..."
                                 className="px-4 py-2 bg-[#f1f1f1] text-gray-800 text-sm w-[400px] h-[45px] rounded-md focus:outline-none focus:ring-1 focus:ring-[#00394C]" />
@@ -73,7 +73,7 @@ function AddDoctor() {
                     {/* Input Row */}
                     <div className="flex flex-row gap-16">
                         <div className="flex flex-col gap-1">
-                            <div className="text-normal text-[#1b5f75] font-semibold">Age</div>
+                            <div className="text-normal text-[#1b5f75] font-semibold">Weight</div>
                             <input type="text"
                                 placeholder="Age..."
                                 className="px-4 py-2 bg-[#f1f1f1] text-gray-800 text-sm w-[400px] h-[45px] rounded-md focus:outline-none focus:ring-1 focus:ring-[#00394C]" />
@@ -81,7 +81,7 @@ function AddDoctor() {
 
 
                         <div className="flex flex-col gap-1">
-                            <div className="text-normal text-[#1b5f75] font-semibold">Graduate from</div>
+                            <div className="text-normal text-[#1b5f75] font-semibold">Doctor</div>
                             <input type="text"
                                 placeholder="Graduate from..."
                                 className="px-4 py-2 bg-[#f1f1f1] text-gray-800 text-sm w-[400px] h-[45px] rounded-md focus:outline-none focus:ring-1 focus:ring-[#00394C]" />
@@ -91,10 +91,10 @@ function AddDoctor() {
                     {/* Input Row */}
                     <div className="flex flex-row justify-center w-full gap-16">
                         <div className="flex flex-col gap-1">
-                            <div className="text-normal text-[#1b5f75] font-semibold">Specialist area</div>
+                            <div className="text-normal text-[#1b5f75] font-semibold">Diseases details</div>
                             <input type="text"
                                 placeholder="Age..."
-                                className="px-4 py-2 bg-[#f1f1f1] text-gray-800 text-sm w-[866px] h-[45px] rounded-md focus:outline-none focus:ring-1 focus:ring-[#00394C]" />
+                                className="px-4 py-2 bg-[#f1f1f1] text-gray-800 text-sm w-[860px] h-[120px] rounded-md focus:outline-none focus:ring-1 focus:ring-[#00394C]" />
                         </div>
                     </div>
 
@@ -114,4 +114,4 @@ function AddDoctor() {
     )
 }
 
-export default AddDoctor
+export default AddPatients
