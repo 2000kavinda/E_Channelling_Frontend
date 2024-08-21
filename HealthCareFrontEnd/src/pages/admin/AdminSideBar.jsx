@@ -4,10 +4,11 @@ import { RiCalendarScheduleLine } from "react-icons/ri";
 import { IoPeopleOutline } from "react-icons/io5";
 import { useState } from 'react';
 import AdminDashboard from "./AdminDashboard";
-import PatientsListPage from '../doctor/PatientsListPage';
 import SchedulePage from '../doctor/SchedulePage';
 import Logo from '../../assets/Images/Logo.png';
 import PatientsList from "./PatientsList";
+import DoctorList from "./DoctorList";
+import LabPersonList from "./LabPersonList";
 
 function AdminSideBar() {
 
@@ -91,9 +92,10 @@ function AdminSideBar() {
                 {activePage === 'dashboard' && <div><AdminDashboard /></div>}
                 {activePage === 'schedule' && <div><SchedulePage /></div>}
                 {activePage === 'patients' && <div><PatientsList /></div>}
-                {activePage === 'Doctors' && <div><PatientsListPage /></div>}
-                {activePage === 'Labs' && <div><PatientsListPage /></div>}
+                {activePage === 'doctors' && <div><DoctorList /></div>}
+                {activePage === 'labs' && <div><LabPersonList /></div>}
             </div>
+
         </div>
     )
 }
