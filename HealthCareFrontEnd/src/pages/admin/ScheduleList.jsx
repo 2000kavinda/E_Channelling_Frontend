@@ -17,7 +17,7 @@ function ScheduleList() {
     const navigate = useNavigate();
 
     const handleAddNewClick = () => {
-        navigate('/AddLabPerson');
+        navigate('/AddSchedule');
     };
 
     const [schedule, setSchedule] = useState([]);
