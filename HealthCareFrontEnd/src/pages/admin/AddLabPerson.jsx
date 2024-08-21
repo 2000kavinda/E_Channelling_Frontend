@@ -23,7 +23,7 @@ function AddLabPerson() {
             <div className="w-11/12 h-full bg-[#c9e2eb] rounded-lg px-10 py-10 flex flex-col">
 
                 {/* Profile Picture */}
-                <div className="flex flex-row h-[120px] w-full items-center gap-5">
+                <div className="flex flex-row h-[120px] w-full items-center gap-5 justify-center">
                     <div className="w-[120px] h-[120px] bg-black rounded-full">
                         <img src={Profile} />
                     </div>
@@ -33,7 +33,7 @@ function AddLabPerson() {
 
 
                 {/* Text Boxes */}
-                <div className="flex flex-col gap-5 pt-10">
+                <div className="flex flex-col items-center h-full gap-5 pt-10">
                     {/* Input Row */}
                     <div className="flex flex-row gap-16">
                         <div className="flex flex-col gap-1">
@@ -88,7 +88,7 @@ function AddLabPerson() {
                         </div>
                     </div>
 
-                    <div className="flex flex-row justify-end w-full gap-16 ">
+                    <div className="flex flex-row justify-center w-full gap-16 pt-10">
                         <div className="flex flex-row items-center justify-center gap-10">
                             <button className="w-[180px] h-[50px] bg-[#1b5f75] rounded-xl text-white text-normal font-semibold">Cancel</button>
                             <button className="w-[180px] h-[50px] bg-[#1b5f75] rounded-xl text-white text-normal font-semibold">Submit</button>
