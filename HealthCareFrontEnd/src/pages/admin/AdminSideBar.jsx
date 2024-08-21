@@ -6,7 +6,8 @@ import { useState } from 'react';
 import AdminDashboard from "./AdminDashboard";
 import PatientsListPage from '../doctor/PatientsListPage';
 import SchedulePage from '../doctor/SchedulePage';
-import Logo from '../../assets/Images/Logo.png'
+import Logo from '../../assets/Images/Logo.png';
+import PatientsList from "./PatientsList";
 
 function AdminSideBar() {
 
@@ -54,9 +55,9 @@ function AdminSideBar() {
 
                     {/* Patients List buttons */}
                     <button
-                        className={`flex flex-row items-center h-[60px] w-full justify-center rounded-l-full pr-4 font-semibold ${activePage === 'patients' ? 'bg-[#E6F2F6] text-[#00394C]' : 'bg-[#00394C] text-[#EEEEEE]'
+                        className={`flex flex-row items-center h-[60px] w-full justify-center rounded-l-full pr-4 font-semibold ${activePage === 'doctors' ? 'bg-[#E6F2F6] text-[#00394C]' : 'bg-[#00394C] text-[#EEEEEE]'
                             } hover:bg-[#E6F2F6] hover:text-[#00394C]`}
-                        onClick={() => setActivePage('patients')}
+                        onClick={() => setActivePage('doctors')}
                     >
                         <div className='w-8'><IoPeopleOutline className='w-8 h-8' /></div>
                         <div className='pl-4 text-lg'>Doctors List</div>
@@ -64,9 +65,9 @@ function AdminSideBar() {
 
                     {/* Patients List buttons */}
                     <button
-                        className={`flex flex-row items-center h-[60px] w-full justify-center rounded-l-full pr-4 font-semibold ${activePage === 'patients' ? 'bg-[#E6F2F6] text-[#00394C]' : 'bg-[#00394C] text-[#EEEEEE]'
+                        className={`flex flex-row items-center h-[60px] w-full justify-center rounded-l-full pr-4 font-semibold ${activePage === 'labs' ? 'bg-[#E6F2F6] text-[#00394C]' : 'bg-[#00394C] text-[#EEEEEE]'
                             } hover:bg-[#E6F2F6] hover:text-[#00394C]`}
-                        onClick={() => setActivePage('patients')}
+                        onClick={() => setActivePage('labs')}
                     >
                         <div className='w-8'><IoPeopleOutline className='w-8 h-8' /></div>
                         <div className='pl-4 text-lg'>Labs person List</div>
@@ -89,7 +90,9 @@ function AdminSideBar() {
             <div className='w-3/4 h-full'>
                 {activePage === 'dashboard' && <div><AdminDashboard /></div>}
                 {activePage === 'schedule' && <div><SchedulePage /></div>}
-                {activePage === 'patients' && <div><PatientsListPage /></div>}
+                {activePage === 'patients' && <div><PatientsList /></div>}
+                {activePage === 'Doctors' && <div><PatientsListPage /></div>}
+                {activePage === 'Labs' && <div><PatientsListPage /></div>}
             </div>
         </div>
     )
