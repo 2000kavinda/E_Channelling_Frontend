@@ -1,8 +1,16 @@
 import SignInPic from '../../assets/Images/signIn.png';
 import Logo from '../../assets/Images/Logo.png';
+import { useNavigate } from 'react-router-dom';
 
 
 function SignIn() {
+
+    const navigate = useNavigate();
+
+    const handleAddNewClick = () => {
+        navigate('/SignUp');
+    };
+
     return (
         <div className="flex flex-col items-center justify-center w-screen h-screen">
             <div className="flex flex-row w-4/6 h-5/6 bg-slate-200 rounded-2xl">
@@ -38,7 +46,7 @@ function SignIn() {
 
                     <div className='flex flex-row justify-center w-full pt-2 text-sm'>
                         <div>Dont have an account?</div>
-                        <button className='pl-2 font-bold text-[#1b5a6f]'>Sign in</button>
+                        <button className='pl-2 font-bold text-[#1b5a6f]' onClick={handleAddNewClick}>Sign in</button>
                     </div>
                 </div>
             </div>
