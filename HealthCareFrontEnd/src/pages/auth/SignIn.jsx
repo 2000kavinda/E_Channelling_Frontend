@@ -8,7 +8,9 @@ function SignIn() {
     const navigate = useNavigate();
 
     const handleAddNewClick = () => {
-        navigate('/SignUp');
+        setTimeout(() => {
+            navigate('/SignUp');
+        }, 300); 
     };
 
     return (

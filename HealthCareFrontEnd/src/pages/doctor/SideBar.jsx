@@ -1,17 +1,33 @@
+import { useState } from 'react';
 import DoctorPicture from '../../assets/Images/Ellipse34.png';
 import { TbLogout2 } from "react-icons/tb";
 import { MdOutlineSpaceDashboard } from "react-icons/md";
 import { RiCalendarScheduleLine } from "react-icons/ri";
 import { IoPeopleOutline } from "react-icons/io5";
-import { useState } from 'react';
 import DoctorDashboard from './DoctorDashboard';
 import PatientsListPage from './PatientsListPage';
 import SchedulePage from './SchedulePage';
 
+// Loading Spinner Component
+function LoadingSpinner() {
+  return (
+    <div className="flex items-center justify-center w-full h-full">
+      <div className="w-32 h-32 border-t-4 border-b-4 border-blue-500 rounded-full animate-spin"></div>
+    </div>
+  );
+}
 
 function SideBar() {
-
   const [activePage, setActivePage] = useState('dashboard');
+  const [loading, setLoading] = useState(false);
+
+  const handlePageChange = (page) => {
+    setLoading(true); // Start loading
+    setTimeout(() => {
+      setActivePage(page);
+      setLoading(false); // Stop loading after "page load"
+    }, 500); // Simulate a delay of 500ms
+  };
 
   return (
     <div className="flex flex-row flex-1 w-screen h-screen">
@@ -31,11 +47,11 @@ function SideBar() {
 
         {/* Navigation buttons */}
         <div className='flex flex-col w-full gap-4 pt-16 pl-4'>
-        {/* Dashboard Button */}
+          {/* Dashboard Button */}
           <button
             className={`flex flex-row items-center h-[60px] w-full justify-center rounded-l-full pr-4 ${activePage === 'dashboard' ? 'bg-[#E6F2F6] text-[#00394C]' : 'bg-[#00394C] text-[#EEEEEE]'
               } hover:bg-[#E6F2F6] hover:text-[#00394C]`}
-            onClick={() => setActivePage('dashboard')}
+            onClick={() => handlePageChange('dashboard')}
           >
             <div><MdOutlineSpaceDashboard className='w-8 h-8' /></div>
             <div className='pl-4 text-lg font-semibold'>Dashboard</div>
@@ -45,7 +61,7 @@ function SideBar() {
           <button
             className={`flex flex-row items-center h-[60px] w-full justify-center rounded-l-full pr-4 font-semibold ${activePage === 'schedule' ? 'bg-[#E6F2F6] text-[#00394C]' : 'bg-[#00394C] text-[#EEEEEE]'
               } hover:bg-[#E6F2F6] hover:text-[#00394C]`}
-            onClick={() => setActivePage('schedule')}
+            onClick={() => handlePageChange('schedule')}
           >
             <div className='w-8'><RiCalendarScheduleLine className='w-8 h-8' /></div>
             <div className='pl-4 text-lg'>Schedules</div>
@@ -55,12 +71,11 @@ function SideBar() {
           <button
             className={`flex flex-row items-center h-[60px] w-full justify-center rounded-l-full pr-4 font-semibold ${activePage === 'patients' ? 'bg-[#E6F2F6] text-[#00394C]' : 'bg-[#00394C] text-[#EEEEEE]'
               } hover:bg-[#E6F2F6] hover:text-[#00394C]`}
-            onClick={() => setActivePage('patients')}
+            onClick={() => handlePageChange('patients')}
           >
             <div className='w-8'><IoPeopleOutline className='w-8 h-8' /></div>
             <div className='pl-4 text-lg'>Patients List</div>
           </button>
-          
         </div>
 
         {/* Log out Button */}
@@ -68,20 +83,22 @@ function SideBar() {
           <button className='w-full flex flex-row h-[60px] border-top border-[#D9D9D9] border-t-2 justify-center items-center text-white font-semibold hover:bg-[#E6F2F6] hover:text-[#00394C]'>
             <div className='w-8'><TbLogout2 className='w-6 h-6' /></div>
             <div className='pl-2 text-lg'>Logout</div>
-
           </button>
         </div>
       </div>
 
-
       {/* Screen */}
       <div className='w-3/4 h-full'>
-        {activePage === 'dashboard' && <div><DoctorDashboard/></div>}
-        {activePage === 'schedule' && <div><SchedulePage/></div>}
-        {activePage === 'patients' && <div><PatientsListPage/></div>}
+        {loading ? <LoadingSpinner /> : (
+          <>
+            {activePage === 'dashboard' && <DoctorDashboard />}
+            {activePage === 'schedule' && <SchedulePage />}
+            {activePage === 'patients' && <PatientsListPage />}
+          </>
+        )}
       </div>
     </div>
-  )
+  );
 }
 
-export default SideBar
+export default SideBar;
