@@ -22,7 +22,7 @@ function SchedulePage() {
     const toastId = 'unique-toast-id';
     listSchedules(drRegNo)
       .then((response) => {
-        console.log(response.data); // Check the data structure
+        console.log(response.data); 
         setSchedule(response.data);
         if (!toast.isActive(toastId)) {
           // toast.success('Registration successful!', { toastId });

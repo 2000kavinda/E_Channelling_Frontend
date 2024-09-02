@@ -2,7 +2,7 @@ import SignInPic from '../../assets/Images/signIn.png';
 import Logo from '../../assets/Images/Logo.png';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import axios from 'axios';
+import { loginService } from '../../service/LoginService'; 
 
 function SignIn() {
     const [email, setEmail] = useState("");
@@ -18,32 +18,24 @@ function SignIn() {
     async function login(event) {
         event.preventDefault();
         try {
-            const response = await axios.get("http://localhost:8081/api/v1/auth/login", {
-                params: {
-                    email: email,
-                    pw: pw,
-                },
-            });
-            localStorage.setItem("regNo",response.data.body.drRegNo)
-            localStorage.setItem("drName", response.data.body.drName)
-            // Assuming the role is returned in the response headers
+            const response = await loginService(email, pw);
+            localStorage.setItem("regNo", response.data.body.drRegNo);
+            localStorage.setItem("drName", response.data.body.drName);
+
             const role = response.data.headers.role[0];
             console.log(response.data.headers.role);
 
             if (role === "DOCTOR") {
                 navigate('/SideBar');
             } else if (role === "LAB_PERSON") {
-                navigate('/LabPersonDashboard'); // Navigate to Lab Person Dashboard
+                navigate('/LabPersonDashboard');
             } else if (role === "PATIENT") {
-                navigate('/PatientDashboard'); // Navigate to Patient Dashboard
+                navigate('/PatientDashboard');
             } else {
                 alert("Incorrect Credentials");
             }
         } catch (err) {
-            alert("Login failed: " + err.message);
-
-
-            
+            alert(err.message);
         }
     }
 
