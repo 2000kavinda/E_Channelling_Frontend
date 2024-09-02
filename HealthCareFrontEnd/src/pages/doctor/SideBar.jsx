@@ -7,6 +7,7 @@ import { IoPeopleOutline } from "react-icons/io5";
 import DoctorDashboard from './DoctorDashboard';
 import PatientsListPage from './PatientsListPage';
 import SchedulePage from './SchedulePage';
+import { useNavigate } from 'react-router-dom';
 
 // Loading Spinner Component
 function LoadingSpinner() {
@@ -16,6 +17,8 @@ function LoadingSpinner() {
     </div>
   );
 }
+
+
 
 function SideBar() {
   const [activePage, setActivePage] = useState('dashboard');
@@ -27,6 +30,16 @@ function SideBar() {
       setActivePage(page);
       setLoading(false); // Stop loading after "page load"
     }, 500); // Simulate a delay of 500ms
+  };
+
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    // Clear local storage
+    localStorage.clear();
+
+    // Navigate to the sign-in page
+    navigate('/SignIn');
   };
 
   return (
@@ -80,7 +93,9 @@ function SideBar() {
 
         {/* Log out Button */}
         <div className='flex flex-col items-center justify-end w-full h-full'>
-          <button className='w-full flex flex-row h-[60px] border-top border-[#D9D9D9] border-t-2 justify-center items-center text-white font-semibold hover:bg-[#E6F2F6] hover:text-[#00394C]'>
+          <button className='w-full flex flex-row h-[60px] border-top border-[#D9D9D9] border-t-2 justify-center items-center text-white font-semibold hover:bg-[#E6F2F6] hover:text-[#00394C]'
+            onClick={handleLogout}
+          >
             <div className='w-8'><TbLogout2 className='w-6 h-6' /></div>
             <div className='pl-2 text-lg'>Logout</div>
           </button>
