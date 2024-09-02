@@ -17,7 +17,8 @@ function SchedulePage() {
   const [schedule,setSchedule]= useState([]);
 
   useEffect(() => {
-    const drRegNo = 6;
+    const drRegNo = localStorage.getItem("regNo");
+    console.log(drRegNo);
     const toastId = 'unique-toast-id';
     listSchedules(drRegNo)
       .then((response) => {

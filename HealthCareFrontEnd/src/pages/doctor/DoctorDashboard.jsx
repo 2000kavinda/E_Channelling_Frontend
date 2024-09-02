@@ -25,6 +25,8 @@ function DoctorDashboard() {
     }
   };
 
+  const drName = localStorage.getItem("drName");
+
   return (
     <div className="flex flex-col px-10 pt-10">
       {/* Top bar */}
@@ -33,7 +35,7 @@ function DoctorDashboard() {
         <div className="flex flex-col">
           <div className="text-4xl font-bold text-[#00394C]">{getCurrentGreeting()}</div>
           {/* Dr name */}
-          <div className="text-base text-[#414141] font-semibold">Dr.Hiran Welagedara</div>
+          <div className="text-base text-[#414141] font-semibold">{drName}</div>
         </div>
 
         {/* Buttons */}
