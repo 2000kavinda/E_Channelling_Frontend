@@ -20,8 +20,9 @@ function PatientsListPage() {
 
   useEffect(() => {
     const drRegNo = localStorage.getItem("regNo");
-    const date = "2024-08-24";
+    const date = new Date().toISOString().split('T')[0];
     console.log(drRegNo);
+    console.log("Date:", date);
     const toastId = 'unique-toast-id';
     listPatients(drRegNo,date)
       .then((response) => {
