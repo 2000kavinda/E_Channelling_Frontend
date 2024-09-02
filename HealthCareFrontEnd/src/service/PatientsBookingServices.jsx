@@ -1,5 +1,10 @@
 import axios from 'axios';
 
-const REST_API_BASE_URL = "http://localhost:8080/api/v1/schedules/filter";
+const REST_API_BASE_URL = "http://localhost:8080/api/v1/bookings/filterByDate";
 
-export const listSchedules = () => axios.get(REST_API_BASE_URL);
+// Modify listSchedules to accept drRegNo as a parameter
+export const listPatients = (drRegNo,date) => {
+    return axios.get(REST_API_BASE_URL, {
+        params: { drRegNo,date }
+    });
+};

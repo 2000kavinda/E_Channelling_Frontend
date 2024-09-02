@@ -31,7 +31,10 @@ function SignIn() {
                 navigate('/LabPersonDashboard');
             } else if (role === "PATIENT") {
                 navigate('/PatientDashboard');
-            } else {
+            } else if (role === "ADMIN") {
+                navigate('/AdminSideBar');
+            } 
+            else {
                 alert("Incorrect Credentials");
             }
         } catch (err) {
