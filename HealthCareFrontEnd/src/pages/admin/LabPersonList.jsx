@@ -5,7 +5,7 @@ import { useRef } from 'react';
 import { useState, useEffect } from "react";
 import DoctorPicture from '../../assets/Images/Ellipse34.png';
 import { useNavigate } from 'react-router-dom';
-import { AllLabPersonList } from '../../service/AllLabPersonListService';
+import { AllLabPersonList, LabPersonSearch } from '../../service/AllLabPersonListService';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -13,6 +13,7 @@ function LabPersonList() {
     const divRef = useRef(null);
     const bottomRef = useRef(null);
     const [labPerson, setLabPerson] = useState([]);
+    const [searchQuery, setSearchQuery] = useState(''); 
 
     const navigate = useNavigate();
 
@@ -37,6 +38,39 @@ function LabPersonList() {
                 }
             });
     }, []);
+
+
+    const handleSearch = () => {
+        if (searchQuery.trim() === '') {
+            // If search query is empty, reload the patient list
+            const toastId = 'unique-toast-id';
+            AllLabPersonList()
+                .then((response) => {
+                    // console.log(response.data);
+                    setLabPerson(response.data);
+                    if (!toast.isActive(toastId)) {
+                        // toast.success('Registration successful!', { toastId });
+                    }
+                })
+                .catch((error) => {
+                    console.error(error);
+                    if (!toast.isActive(toastId)) {
+                        toast.error('No Schedules available!', { toastId });
+                    }
+                });
+        } else {
+            // Otherwise, search for patients by name
+            LabPersonSearch(searchQuery)
+                .then((response) => {
+                    setLabPerson(response.data.body);
+                    console.log(response.data);
+                })
+                .catch((error) => {
+                    console.error(error);
+                    toast.error('No matching Lab Persons found!');
+                });
+        }
+    };
 
     return (
         <div className="flex flex-col px-10 pt-10">
@@ -77,10 +111,13 @@ function LabPersonList() {
                         type="text"
                         placeholder="Search Patients..."
                         className="px-4 py-2 bg-[#f1f1f1] text-gray-800 text-sm w-[400px] h-[45px] rounded-md focus:outline-none focus:ring-1 focus:ring-[#00394C]"
+                        value={searchQuery} 
+                        onChange={(e) => setSearchQuery(e.target.value)}
                     />
                     <button
                         type="submit"
                         className="px-10 py-2 text-white bg-[#005F7E] rounded-md hover:bg-[#3392b1] h-[45px] text-sm"
+                        onClick={handleSearch}
                     >
                         Search
                     </button>
