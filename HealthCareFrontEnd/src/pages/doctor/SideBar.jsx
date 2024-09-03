@@ -42,16 +42,19 @@ function SideBar() {
     navigate('/SignIn');
   };
 
+  const drName = localStorage.getItem("drName");
+  const profileImage = localStorage.getItem("profileImage");
+
   return (
     <div className="flex flex-row flex-1 w-screen h-screen">
       <div className="flex flex-col justify-start w-1/4 h-full bg-[#00394C] items-center pt-10">
         {/* Profile Picture */}
-        <div className="flex w-[150px] h-[150px] bg-black rounded-full">
-          <img src={DoctorPicture} alt="ProfileImage" className="w-full h-full" />
+        <div className="flex w-[150px] h-[150px] bg-[#8bd0e7] rounded-full">
+          <img src={profileImage} alt="ProfileImage" className="w-full h-full rounded-full" />
         </div>
 
         {/* Doctor Name */}
-        <div className='pt-[29px] text-2xl font-bold text-white'>Dr.Hiran Welagedara</div>
+        <div className='pt-[29px] text-2xl font-bold text-white'>Dr.{drName}</div>
 
         {/** Doctor Specialist Area */}
         <div className='bg-[#D9F2EF] rounded-md px-4 py-2 mt-4 text-sm font-bold text-[#00394C]'>

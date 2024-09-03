@@ -21,6 +21,7 @@ function SignIn() {
             const response = await loginService(email, pw);
             localStorage.setItem("regNo", response.data.body.drRegNo);
             localStorage.setItem("drName", response.data.body.drName);
+            localStorage.setItem("profileImage", response.data.body.profileImage);
 
             const role = response.data.headers.role[0];
             console.log(response.data.headers.role);
