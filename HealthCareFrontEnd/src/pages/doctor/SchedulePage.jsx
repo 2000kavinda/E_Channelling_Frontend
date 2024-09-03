@@ -71,7 +71,7 @@ function SchedulePage() {
       </div>
 
       {/* Search bar */}
-      <div className="flex flex-row items-center gap-6 pt-10">
+      {/* <div className="flex flex-row items-center gap-6 pt-10">
         <input
           type="text"
           placeholder="Search Patients..."
@@ -83,7 +83,7 @@ function SchedulePage() {
         >
           Search
         </button>
-      </div>
+      </div> */}
      
 
       {/* Schedule List */}
@@ -92,7 +92,7 @@ function SchedulePage() {
         <div className="flex flex-col  w-full h-full bg-[#E6F2F6] rounded-xl px-4 py-4">
           <div
             ref={divRef}
-            style={{ overflowY: 'scroll', height: '480px' }}
+            style={{ overflowY: 'scroll', height: '560px' }}
           >
 
 
