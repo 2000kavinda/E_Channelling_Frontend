@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { AllLabPersonList, LabPersonSearch } from '../../service/AllLabPersonListService';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
 
 function LabPersonList() {
     const divRef = useRef(null);
@@ -19,6 +20,18 @@ function LabPersonList() {
 
     const handleAddNewClick = () => {
         navigate('/AddLabPerson');
+    };
+
+    const handleDelete = (lPRegNo) => {
+        axios.delete(`http://localhost:8080/api/v1/labperson/delete?lPRegNo=${lPRegNo}`)
+            .then(() => {
+                toast.success('Doctor deleted successfully!');
+                setLabPerson(labPerson.filter((labPerson) => labPerson.lPRegNo !== lPRegNo));
+            })
+            .catch((error) => {
+                console.error(error);
+                toast.error('Failed to delete doctor.');
+            });
     };
 
     useEffect(() => {
@@ -167,7 +180,7 @@ function LabPersonList() {
 
                                         <div className="flex flex-row gap-5">
                                             <button className="px-10 rounded-lg text-white text-sm font-medium py-2 bg-[#005F7E]">Edit</button>
-                                            <button className="px-10 rounded-lg text-white text-sm font-medium py-2 bg-[#FF6464]">Delete</button>
+                                            <button className="px-10 rounded-lg text-white text-sm font-medium py-2 bg-[#FF6464]" onClick={() => handleDelete(LabPersonList.lPRegNo)}>Delete</button>
                                         </div>
                                     </div>
                                 ))
