@@ -3,7 +3,6 @@ import { FaQuestion } from "react-icons/fa6";
 import { IoSettingsOutline } from "react-icons/io5";
 import { useRef } from 'react';
 import { useState, useEffect } from "react";
-import DoctorPicture from '../../assets/Images/Ellipse34.png';
 import { useNavigate } from 'react-router-dom';
 import { AllLabPersonList, LabPersonSearch } from '../../service/AllLabPersonListService';
 import { ToastContainer, toast } from 'react-toastify';
@@ -159,7 +158,7 @@ function LabPersonList() {
                                         <div className="flex flex-row items-center h-full gap-8">
                                             {/* Profile Picture */}
                                             <div className="flex w-[70px] h-[70px] bg-black rounded-full">
-                                                <img src={DoctorPicture} alt="ProfileImage" className="w-full h-full" />
+                                                <img src={LabPersonList.lpprofileImage} alt="ProfileImage" className="w-full h-full" />
                                             </div>
                                             {/* Patient Details */}
                                             <div className="flex flex-col">
