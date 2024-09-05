@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
-import { createNotification } from '../../service/NotificationService'; 
+import { createNotification } from '../../service/notificationService'; 
 import NavBar from '../../components/header/NavBar';
 
 function Notifi() {

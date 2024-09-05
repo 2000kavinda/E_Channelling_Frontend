@@ -26,9 +26,8 @@ function SignIn() {
         event.preventDefault();
         try {
             const response = await loginService(email, pw);
-            localStorage.setItem("regNo", response.data.body.drRegNo);
-            localStorage.setItem("drName", response.data.body.drName);
-            localStorage.setItem("profileImage", response.data.body.profileImage);
+            
+            
 
             const role = response.data.headers.role[0];
             console.log(response.data.headers.role);
@@ -36,14 +35,31 @@ function SignIn() {
             if (role === "DOCTOR") {
                 // navigate('/SideBar');
                 navigate('/SideBar');
+                localStorage.setItem("regNo", response.data.body.drRegNo);
+                localStorage.setItem("drName", response.data.body.drName);
+                localStorage.setItem("profileImage", response.data.body.profileImage);
                 // navigate('/NavBar');
+                
             } else if (role === "LAB_PERSON") {
                 navigate('/SideBarLabPerson');
+                localStorage.setItem("lpname", response.data.body.lpname);
+                localStorage.setItem("lpprofileImage", response.data.body.lpprofileImage);
+                localStorage.setItem("lpregNo", response.data.body.lpregNo);
+
             } else if (role === "PATIENT") {
-                navigate('/MedicalDashboard');
+
+                navigate('/PatientLabDashboard ');
+                localStorage.setItem("pname", response.data.body.pname);
+                localStorage.setItem("pprofileImage", response.data.body.pprofileImage);
+                localStorage.setItem("pid", response.data.body.pid);
+
+
                 // /PatientDashboard
             } else if (role === "ADMIN") {
                 navigate('/AdminSideBar');
+                localStorage.setItem("regNo", response.data.body.drRegNo);
+                localStorage.setItem("drName", response.data.body.drName);
+                localStorage.setItem("profileImage", response.data.body.profileImage);
             } 
             else {
                 alert("Incorrect Credentials");
