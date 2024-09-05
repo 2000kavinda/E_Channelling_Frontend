@@ -14,6 +14,13 @@ function SignIn() {
             navigate('/SignUp');
         }, 300);
     };
+    
+
+    const handleForgotPassword = () => {
+        setTimeout(() => {
+            navigate('/Verification');
+        }, 300);
+    };
 
     async function login(event) {
         event.preventDefault();
@@ -27,7 +34,9 @@ function SignIn() {
             console.log(response.data.headers.role);
 
             if (role === "DOCTOR") {
+                // navigate('/SideBar');
                 navigate('/SideBar');
+                // navigate('/NavBar');
             } else if (role === "LAB_PERSON") {
                 navigate('/LabPersonDashboard');
             } else if (role === "PATIENT") {
@@ -77,7 +86,7 @@ function SignIn() {
                                 onChange={(event) => setPw(event.target.value)}
                             />
                         </div>
-                        <button className='flex flex-row pl-2 text-sm text-[#1b5a6f] font-semibold'>
+                        <button className='flex flex-row pl-2 text-sm text-[#1b5a6f] font-semibold' onClick={handleForgotPassword}>
                             Forgot Password?
                         </button>
                     </div>
