@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { bookAppointment } from '../../service/PAppointmentService';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import NavBar from '../../components/header/NavBar';
 
 function AppointmentForm() {
     // State variables for form fields
@@ -95,6 +96,8 @@ function AppointmentForm() {
     };
 
     return (
+        <div className='flex flex-col w-screen h-full'>
+        <NavBar/>
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
             <ToastContainer />
              {/* Updated Header Section */}
@@ -234,6 +237,7 @@ function AppointmentForm() {
                     </button>
                 </div>
             </form>
+        </div>
         </div>
     );
 

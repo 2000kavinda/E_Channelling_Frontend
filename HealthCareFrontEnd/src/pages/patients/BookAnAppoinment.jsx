@@ -123,6 +123,7 @@ function BookAnAppointment() {
                 </button>
             </div>
         </div>
+        
         </div>
     );
 }
