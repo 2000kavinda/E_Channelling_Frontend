@@ -14,8 +14,9 @@ function PatientLabBook() {
 
     // State for form inputs
     const [name, setName] = useState('');
+    const [pacientId] = useState(localStorage.getItem("pid") || ''); 
     const [age, setAge] = useState('');
-    const [pacientId, setID] = useState('');
+    
     const [email, setEmail] = useState('');
     const [contact, setContact] = useState('');
     const [time, setTime] = useState('');
@@ -40,6 +41,7 @@ function PatientLabBook() {
             toast.error("All fields are required.");
             return;
         }
+        
         const formattedDate = formatDate(date);
         console.log("Formatted Date:", formattedDate);  // Format the date
         const serviceData = {
@@ -140,12 +142,13 @@ const formatDate = (date) => {
                             <div className="text-normal text-[#1b5f75] font-semibold">ID number</div>
                             <input
                                 type="text"
-                                placeholder="id..."
-                                value={pacientId}
-                                onChange={(e) => setID(e.target.value)}
+                                placeholder="ID..."
+                                value={pacientId} // Use the state here
+                                disabled // Make it non-editable
                                 className="px-4 py-2 bg-[#f1f1f1] text-gray-800 text-sm w-[400px] h-[45px] rounded-md focus:outline-none focus:ring-1 focus:ring-[#00394C]"
                             />
                         </div>
+                    
                     </div>
                       {/* Input Row */}
                       <div className="flex flex-row gap-16">
