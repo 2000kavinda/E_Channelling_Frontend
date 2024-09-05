@@ -8,6 +8,7 @@ import { listSchedules } from "../../service/DoctorScheduleServices";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 
 function SchedulePage() {
@@ -50,6 +51,20 @@ function SchedulePage() {
         }
       });
   }, []);
+
+  
+  const handleDelete = (sId) => {
+    axios.delete(`http://localhost:8080/api/v1/schedule/delete?id=${sId}`)
+      .then(() => {
+        toast.success('Patient deleted successfully!');
+        setSchedule(schedule.filter((schedule) => schedule.sId !== sId));
+      })
+      .catch((error) => {
+        console.error(error);
+        toast.error('Failed to delete Patient.');
+      });
+  };
+
 
 
 
@@ -161,7 +176,7 @@ function SchedulePage() {
                     <div className="flex flex-row gap-5">
                       <button className="px-10 rounded-lg text-white text-sm font-medium py-2 bg-[#005F7E]"  onClick={() => handleEdit(scheduleItem)}>Edit</button>
                       <button className="px-10 rounded-lg text-white text-sm font-medium py-2 bg-[#FF6464]"
-                        onClick={""}>Delete</button>
+                       onClick={() => handleDelete(scheduleItem.sid)}>Delete</button>
                     </div>
                   </div>
                 ))

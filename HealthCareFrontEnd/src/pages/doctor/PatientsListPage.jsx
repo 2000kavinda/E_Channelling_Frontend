@@ -1,21 +1,27 @@
 import { IoNotificationsOutline } from "react-icons/io5";
 import { FaQuestion } from "react-icons/fa6";
 import { IoSettingsOutline } from "react-icons/io5";
-import DoctorPicture from '../../assets/Images/Ellipse34.png';
 import { GrNext } from "react-icons/gr";
 import { useRef, useState, useEffect } from 'react';
 import { listPatients } from "../../service/PatientsBookingServices";
 import { patientsSearchList } from "../../service/BookingSearchService"; // Import the search service
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
 
 function PatientsListPage() {
 
   const divRef = useRef(null);
   const bottomRef = useRef(null);
+  const navigate = useNavigate();
 
   const [patients, setPatients] = useState([]);
   const [searchQuery, setSearchQuery] = useState(''); // Add state for search query
+
+  const handleViewPatient = (patientsItem) => {
+    console.log(patientsItem)
+    navigate('/PatientDetailsPage',{state:{patientsItem}});
+  };
 
   useEffect(() => {
     const drRegNo = localStorage.getItem("regNo");
@@ -123,13 +129,14 @@ function PatientsListPage() {
             {
               patients && patients.length > 0 ? (
                 patients.map((patientsItem) => (
-                  <div
+                  <button
                     key={patientsItem.bId}
-                    className="w-full h-[100px] bg-white rounded-lg flex flex-row justify-between px-4 items-center mb-3"
+                    className="w-full h-[100px] bg-white rounded-lg flex flex-row justify-between px-4 items-center mb-3" 
+                    onClick={() => handleViewPatient(patientsItem)}
                   >
                     <div className="flex flex-row gap-5">
                       <div className="flex w-[70px] h-[70px] bg-black rounded-full">
-                        <img src={DoctorPicture} alt="ProfileImage" className="w-full h-full" />
+                        <img src={patientsItem.profileImage} alt="ProfileImage" className="w-full h-full" />
                       </div>
                       <div className="flex flex-col">
                         <div className="text-lg font-semibold text-[#666767]">{patientsItem.pName}</div>
@@ -150,7 +157,7 @@ function PatientsListPage() {
                       </div>
                     </div>
                     <GrNext />
-                  </div>
+                  </button>
                 ))
               ) : (
                 <div className="flex flex-col justify-center w-full h-full text-lg text-center text-[#005F7E] font-semibold">No schedules available</div>
