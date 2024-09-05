@@ -1,7 +1,7 @@
 import { AiOutlineFieldTime } from "react-icons/ai";
 import { BiCabinet } from "react-icons/bi";
-import NavBar from '../../components/header/NavBar';  // Adjust the path if necessary
-import { useNavigate } from 'react-router-dom';  // Assuming you're using React Router
+import NavBar from '../../components/header/NavBar';  
+import { useNavigate } from 'react-router-dom'; 
 import paclab from '../../assets/Images/paclab.png';
 
 import LabImage from '../../assets/Images/LabImage.png';
