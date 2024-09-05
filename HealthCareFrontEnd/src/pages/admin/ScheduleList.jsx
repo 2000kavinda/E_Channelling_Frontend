@@ -1,14 +1,13 @@
 import { IoNotificationsOutline } from "react-icons/io5";
 import { FaQuestion } from "react-icons/fa6";
 import { IoSettingsOutline } from "react-icons/io5";
-import DoctorPicture from '../../assets/Images/Ellipse34.png';
-import { GrNext } from "react-icons/gr";
 import { useEffect, useRef } from 'react';
 import { useState } from "react";
-import { listSchedules } from "../../service/DoctorScheduleServices";
+import { AllScheduleList, ScheduleSearch } from "../../service/AdminScheduleService";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function ScheduleList() {
     const divRef = useRef(null);
@@ -21,13 +20,13 @@ function ScheduleList() {
     };
 
     const [schedule, setSchedule] = useState([]);
+    const [searchQuery, setSearchQuery] = useState(''); 
 
     useEffect(() => {
-        const drRegNo = 6;
         const toastId = 'unique-toast-id';
-        listSchedules(drRegNo)
+        AllScheduleList()
             .then((response) => {
-                console.log(response.data); // Check the data structure
+                console.log(response.data);
                 setSchedule(response.data);
                 if (!toast.isActive(toastId)) {
                     // toast.success('Registration successful!', { toastId });
@@ -41,6 +40,59 @@ function ScheduleList() {
             });
     }, []);
 
+    const handleEdit = (scheduleItem) => {
+        console.log(scheduleItem);
+
+        const id = scheduleItem.sid;
+        console.log(id);
+
+        navigate('/EditAdminSchedule', { state: { id } });
+    };
+
+
+    const handleSearch = () => {
+        if (searchQuery.trim() === '') {
+            // If search query is empty, reload the patient list
+            const toastId = 'unique-toast-id';
+            AllScheduleList()
+                .then((response) => {
+                    // console.log(response.data);
+                    setSchedule(response.data);
+                    if (!toast.isActive(toastId)) {
+                        // toast.success('Registration successful!', { toastId });
+                    }
+                })
+                .catch((error) => {
+                    console.error(error);
+                    if (!toast.isActive(toastId)) {
+                        toast.error('No Schedules available!', { toastId });
+                    }
+                });
+        } else {
+            // Otherwise, search for patients by name
+            ScheduleSearch(searchQuery)
+                .then((response) => {
+                    setSchedule(response.data.body);
+                    console.log(response.data);
+                })
+                .catch((error) => {
+                    console.error(error);
+                    toast.error('No matching Lab Persons found!');
+                });
+        }
+    };
+
+    const handleDelete = (sId) => {
+        axios.delete(`http://localhost:8080/api/v1/schedule/delete?id=${sId}`)
+            .then(() => {
+                toast.success('Schedule deleted successfully!');
+                setSchedule(schedule.filter((schedule) => schedule.sId !== sId));
+            })
+            .catch((error) => {
+                console.error(error);
+                toast.error('Failed to delete Patient.');
+            });
+    };
 
 
     return (
@@ -83,10 +135,13 @@ function ScheduleList() {
                         type="text"
                         placeholder="Search Patients..."
                         className="px-4 py-2 bg-[#f1f1f1] text-gray-800 text-sm w-[400px] h-[45px] rounded-md focus:outline-none focus:ring-1 focus:ring-[#00394C]"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
                     />
                     <button
                         type="submit"
                         className="px-10 py-2 text-white bg-[#005F7E] rounded-md hover:bg-[#3392b1] h-[45px] text-sm"
+                        onClick={handleSearch}
                     >
                         Search
                     </button>
@@ -112,16 +167,13 @@ function ScheduleList() {
                                 schedule.map((scheduleItem) => (
                                     <div
                                         key={scheduleItem.sId}
-                                        className="w-full h-[100px] bg-white rounded-lg flex flex-row justify-between px-4 items-center mb-3"
+                                        className="w-full h-[100px] bg-white rounded-lg flex flex-row justify-between pr-4 items-center mb-3"
                                     >
-                                        <div className="flex flex-row gap-5">
+                                        <div className="flex flex-row items-center h-full gap-5">
                                             {/* Profile Picture */}
-                                            <div className="flex w-[70px] h-[70px] bg-black rounded-full">
-                                                <img
-                                                    src={DoctorPicture}
-                                                    alt="ProfileImage"
-                                                    className="w-full h-full"
-                                                />
+                                            <div className="flex w-[150px] h-full bg-[#005F7E] rounded-l-xl flex-col justify-center items-center">
+                                                <div className="text-base text-white">Room</div>
+                                                <div className="text-2xl font-bold text-white">{scheduleItem.roomNo}</div>
                                             </div>
                                             {/* Patient Details */}
                                             <div className="flex flex-col">
@@ -148,7 +200,10 @@ function ScheduleList() {
                                             </div>
                                         </div>
 
-                                        <GrNext />
+                                        <div className="flex flex-row gap-5">
+                                            <button className="px-10 rounded-lg text-white text-sm font-medium py-2 bg-[#005F7E]" onClick={() => handleEdit(scheduleItem)}>Edit</button>
+                                            <button className="px-10 rounded-lg text-white text-sm font-medium py-2 bg-[#FF6464]" onClick={() => handleDelete(scheduleItem.sId)}>Delete</button>
+                                        </div>
                                     </div>
                                 ))
                             ) : (

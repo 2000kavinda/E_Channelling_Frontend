@@ -4,14 +4,24 @@ import { IoSettingsOutline } from "react-icons/io5";
 import { BsPeople } from "react-icons/bs";
 import { AiOutlineFieldTime } from "react-icons/ai";
 import { BiCabinet } from "react-icons/bi";
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import DoctorPicture from '../../assets/Images/Ellipse34.png';
 import { Button } from "@headlessui/react";
+import { listPatients } from "../../service/PatientsBookingServices";
+import axios from 'axios';
 
 function DoctorDashboard() {
 
   const divRef = useRef(null);
   const bottomRef = useRef(null);
+  const [patients, setPatients] = useState([]);
+
+  // const drRegNo = localStorage.getItem("regNo");
+  // const date = new Date().toISOString().split('T')[0];
+
+  const [totalAppointmentCount, setTotalAppointmentCount] = useState('');
+  const [totalRoomCount, setTotalRoomCount] = useState('')
+  const [totalTimeCount, setTotalTimeCount] = useState('')
 
   const getCurrentGreeting = () => {
     const currentHour = new Date().getHours();
@@ -25,6 +35,60 @@ function DoctorDashboard() {
     }
   };
 
+  const drName = localStorage.getItem("drName");
+
+  useEffect(() => {
+    const drRegNo = localStorage.getItem("regNo");
+    const date = new Date().toISOString().split('T')[0];
+    console.log(drRegNo);
+    console.log("Date:", date);
+
+    const fetchTotalAppointments = async () => {
+      const drId = drRegNo
+      try {
+        const response = await axios.get(`http://localhost:8080/api/v1/booking/count?drId=${drId}`);
+        setTotalAppointmentCount(response.data.body);
+      } catch (error) {
+        console.error(error);
+  
+      }
+    }
+
+    const fetchTotalRooms = async () => {
+        try {
+          const response = await axios.get(`http://localhost:8080/api/v1/schedule/totalroomcount?drRegNo=${drRegNo}&date=${date}`);
+          setTotalRoomCount(response.data.body);
+        } catch (error) {
+          console.error(error);
+
+      }
+    }
+
+    const fetchTotalTime = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8080/api/v1/schedule/totaltime?drRegNo=${drRegNo}&date=${date}`);
+        setTotalTimeCount(response.data.body);
+      } catch (error) {
+        console.error(error);
+
+      }
+    }
+
+    fetchTotalAppointments();
+    fetchTotalRooms();
+    fetchTotalTime();
+
+    listPatients(drRegNo, date)
+      .then((response) => {
+        console.log(response.data);
+        setPatients(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+      
+  }, []);
+
   return (
     <div className="flex flex-col px-10 pt-10">
       {/* Top bar */}
@@ -33,7 +97,7 @@ function DoctorDashboard() {
         <div className="flex flex-col">
           <div className="text-4xl font-bold text-[#00394C]">{getCurrentGreeting()}</div>
           {/* Dr name */}
-          <div className="text-base text-[#414141] font-semibold">Dr.Hiran Welagedara</div>
+          <div className="text-base text-[#414141] font-semibold">{drName}</div>
         </div>
 
         {/* Buttons */}
@@ -72,7 +136,7 @@ function DoctorDashboard() {
 
           <div className="flex flex-col items-center justify-center w-1/2 h-full gap-2">
             <div className="font-semibold text-[#414141]">Total Appointment</div>
-            <div className="text-4xl font-bold text-[#414141}">120</div>
+            <div className="text-4xl font-bold text-[#414141}">{totalAppointmentCount}</div>
           </div>
         </div>
 
@@ -84,7 +148,7 @@ function DoctorDashboard() {
 
           <div className="flex flex-col items-center justify-center w-1/2 h-full gap-2">
             <div className="font-semibold text-[#414141]">Total Rooms Count</div>
-            <div className="text-4xl font-bold text-[#414141}">120</div>
+            <div className="text-4xl font-bold text-[#414141}">{totalRoomCount}</div>
           </div>
         </div>
 
@@ -96,7 +160,7 @@ function DoctorDashboard() {
 
           <div className="flex flex-col items-center justify-center w-1/2 h-full gap-2">
             <div className="font-semibold text-[#414141]">Total Time Count</div>
-            <div className="text-4xl font-bold text-[#414141}">120</div>
+            <div className="text-4xl font-bold text-[#414141}">{totalTimeCount}</div>
           </div>
         </div>
       </div>
@@ -116,108 +180,43 @@ function DoctorDashboard() {
             style={{ overflowY: 'scroll', height: '320px' }}
           >
 
-          {/* Patients Cards */}
-            <div className="h-[100px] w-full bg-white flex flex-row items-center px-4 rounded-xl justify-between mb-2">
-            {/* Doctor Picture */}
-                <div className="flex w-[70px] h-[70px] bg-black rounded-full">
-                  <img src={DoctorPicture} alt="ProfileImage" className="w-full h-full" />
-                </div>
-                {/* Patients Details */}
-                <div className="flex flex-col w-2/3 pl-2">
-                  <div className="text-lg font-semibold text-[#414141]">Mr.Hiran Welagedara</div>
-                  <div className="text-sm text-[#414141]">No.02</div>
-                  <div className="flex flex-row gap-4">
-                    <div className="flex flex-row text-sm text-[#414141]">
-                    <div>Age</div>
-                    <div>22</div>
-                  </div>
-                  <div className="flex flex-row text-sm">
-                    <div>Gender:</div>
-                    <div>Male</div>
-                  </div>
-                  </div>
-                </div>
+              {
+                patients && patients.length > 0 ? (
+                  patients.map((patientsItem) => (
+                    <div
+                      key={patientsItem.bId}
+                      className="h-[100px] w-full bg-white flex flex-row items-center px-4 rounded-xl justify-between mb-2"
+                    >
+                      {/* Doctor Picture */}
+                      <div className="flex w-[70px] h-[70px] bg-black rounded-full">
+                        <img src={DoctorPicture} alt="ProfileImage" className="w-full h-full" />
+                      </div>
+                      {/* Patients Details */}
+                      <div className="flex flex-col w-2/3 pl-2">
+                        <div className="text-lg font-semibold text-[#414141]">{patientsItem.pName}</div>
+                        <div className="text-sm text-[#414141]">No.02</div>
+                        <div className="flex flex-row gap-4">
+                          <div className="flex flex-row text-sm text-[#414141]">
+                            <div>Age</div>
+                            <div>22</div>
+                          </div>
+                          <div className="flex flex-row text-sm">
+                            <div>Gender:</div>
+                            <div>Male</div>
+                          </div>
+                        </div>
+                      </div>
 
-                <div>12.00pm</div>
-            </div>
-
+                      <div>12.00pm</div>
+                    </div>
+                  ))
+                ) : (
+                  <div className="flex flex-col justify-center w-full h-full text-lg text-center text-[#005F7E] font-semibold">No schedules available</div>
+                )
+              }
 
               {/* Patients Cards */}
-              <div className="h-[100px] w-full bg-white flex flex-row items-center px-4 rounded-xl justify-between mb-2">
-                {/* Doctor Picture */}
-                <div className="flex w-[70px] h-[70px] bg-black rounded-full">
-                  <img src={DoctorPicture} alt="ProfileImage" className="w-full h-full" />
-                </div>
-                {/* Patients Details */}
-                <div className="flex flex-col w-2/3 pl-2">
-                  <div className="text-lg font-semibold text-[#414141]">Mr.Hiran Welagedara</div>
-                  <div className="text-sm text-[#414141]">No.02</div>
-                  <div className="flex flex-row gap-4">
-                    <div className="flex flex-row text-sm text-[#414141]">
-                      <div>Age</div>
-                      <div>22</div>
-                    </div>
-                    <div className="flex flex-row text-sm">
-                      <div>Gender:</div>
-                      <div>Male</div>
-                    </div>
-                  </div>
-                </div>
-
-                <div>12.00pm</div>
-              </div>
-
-
-              {/* Patients Cards */}
-              <div className="h-[100px] w-full bg-white flex flex-row items-center px-4 rounded-xl justify-between mb-2">
-                {/* Doctor Picture */}
-                <div className="flex w-[70px] h-[70px] bg-black rounded-full">
-                  <img src={DoctorPicture} alt="ProfileImage" className="w-full h-full" />
-                </div>
-                {/* Patients Details */}
-                <div className="flex flex-col w-2/3 pl-2">
-                  <div className="text-lg font-semibold text-[#414141]">Mr.Hiran Welagedara</div>
-                  <div className="text-sm text-[#414141]">No.02</div>
-                  <div className="flex flex-row gap-4">
-                    <div className="flex flex-row text-sm text-[#414141]">
-                      <div>Age</div>
-                      <div>22</div>
-                    </div>
-                    <div className="flex flex-row text-sm">
-                      <div>Gender:</div>
-                      <div>Male</div>
-                    </div>
-                  </div>
-                </div>
-
-                <div>12.00pm</div>
-              </div>
-
-
-              {/* Patients Cards */}
-              <div className="h-[100px] w-full bg-white flex flex-row items-center px-4 rounded-xl justify-between mb-2">
-                {/* Doctor Picture */}
-                <div className="flex w-[70px] h-[70px] bg-black rounded-full">
-                  <img src={DoctorPicture} alt="ProfileImage" className="w-full h-full" />
-                </div>
-                {/* Patients Details */}
-                <div className="flex flex-col w-2/3 pl-2">
-                  <div className="text-lg font-semibold text-[#414141]">Mr.Hiran Welagedara</div>
-                  <div className="text-sm text-[#414141]">No.02</div>
-                  <div className="flex flex-row gap-4">
-                    <div className="flex flex-row text-sm text-[#414141]">
-                      <div>Age</div>
-                      <div>22</div>
-                    </div>
-                    <div className="flex flex-row text-sm">
-                      <div>Gender:</div>
-                      <div>Male</div>
-                    </div>
-                  </div>
-                </div>
-
-                <div>12.00pm</div>
-              </div>
+              
 
             <div ref={bottomRef}></div>
           </div>
@@ -247,7 +246,7 @@ function DoctorDashboard() {
               </div>
 
               <div className="pl-10">
-                <Button className="px-4 py-2 bg-[#00394C] rounded-lg text-white font-semibold text-sm">View Documents</Button>
+                <Button className="px-4 py-2 bg-[#00394C] rounded-lg text-white font-semibold text-sm">Next Patients</Button>
               </div>
             </div>
 

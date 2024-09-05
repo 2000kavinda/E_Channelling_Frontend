@@ -6,18 +6,6 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const ImageUpload = () => {
     const [url, setUrl] = useState('');
-    const [formData, setFormData] = useState({
-        regNo: 9948630,
-        email: "jeraye6801@givehit.com",
-        password: "124563",
-        role: "DOCTOR",
-        code: "***%%%%*",
-        drame: "Kavinda",
-        specialize: "2000-01-01",
-        type: "Male",
-        profileImage: "abc",
-        drQualification: "abc"
-    });
     const defaultImage = 'https://firebasestorage.googleapis.com/v0/b/e-channelling-10dc6.appspot.com/o/images%2F123.png?alt=media&token=16c311df-34fe-4dbc-ada4-1d6fb17e0291'; // Default image URL
 
     const handleChange = (e) => {
@@ -43,11 +31,8 @@ const ImageUpload = () => {
                 () => {
                     getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
                         setUrl(downloadURL);
-                        setFormData((prevData) => ({
-                            ...prevData,
-                            profileImage: downloadURL
-                        }));
-                        toast.success('Image uploaded successfully!');
+                        localStorage.setItem('url', downloadURL);
+                        toast.success(downloadURL);
                     });
                 }
             );
