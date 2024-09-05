@@ -47,10 +47,12 @@ function SignIn() {
                 localStorage.setItem("lpregNo", response.data.body.lpregNo);
 
             } else if (role === "PATIENT") {
+
                 navigate('/PatientLabDashboard ');
                 localStorage.setItem("pname", response.data.body.pname);
                 localStorage.setItem("pprofileImage", response.data.body.pprofileImage);
                 localStorage.setItem("pid", response.data.body.pid);
+
 
                 // /PatientDashboard
             } else if (role === "ADMIN") {

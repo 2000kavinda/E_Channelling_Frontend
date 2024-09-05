@@ -89,6 +89,14 @@ function NavBar() {
 
           </Link>
         </div>
+        <Link
+            to="/PatientLabDashboard"
+            className={`px-2 py-2 no-underline ${activeLink === 'Laboratory' ? 'text-[#005F7E]' : 'text-gray-800'
+              } hover:text-[#005F7E]`}
+            onClick={() => handleLinkClick('Laboratory')}
+          >
+            Laboratory
+          </Link>
 
         <div className='flex flex-row gap-6'>
           <button className='flex flex-row items-center h-12 gap-1 px-6 py-2 font-bold text-[#005F7E] border-2 border-[#005F7E] rounded-lg'>

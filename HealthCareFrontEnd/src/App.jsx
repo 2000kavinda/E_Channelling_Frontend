@@ -28,6 +28,9 @@ import PatientDetailsPage from './pages/doctor/PatientDetailsPage';
 import SideBarLabPerson from './pages/labPerson/SideBarLabPerson';
 import MedicalDashboard from './pages/patients/PatientDashboard';
 import PatientLabDashboard from './pages/patients/PatientLabDashboard';
+import PatientLabReport from './pages/patients/PatientLabReport';
+import PatientLabServiceList from './pages/patients/PatientLabServiceList';
+import PatientLabBook from './pages/patients/PatientLabBook';
 
 function App() {
 
@@ -65,6 +68,9 @@ function App() {
           <Route path='/SideBarLabPerson' element={<SideBarLabPerson />} />
           <Route path='/MedicalDashboard' element={<MedicalDashboard />} />
           <Route path='/PatientLabDashboard' element={<PatientLabDashboard/>}/>
+          <Route path='/PatientLabReport' element={<PatientLabReport/>}/>
+          <Route path='/PatientLabServiceList' element={<PatientLabServiceList/>}/>
+          <Route path='/PatientLabBook' element={<PatientLabBook/>}/>
 
         </Routes>
 
