@@ -8,7 +8,7 @@ function AddDoctorSchedule() {
     const navigate = useNavigate();
 
     const handleAddNewClick = () => {
-        navigate('/AdminSideBar');
+        navigate('/SideBar');
     };
 
 

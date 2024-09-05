@@ -33,7 +33,7 @@ function Verification() {
         <div className="flex flex-col items-center justify-center w-screen h-screen">
             <div className="flex flex-row w-4/6 h-5/6 bg-slate-200 rounded-2xl">
 
-                <div className='flex flex-col items-center justify-center w-1/2 h-full gap-4 px-10 py-10'>
+                <div className='flex flex-col items-center justify-center w-full h-full gap-4 px-10 py-10'>
                     <div className='text-5xl font-bold text-[#1b5a6f]'>Verification</div>
                     <div className='flex flex-col gap-4'>
                         <div className='flex flex-col gap-1 pt-10'>

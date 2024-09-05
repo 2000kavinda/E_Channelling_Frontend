@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import DoctorPicture from '../../assets/Images/Ellipse34.png';
 import { TbLogout2 } from "react-icons/tb";
 import { MdOutlineSpaceDashboard } from "react-icons/md";
 import { RiCalendarScheduleLine } from "react-icons/ri";

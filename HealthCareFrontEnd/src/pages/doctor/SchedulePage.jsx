@@ -2,7 +2,6 @@ import { IoNotificationsOutline } from "react-icons/io5";
 import { FaQuestion } from "react-icons/fa6";
 import { IoSettingsOutline } from "react-icons/io5";
 import DoctorPicture from '../../assets/Images/Ellipse34.png';
-import { GrNext } from "react-icons/gr";
 import { useEffect, useRef } from 'react';
 import { useState } from "react";
 import { listSchedules } from "../../service/DoctorScheduleServices";
@@ -148,7 +147,11 @@ function SchedulePage() {
                       </div>
                     </div>
 
-                    <GrNext />
+                    <div className="flex flex-row gap-5">
+                      <button className="px-10 rounded-lg text-white text-sm font-medium py-2 bg-[#005F7E]">Edit</button>
+                      <button className="px-10 rounded-lg text-white text-sm font-medium py-2 bg-[#FF6464]"
+                        onClick={""}>Delete</button>
+                    </div>
                   </div>
                 ))
               ) : (
