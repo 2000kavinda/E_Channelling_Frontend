@@ -5,15 +5,16 @@ import { BsPeople } from "react-icons/bs";
 import { AiOutlineFieldTime } from "react-icons/ai";
 import { BiCabinet } from "react-icons/bi";
 import { useRef,useEffect,useState } from 'react';
-import DoctorPicture from '../../assets/Images/Ellipse34.png';
 import { AllScheduleList } from "../../service/AdminScheduleService";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { AllDoctorsList } from '../../service/AdminDoctorService';
 
 function AdminDashboard() {
     const divRef = useRef(null);
     const bottomRef = useRef(null);
     const [schedule, setSchedule] = useState([]);
+    const [doctors, setDoctors] = useState([]);
 
     const getCurrentGreeting = () => {
         const currentHour = new Date().getHours();
@@ -26,6 +27,24 @@ function AdminDashboard() {
             return 'Good evening!';
         }
     };
+
+    useEffect(() => {
+        const toastId = 'unique-toast-id';
+        AllDoctorsList()
+            .then((response) => {
+                console.log(response.data);
+                setDoctors(response.data);
+                if (!toast.isActive(toastId)) {
+                    // toast.success('Registration successful!', { toastId });
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+                if (!toast.isActive(toastId)) {
+                    toast.error('No Schedules available!', { toastId });
+                }
+            });
+    }, []);
 
     useEffect(() => {
         const toastId = 'unique-toast-id';
@@ -193,117 +212,38 @@ function AdminDashboard() {
                             style={{ overflowY: 'scroll', height: '320px' }}
                         >
 
-                            {/* Doctor Cards */}
-                            <div className="h-[100px] w-full bg-white flex flex-row items-center px-4 rounded-xl mb-2">
-                                {/* Doctor Picture */}
-                                <div className="flex w-[70px] h-[70px] bg-black rounded-full">
-                                    <img src={DoctorPicture} alt="ProfileImage" className="w-full h-full" />
-                                </div>
-                                {/* Patients Details */}
-                                <div className="flex flex-col w-2/3 pl-6">
-                                    <div className="text-lg font-semibold text-[#414141]">Mr.Hiran Welagedara</div>
-                                    <div className="flex flex-row">
-                                    <div className="text-sm text-[#414141]">Reg No - </div>
-                                    <div className="text-sm text-[#414141]">2208</div>
-                                    </div>
-                                    <div className="flex flex-row gap-4">
-                                        <div className="flex flex-row text-sm text-[#414141]">
-                                            <div>Available Time - </div>
-                                            <div> 08.00am - 12.00pm</div>
+                            
+                            
+                            {
+                                doctors && doctors.length > 0 ? (
+                                    doctors.map((DoctorsList) => (
+                                        <div
+                                            key={DoctorsList.drRegNo}
+                                            className="h-[100px] w-full bg-white flex flex-row items-center px-4 rounded-xl mb-2"
+                                        >
+                                            <div className="flex w-[70px] h-[70px] bg-black rounded-full">
+                                                <img src={DoctorsList.profileImage} alt="ProfileImage" className="w-full h-full rounded-full" />
+                                            </div>
+                                            {/* Patients Details */}
+                                            <div className="flex flex-col w-2/3 pl-6">
+                                                <div className="text-lg font-semibold text-[#414141]">{DoctorsList.drName}</div>
+                                                <div className="flex flex-row">
+                                                    <div className="text-sm text-[#414141]">Reg No - </div>
+                                                    <div className="text-sm text-[#414141]">{DoctorsList.drRegNo}</div>
+                                                </div>
+                                                <div className="flex flex-row gap-4">
+                                                    <div className="flex flex-row text-sm text-[#414141]">
+                                                        <div>SpecialistArea - - </div>
+                                                        <div> {DoctorsList.type}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            {/* Doctor Cards */}
-                            <div className="h-[100px] w-full bg-white flex flex-row items-center px-4 rounded-xl mb-2">
-                                {/* Doctor Picture */}
-                                <div className="flex w-[70px] h-[70px] bg-black rounded-full">
-                                    <img src={DoctorPicture} alt="ProfileImage" className="w-full h-full" />
-                                </div>
-                                {/* Patients Details */}
-                                <div className="flex flex-col w-2/3 pl-6">
-                                    <div className="text-lg font-semibold text-[#414141]">Mr.Hiran Welagedara</div>
-                                    <div className="flex flex-row">
-                                        <div className="text-sm text-[#414141]">Reg No - </div>
-                                        <div className="text-sm text-[#414141]">2208</div>
-                                    </div>
-                                    <div className="flex flex-row gap-4">
-                                        <div className="flex flex-row text-sm text-[#414141]">
-                                            <div>Available Time - </div>
-                                            <div> 08.00am - 12.00pm</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* Doctor Cards */}
-                            <div className="h-[100px] w-full bg-white flex flex-row items-center px-4 rounded-xl mb-2">
-                                {/* Doctor Picture */}
-                                <div className="flex w-[70px] h-[70px] bg-black rounded-full">
-                                    <img src={DoctorPicture} alt="ProfileImage" className="w-full h-full" />
-                                </div>
-                                {/* Patients Details */}
-                                <div className="flex flex-col w-2/3 pl-6">
-                                    <div className="text-lg font-semibold text-[#414141]">Mr.Hiran Welagedara</div>
-                                    <div className="flex flex-row">
-                                        <div className="text-sm text-[#414141]">Reg No - </div>
-                                        <div className="text-sm text-[#414141]">2208</div>
-                                    </div>
-                                    <div className="flex flex-row gap-4">
-                                        <div className="flex flex-row text-sm text-[#414141]">
-                                            <div>Available Time - </div>
-                                            <div> 08.00am - 12.00pm</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* Doctor Cards */}
-                            <div className="h-[100px] w-full bg-white flex flex-row items-center px-4 rounded-xl mb-2">
-                                {/* Doctor Picture */}
-                                <div className="flex w-[70px] h-[70px] bg-black rounded-full">
-                                    <img src={DoctorPicture} alt="ProfileImage" className="w-full h-full" />
-                                </div>
-                                {/* Patients Details */}
-                                <div className="flex flex-col w-2/3 pl-6">
-                                    <div className="text-lg font-semibold text-[#414141]">Mr.Hiran Welagedara</div>
-                                    <div className="flex flex-row">
-                                        <div className="text-sm text-[#414141]">Reg No - </div>
-                                        <div className="text-sm text-[#414141]">2208</div>
-                                    </div>
-                                    <div className="flex flex-row gap-4">
-                                        <div className="flex flex-row text-sm text-[#414141]">
-                                            <div>Available Time - </div>
-                                            <div> 08.00am - 12.00pm</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            {/* Doctor Cards */}
-                            <div className="h-[100px] w-full bg-white flex flex-row items-center px-4 rounded-xl mb-2">
-                                {/* Doctor Picture */}
-                                <div className="flex w-[70px] h-[70px] bg-black rounded-full">
-                                    <img src={DoctorPicture} alt="ProfileImage" className="w-full h-full" />
-                                </div>
-                                {/* Patients Details */}
-                                <div className="flex flex-col w-2/3 pl-6">
-                                    <div className="text-lg font-semibold text-[#414141]">Mr.Hiran Welagedara</div>
-                                    <div className="flex flex-row">
-                                        <div className="text-sm text-[#414141]">Reg No - </div>
-                                        <div className="text-sm text-[#414141]">2208</div>
-                                    </div>
-                                    <div className="flex flex-row gap-4">
-                                        <div className="flex flex-row text-sm text-[#414141]">
-                                            <div>Available Time - </div>
-                                            <div> 08.00am - 12.00pm</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                                    ))
+                                ) : (
+                                    <div className="flex flex-col justify-center w-full h-full text-lg text-center text-[#005F7E] font-semibold">No schedules available</div>
+                                )
+                            }
 
                             <div ref={bottomRef}></div>
                         </div>
