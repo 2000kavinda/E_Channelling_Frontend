@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { AllPatientsList, PatientSearch } from '../../service/AdminPatientService';
+import axios from 'axios';
 
 function PatientsList() {
     const divRef = useRef(null);
@@ -69,6 +70,19 @@ function PatientsList() {
                     toast.error('No matching Lab Persons found!');
                 });
         }
+    };
+
+
+    const handleDelete = (pId) => {
+        axios.delete(`http://localhost:8088/api/v1/patient/delete?pId=${pId}`)
+            .then(() => {
+                toast.success('Patient deleted successfully!');
+                setpatients(Patients.filter((patient) => patient.pId !== pId));
+            })
+            .catch((error) => {
+                console.error(error);
+                toast.error('Failed to delete Patient.');
+            });
     };
 
 
@@ -167,7 +181,7 @@ function PatientsList() {
 
                                         <div className="flex flex-row gap-5">
                                             <button className="px-10 rounded-lg text-white text-sm font-medium py-2 bg-[#005F7E]">Edit</button>
-                                            <button className="px-10 rounded-lg text-white text-sm font-medium py-2 bg-[#FF6464]">Delete</button>
+                                            <button className="px-10 rounded-lg text-white text-sm font-medium py-2 bg-[#FF6464]" onClick={() => handleDelete(PatientsList.pId)}>Delete</button>
                                         </div>
                                     </div>
                                 ))
