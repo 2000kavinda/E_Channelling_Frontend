@@ -40,7 +40,7 @@ function SignIn() {
             } else if (role === "LAB_PERSON") {
                 navigate('/SideBarLabPerson');
             } else if (role === "PATIENT") {
-                navigate('/PatientLabDashboard ');
+                navigate('/MedicalDashboard');
                 // /PatientDashboard
             } else if (role === "ADMIN") {
                 navigate('/AdminSideBar');
