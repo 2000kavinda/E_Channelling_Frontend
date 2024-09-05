@@ -2,11 +2,13 @@ import SignInPic from '../../assets/Images/signIn.png';
 import Logo from '../../assets/Images/Logo.png';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { loginService } from '../../service/LoginService'; 
+import { loginService } from '../../service/LoginService';
+import LoadingSpinner from '../../components/loadingSpinner/LoadingSpinner'; // Import the spinner component
 
 function SignIn() {
     const [email, setEmail] = useState("");
     const [pw, setPw] = useState("");
+    const [loading, setLoading] = useState(false);  // Loading state
     const navigate = useNavigate();
 
     const handleAddNewClick = () => {
@@ -14,7 +16,6 @@ function SignIn() {
             navigate('/SignUp');
         }, 300);
     };
-    
 
     const handleForgotPassword = () => {
         setTimeout(() => {
@@ -24,46 +25,40 @@ function SignIn() {
 
     async function login(event) {
         event.preventDefault();
+        setLoading(true);  // Start loading
         try {
-            const response = await loginService(email, pw);
-            
-            
+            await new Promise(resolve => setTimeout(resolve, 500)); // Simulate delay
 
+            const response = await loginService(email, pw);
             const role = response.data.headers.role[0];
-            console.log(response.data.headers.role);
 
             if (role === "DOCTOR") {
-                // navigate('/SideBar');
                 navigate('/SideBar');
                 localStorage.setItem("regNo", response.data.body.drRegNo);
                 localStorage.setItem("drName", response.data.body.drName);
                 localStorage.setItem("profileImage", response.data.body.profileImage);
-                // navigate('/NavBar');
-                
             } else if (role === "LAB_PERSON") {
                 navigate('/SideBarLabPerson');
                 localStorage.setItem("lpname", response.data.body.lpname);
                 localStorage.setItem("lpprofileImage", response.data.body.lpprofileImage);
                 localStorage.setItem("lpregNo", response.data.body.lpregNo);
-
             } else if (role === "PATIENT") {
-                navigate('/PatientLabDashboard ');
+                navigate('/PatientLabDashboard');
                 localStorage.setItem("pname", response.data.body.pname);
                 localStorage.setItem("pprofileImage", response.data.body.pprofileImage);
                 localStorage.setItem("pid", response.data.body.pid);
-
-                // /PatientDashboard
             } else if (role === "ADMIN") {
                 navigate('/AdminSideBar');
                 localStorage.setItem("regNo", response.data.body.drRegNo);
                 localStorage.setItem("drName", response.data.body.drName);
                 localStorage.setItem("profileImage", response.data.body.profileImage);
-            } 
-            else {
+            } else {
                 alert("Incorrect Credentials");
             }
         } catch (err) {
             alert(err.message);
+        } finally {
+            setLoading(false);  // End loading
         }
     }
 
@@ -78,45 +73,56 @@ function SignIn() {
                 </div>
 
                 <div className='flex flex-col items-center justify-center w-1/2 h-full gap-4 px-10 py-10'>
-                    <div className='text-5xl font-bold text-[#1b5a6f]'>Sign in</div>
-                    <div className='flex flex-col gap-4'>
-                        <div className='flex flex-col gap-1 pt-10'>
-                            <div className='text-normal font-base text-[#707171] pl-2'>Email address</div>
-                            <input
-                                type="email"
-                                placeholder="Email address..."
-                                className="px-4 py-2 bg-[#f1f1f1] text-normal w-[400px] h-[50px] rounded-full focus:outline-none focus:ring-1 focus:ring-[#b8baba] border-[#b8baba] border-2 text-[#297d99]"
-                                value={email}
-                                onChange={(event) => setEmail(event.target.value)}
-                            />
-                        </div>
+                    {loading ? ( // Show spinner if loading
+                        <LoadingSpinner />
+                    ) : (
+                        <>
+                            <div className='text-5xl font-bold text-[#1b5a6f]'>Sign in</div>
+                            <div className='flex flex-col gap-4'>
+                                <div className='flex flex-col gap-1 pt-10'>
+                                    <div className='text-normal font-base text-[#707171] pl-2'>Email address</div>
+                                    <input
+                                        type="email"
+                                        placeholder="Email address..."
+                                        className="px-4 py-2 bg-[#f1f1f1] text-normal w-[400px] h-[50px] rounded-full focus:outline-none focus:ring-1 focus:ring-[#b8baba] border-[#b8baba] border-2 text-[#297d99]"
+                                        value={email}
+                                        onChange={(event) => setEmail(event.target.value)}
+                                        disabled={loading} // Disable input when loading
+                                    />
+                                </div>
 
-                        <div className='flex flex-col gap-1'>
-                            <div className='text-normal font-base text-[#707171] pl-2'>Password</div>
-                            <input
-                                type="password"
-                                placeholder="Password..."
-                                className="px-4 py-2 bg-[#f1f1f1] text-normal w-[400px] h-[50px] rounded-full focus:outline-none focus:ring-1 focus:ring-[#b8baba] border-[#b8baba] border-2 text-[#297d99]"
-                                value={pw}
-                                onChange={(event) => setPw(event.target.value)}
-                            />
-                        </div>
-                        <button className='flex flex-row pl-2 text-sm text-[#1b5a6f] font-semibold' onClick={handleForgotPassword}>
-                            Forgot Password?
-                        </button>
-                    </div>
+                                <div className='flex flex-col gap-1'>
+                                    <div className='text-normal font-base text-[#707171] pl-2'>Password</div>
+                                    <input
+                                        type="password"
+                                        placeholder="Password..."
+                                        className="px-4 py-2 bg-[#f1f1f1] text-normal w-[400px] h-[50px] rounded-full focus:outline-none focus:ring-1 focus:ring-[#b8baba] border-[#b8baba] border-2 text-[#297d99]"
+                                        value={pw}
+                                        onChange={(event) => setPw(event.target.value)}
+                                        disabled={loading} // Disable input when loading
+                                    />
+                                </div>
+                                <button className='flex flex-row pl-2 text-sm text-[#1b5a6f] font-semibold' onClick={handleForgotPassword} disabled={loading}>
+                                    Forgot Password?
+                                </button>
+                            </div>
 
-                    <button
-                        className='flex flex-row w-[400px] h-[45px] bg-[#1b5a6f] rounded-full mt-2 justify-center items-center text-white text-lg font-semibold'
-                        onClick={login}
-                    >
-                        Sign in
-                    </button>
+                            <button
+                                className={`flex flex-row w-[400px] h-[45px] bg-[#1b5a6f] rounded-full mt-2 justify-center items-center text-white text-lg font-semibold ${loading ? 'opacity-50' : ''}`}
+                                onClick={login}
+                                disabled={loading}  // Disable button when loading
+                            >
+                                {loading ? "Signing in..." : "Sign in"}
+                            </button>
 
-                    <div className='flex flex-row justify-center w-full pt-2 text-sm'>
-                        <div>Dont have an account?</div>
-                        <button className='pl-2 font-bold text-[#1b5a6f]' onClick={handleAddNewClick}>Sign up</button>
-                    </div>
+                            <div className='flex flex-row justify-center w-full pt-2 text-sm'>
+                                <div>Dont have an account?</div>
+                                <button className='pl-2 font-bold text-[#1b5a6f]' onClick={handleAddNewClick} disabled={loading}>
+                                    Sign up
+                                </button>
+                            </div>
+                        </>
+                    )}
                 </div>
             </div>
         </div>
