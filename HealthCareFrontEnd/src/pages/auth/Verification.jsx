@@ -52,7 +52,7 @@ function Verification() {
                         className='flex flex-row w-[400px] h-[45px] bg-[#1b5a6f] rounded-full mt-2 justify-center items-center text-white text-lg font-semibold'
                         onClick={handleForgotPassword}
                     >
-                        Sign in
+                        Send Verification
                     </button>
                 </div>
             </div>

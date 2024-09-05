@@ -40,30 +40,7 @@ function ForgotPassword() {
 
   return (
     <div className="flex flex-col">
-        <div>Forgot Password</div>
-        
-        {/* <div>Email: {email}</div> */}
-        <div>Enter your New Password</div>
-          <input type="text"
-              placeholder="New Password..."
-              className="px-4 py-2 bg-[#f1f1f1] text-gray-800 text-sm w-[400px] h-[45px] rounded-md focus:outline-none focus:ring-1 focus:ring-[#00394C]"
-              name="newPassword"
-              value={newPassword}
-              onChange={handleChange}
-          />
-
-          <div>Enter your Code</div>
-          <input type="text"
-              placeholder="Verification Code..."
-              className="px-4 py-2 bg-[#f1f1f1] text-gray-800 text-sm w-[400px] h-[45px] rounded-md focus:outline-none focus:ring-1 focus:ring-[#00394C]"
-              name="verificationCode"
-              value={verificationCode}
-              onChange={handleChange}
-          />
-
-          <button className="px-2 py-2 bg-green-500" onClick={handleSubmit}>Submit</button>
-
-
+      
       <div className="flex flex-col items-center justify-center w-screen h-screen">
         <div className="flex flex-row w-4/6 h-5/6 bg-slate-200 rounded-2xl">
 

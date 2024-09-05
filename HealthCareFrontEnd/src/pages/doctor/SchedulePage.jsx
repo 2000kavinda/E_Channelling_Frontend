@@ -19,10 +19,20 @@ function SchedulePage() {
   const handleAddNewClick = () => {
     navigate('/AddDoctorSchedule');
   };
+  
+
+  const handleEdit = (scheduleItem) => {
+    console.log(scheduleItem);
+
+    const id = scheduleItem.sid;
+    console.log(id);
+
+    navigate('/EditSchedule', { state: { id } });
+  };
+  
 
   useEffect(() => {
     const drRegNo = localStorage.getItem("regNo");
-    console.log(drRegNo);
     const toastId = 'unique-toast-id';
     listSchedules(drRegNo)
       .then((response) => {
@@ -148,7 +158,7 @@ function SchedulePage() {
                     </div>
 
                     <div className="flex flex-row gap-5">
-                      <button className="px-10 rounded-lg text-white text-sm font-medium py-2 bg-[#005F7E]">Edit</button>
+                      <button className="px-10 rounded-lg text-white text-sm font-medium py-2 bg-[#005F7E]"  onClick={() => handleEdit(scheduleItem)}>Edit</button>
                       <button className="px-10 rounded-lg text-white text-sm font-medium py-2 bg-[#FF6464]"
                         onClick={""}>Delete</button>
                     </div>
