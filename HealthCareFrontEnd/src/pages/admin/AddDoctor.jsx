@@ -45,6 +45,7 @@ function AddDoctor() {
         try {
             const response = await axios.post(REST_API_BASE_URL, updatedFormData);
             console.log("API response:", response);
+            alert("Successfully Registered");
         } catch (error) {
             console.error("There was an error making the request:", error);
         }
