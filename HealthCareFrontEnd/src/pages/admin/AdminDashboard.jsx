@@ -9,6 +9,8 @@ import { AllScheduleList } from "../../service/AdminScheduleService";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { AllDoctorsList } from '../../service/AdminDoctorService';
+import { MdNavigateNext } from "react-icons/md";
+import axios from 'axios';
 
 function AdminDashboard() {
     const divRef = useRef(null);
@@ -18,6 +20,7 @@ function AdminDashboard() {
 
     const getCurrentGreeting = () => {
         const currentHour = new Date().getHours();
+        
 
         if (currentHour < 12) {
             return 'Good morning!';
@@ -28,11 +31,69 @@ function AdminDashboard() {
         }
     };
 
+    const [doctorCount, setDoctorCount] = useState(0);
+
+    // Fetch doctor count from API
+    const fetchDoctorCount = async () => {
+        try {
+            const response = await axios.get('http://localhost:8088/api/v1/doctor/count');
+            setDoctorCount(response.data.body);
+            console.log(response.data.body); // Assuming response.data contains the count
+        } catch (error) {
+            console.error("Error fetching doctor count:", error);
+        }
+    };
+
+    // Use useEffect to call the fetch function when the component mounts
+    useEffect(() => {
+        fetchDoctorCount();
+    }, []);
+
+
+
+    const [appointmentCount, setAppointmentCount] = useState(0);
+
+    // Fetch doctor count from API
+    const fetchAppointmentCount = async () => {
+        try {
+            const response = await axios.get('http://localhost:8088/api/v1/appointment/count');
+            setAppointmentCount(response.data.body);
+            console.log(response.data.body); // Assuming response.data contains the count
+        } catch (error) {
+            console.error("Error fetching doctor count:", error);
+        }
+    };
+
+    // Use useEffect to call the fetch function when the component mounts
+    useEffect(() => {
+        fetchAppointmentCount();
+    }, []);
+
+
+    const [labTestCount, setLabTestCount] = useState(0);
+
+    // Fetch doctor count from API
+    const fetchLabTestCount = async () => {
+        try {
+            const response = await axios.get('http://localhost:8088/api/v1/labtest/count');
+            setLabTestCount(response.data.body);
+            console.log(response.data.body); // Assuming response.data contains the count
+        } catch (error) {
+            console.error("Error fetching doctor count:", error);
+        }
+    };
+
+    // Use useEffect to call the fetch function when the component mounts
+    useEffect(() => {
+        fetchLabTestCount();
+    }, []);
+
+
     useEffect(() => {
         const toastId = 'unique-toast-id';
         AllDoctorsList()
             .then((response) => {
-                console.log(response.data);
+                // console.log(response.data);
                 setDoctors(response.data);
                 if (!toast.isActive(toastId)) {
                     // toast.success('Registration successful!', { toastId });
@@ -50,7 +111,7 @@ function AdminDashboard() {
         const toastId = 'unique-toast-id';
         AllScheduleList()
             .then((response) => {
-                console.log(response.data);
+                // console.log(response.data);
                 setSchedule(response.data);
                 if (!toast.isActive(toastId)) {
                     // toast.success('Registration successful!', { toastId });
@@ -111,20 +172,20 @@ function AdminDashboard() {
                     </div>
 
                     <div className="flex flex-col items-center justify-center w-1/2 h-full gap-2">
-                        <div className="font-semibold text-[#414141]">Total Appointment</div>
-                        <div className="text-4xl font-bold text-[#414141}">120</div>
+                        <div className="font-semibold text-[#414141]">Total Doctor Count</div>
+                        <div className="text-4xl font-bold text-[#414141}">{doctorCount}</div>
                     </div>
                 </div>
 
                 {/* Card */}
-                <div className="flex flex-row bg-[#E6F2F6] w-1/3 h-[150px] rounded-lg items-center px-5 gap-5">
+                <div className="flex flex-row bg-[#E6F2F6] w-1/3 h-[150px] rounded-lg items-center px-4 gap-5">
                     <div className="w-[70px] h-[70px] bg-[#00394C] rounded-lg justify-center items-center flex flex-col">
                         <BiCabinet className="w-8 h-8 text-white" />
                     </div>
 
                     <div className="flex flex-col items-center justify-center w-1/2 h-full gap-2">
-                        <div className="font-semibold text-[#414141]">Total Rooms Count</div>
-                        <div className="text-4xl font-bold text-[#414141}">120</div>
+                        <div className="font-semibold text-[#414141]">Total Appointments</div>
+                        <div className="text-4xl font-bold text-[#414141}">{appointmentCount}</div>
                     </div>
                 </div>
 
@@ -136,7 +197,7 @@ function AdminDashboard() {
 
                     <div className="flex flex-col items-center justify-center w-1/2 h-full gap-2">
                         <div className="font-semibold text-[#414141]">Total Time Count</div>
-                        <div className="text-4xl font-bold text-[#414141}">120</div>
+                        <div className="text-4xl font-bold text-[#414141}">{labTestCount}</div>
                     </div>
                 </div>
             </div>
@@ -219,8 +280,9 @@ function AdminDashboard() {
                                     doctors.map((DoctorsList) => (
                                         <div
                                             key={DoctorsList.drRegNo}
-                                            className="h-[100px] w-full bg-white flex flex-row items-center px-4 rounded-xl mb-2"
+                                            className="h-[100px] w-full bg-white flex flex-row items-center px-4 rounded-xl mb-2 justify-between"
                                         >
+                                        <div className="flex flex-row w-full">
                                             <div className="flex w-[70px] h-[70px] bg-black rounded-full">
                                                 <img src={DoctorsList.profileImage} alt="ProfileImage" className="w-full h-full rounded-full" />
                                             </div>
@@ -233,11 +295,14 @@ function AdminDashboard() {
                                                 </div>
                                                 <div className="flex flex-row gap-4">
                                                     <div className="flex flex-row text-sm text-[#414141]">
-                                                        <div>SpecialistArea - - </div>
+                                                        <div>SpecialistArea -  </div>
                                                         <div> {DoctorsList.type}</div>
                                                     </div>
                                                 </div>
                                             </div>
+                                            </div>
+
+                                            <MdNavigateNext />
                                         </div>
                                     ))
                                 ) : (

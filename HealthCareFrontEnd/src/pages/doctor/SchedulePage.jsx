@@ -8,13 +8,18 @@ import { useState } from "react";
 import { listSchedules } from "../../service/DoctorScheduleServices";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
 
 
 function SchedulePage() {
   const divRef = useRef(null);
   const bottomRef = useRef(null);
+  const navigate = useNavigate();
 
   const [schedule,setSchedule]= useState([]);
+  const handleAddNewClick = () => {
+    navigate('/AddDoctorSchedule');
+  };
 
   useEffect(() => {
     const drRegNo = localStorage.getItem("regNo");
@@ -41,10 +46,11 @@ function SchedulePage() {
   return (
     <div className="flex flex-col px-10 pt-10">
       <ToastContainer/>
+
       <div className="flex flex-row justify-between w-full">
         {/* Greeting message */}
         <div className="flex flex-col">
-          <div className="text-3xl font-bold text-[#00394C]">Today Schedule List</div>
+          <div className="text-3xl font-bold text-[#00394C]">Today Schedule Details</div>
         </div>
 
         {/* Buttons */}
@@ -68,6 +74,10 @@ function SchedulePage() {
           </button>
         </div>
 
+      </div>
+
+      <div className="flex flex-row items-center justify-end w-full h-[45px]">
+        <button className="w-[150px] h-full bg-[#007F6D] mt-10 rounded-lg text-white font-semibold" onClick={handleAddNewClick}>Add New +</button>
       </div>
 
       {/* Search bar */}
