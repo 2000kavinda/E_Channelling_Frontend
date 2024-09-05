@@ -1,4 +1,3 @@
-import DoctorPicture from '../../assets/Images/Ellipse34.png';
 import { TbLogout2 } from "react-icons/tb";
 import { MdAddBusiness } from 'react-icons/md';
 import { MdOutlineSpaceDashboard } from "react-icons/md";
@@ -26,17 +25,19 @@ function SideBarLabPerson() {
 
 
   const [activePage, setActivePage] = useState('LabDashboard');
+  const lpprofileImage = localStorage.getItem("lpprofileImage");
+  const lpname = localStorage.getItem("lpname");
 
   return (
     <div className="flex flex-row flex-1 w-screen h-screen">
       <div className="flex flex-col justify-start w-1/4 h-full bg-[#00394C] items-center pt-10">
         {/* Profile Picture */}
         <div className="flex w-[150px] h-[150px] bg-black rounded-full">
-          <img src={DoctorPicture} alt="ProfileImage" className="w-full h-full" />
+          <img src={lpprofileImage} alt="ProfileImage" className="w-full h-full rounded-full" />
         </div>
 
         {/* Doctor Name */}
-        <div className='pt-[29px] text-2xl font-bold text-white'>D.S.Sathsarani</div>
+        <div className='pt-[29px] text-2xl font-bold text-white'>{lpname}</div>
 
         {/** Doctor Specialist Area */}
         <div className='bg-[#D9F2EF] rounded-md px-4 py-2 mt-4 text-sm font-bold text-[#00394C]'>
