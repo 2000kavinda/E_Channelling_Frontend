@@ -19,7 +19,12 @@ function SchedulePage() {
   const [loading, setLoading] = useState(false);
 
   const handleAddNewClick = () => {
-    navigate('/AddDoctorSchedule');
+    setLoading(true); // Set loading state to true
+    // Navigate to the AddDoctorSchedule page
+    setTimeout(() => {
+      navigate('/AddDoctorSchedule');
+      setLoading(false); // Set loading state to false after navigation
+    }, 1000); // Simulate a delay for demonstration
   };
 
   const handleEdit = (scheduleItem) => {
@@ -78,19 +83,25 @@ function SchedulePage() {
         <div className="flex flex-row gap-10">
           {/* Single Button */}
           <button className="flex flex-row items-center gap-2">
-            <div className="w-8 h-8 rounded-full bg-[#e0e0e0] flex flex-col items-center justify-center"><IoNotificationsOutline className="w-5 h-5 text-[#00394C]" /></div>
+            <div className="w-8 h-8 rounded-full bg-[#e0e0e0] flex flex-col items-center justify-center">
+              <IoNotificationsOutline className="w-5 h-5 text-[#00394C]" />
+            </div>
             <div className="text-base font-semibold text-[#00394C]">Alerts</div>
           </button>
 
           {/* Single Button */}
           <button className="flex flex-row items-center gap-2">
-            <div className="w-8 h-8 rounded-full bg-[#e0e0e0] flex flex-col items-center justify-center"><FaQuestion className="w-5 h-5 text-[#00394C]" /></div>
+            <div className="w-8 h-8 rounded-full bg-[#e0e0e0] flex flex-col items-center justify-center">
+              <FaQuestion className="w-5 h-5 text-[#00394C]" />
+            </div>
             <div className="text-base font-semibold text-[#00394C]">Help</div>
           </button>
 
           {/* Single Button */}
           <button className="flex flex-row items-center gap-2">
-            <div className="w-8 h-8 rounded-full bg-[#e0e0e0] flex flex-col items-center justify-center"><IoSettingsOutline className="w-5 h-5 text-[#00394C]" /></div>
+            <div className="w-8 h-8 rounded-full bg-[#e0e0e0] flex flex-col items-center justify-center">
+              <IoSettingsOutline className="w-5 h-5 text-[#00394C]" />
+            </div>
             <div className="text-base font-semibold text-[#00394C]">Settings</div>
           </button>
         </div>
