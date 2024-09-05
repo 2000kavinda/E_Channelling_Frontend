@@ -158,7 +158,7 @@ function LabPersonList() {
                                         <div className="flex flex-row items-center h-full gap-8">
                                             {/* Profile Picture */}
                                             <div className="flex w-[70px] h-[70px] bg-black rounded-full">
-                                                <img src={LabPersonList.lpprofileImage} alt="ProfileImage" className="w-full h-full" />
+                                                <img src={LabPersonList.lpprofileImage} alt="ProfileImage" className="w-full h-full rounded-full" />
                                             </div>
                                             {/* Patient Details */}
                                             <div className="flex flex-col">

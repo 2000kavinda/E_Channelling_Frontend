@@ -158,14 +158,14 @@ function PatientsList() {
                                         key={PatientsList.pId}
                                         className="w-full h-[100px] bg-white rounded-lg flex flex-row justify-between pr-4 items-center mb-3"
                                     >
-                                        <div className="flex flex-row items-center h-full gap-5">
+                                        <div className="flex flex-row items-center h-full gap-5 px-4">
                                             
                                             {/* Profile Picture */}
                                             <div className="flex w-[70px] h-[70px] bg-black rounded-full">
                                                 <img
                                                     src={PatientsList.pprofileImage}
                                                     alt="ProfileImage"
-                                                    className="w-full h-full"
+                                                    className="w-full h-full rounded-full"
                                                 />
                                             </div>
                                             {/* Patient Details */}
