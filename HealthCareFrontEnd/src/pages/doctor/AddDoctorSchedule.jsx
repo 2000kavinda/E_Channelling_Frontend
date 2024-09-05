@@ -1,17 +1,11 @@
+import LoadingSpinner from '../../components/loadingSpinner/LoadingSpinner'; // Import the spinner component
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { useNavigate } from 'react-router-dom';
 import { useState } from "react";
 import axios from 'axios';
 
-
 function AddDoctorSchedule() {
     const navigate = useNavigate();
-
-    const handleAddNewClick = () => {
-        navigate('/SideBar');
-    };
-
-
     const [formData, setFormData] = useState({
         drRegNo: localStorage.getItem("regNo"),
         date: '',
@@ -19,6 +13,8 @@ function AddDoctorSchedule() {
         end: "",
         roomNo: "",
     });
+    const [loading, setLoading] = useState(false); // Loading state
+
     const handleChange = async (event) => {
         const { name, value } = event.target;
         setFormData({ ...formData, [name]: value });
@@ -26,26 +22,28 @@ function AddDoctorSchedule() {
 
     const REST_API_BASE_URL = `http://localhost:8080/api/v1/schedule/save`;
 
-
-
     const handleSubmit = async (event) => {
         event.preventDefault();
+        setLoading(true); // Set loading to true before API request
 
         const updatedFormData = { ...formData }
 
         try {
             const response = await axios.post(REST_API_BASE_URL, updatedFormData);
             console.log("API response:", response);
-            alert("Successfully Registered!");
+            // alert("Successfully Registered!");
+            navigate('/SideBar'); // Navigate to /SideBar on successful submission
         } catch (error) {
             console.error("There was an error making the request:", error);
+        } finally {
+            setLoading(false); // Set loading to false after API request completes
         }
     }
 
     return (
         <div className="flex flex-col items-center justify-center w-full h-[700px] py-10 bg-white">
             <div className="flex flex-row justify-start w-full gap-8 px-16 pb-5">
-                <button className="w-[120px] py-2 bg-[#005F7E] text-white rounded-lg flex flex-row items-center gap-1 font-semibold text-lg justify-center" onClick={handleAddNewClick}>
+                <button className="w-[120px] py-2 bg-[#005F7E] text-white rounded-lg flex flex-row items-center gap-1 font-semibold text-lg justify-center" onClick={() => navigate('/SideBar')}>
                     <IoMdArrowRoundBack />
                     <div>Back</div>
                 </button>
@@ -54,9 +52,8 @@ function AddDoctorSchedule() {
 
             {/* Details Pages */}
             <div className="w-11/12 h-[800px] bg-[#c9e2eb] rounded-lg px-10 py-10 flex flex-col">
-
+                {loading && <LoadingSpinner />} {/* Show spinner when loading */}
                 <form onSubmit={handleSubmit}>
-
                     {/* Text Boxes */}
                     <div className="flex flex-col items-center gap-5 pt-10">
                         {/* Input Row */}
@@ -64,7 +61,7 @@ function AddDoctorSchedule() {
                             <div className="flex flex-col gap-1">
                                 <div className="text-normal text-[#1b5f75] font-semibold">Room number</div>
                                 <input type="text"
-                                    placeholder="First name..."
+                                    placeholder="Room number..."
                                     className="px-4 py-2 bg-[#f1f1f1] text-gray-800 text-sm w-[400px] h-[45px] rounded-md focus:outline-none focus:ring-1 focus:ring-[#00394C]"
                                     name="roomNo"
                                     value={formData.roomNo}
@@ -82,7 +79,6 @@ function AddDoctorSchedule() {
                                     onChange={handleChange}
                                 />
                             </div>
-
                         </div>
 
                         {/* Input Row */}
@@ -98,7 +94,6 @@ function AddDoctorSchedule() {
                                 />
                             </div>
 
-
                             <div className="flex flex-col gap-1">
                                 <div className="text-normal text-[#1b5f75] font-semibold">End Time</div>
                                 <input type="time"
@@ -111,23 +106,17 @@ function AddDoctorSchedule() {
                             </div>
                         </div>
 
-
                         <div className="flex flex-row justify-center w-full gap-16 pt-10">
                             <div className="flex flex-row items-center justify-center gap-10">
-                                <button className="w-[180px] h-[50px] bg-[#1b5f75] rounded-xl text-white text-normal font-semibold">Cancel</button>
-                                <button className="w-[180px] h-[50px] bg-[#1b5f75] rounded-xl text-white text-normal font-semibold">Submit</button>
+                                <button type="button" className="w-[180px] h-[50px] bg-[#1b5f75] rounded-xl text-white text-normal font-semibold" onClick={() => navigate('/SideBar')}>Cancel</button>
+                                <button type="submit" className="w-[180px] h-[50px] bg-[#1b5f75] rounded-xl text-white text-normal font-semibold">Submit</button>
                             </div>
                         </div>
                     </div>
-
                 </form>
-
-
             </div>
-
-
         </div>
     )
 }
 
-export default AddDoctorSchedule
+export default AddDoctorSchedule;
