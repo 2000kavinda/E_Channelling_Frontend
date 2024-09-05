@@ -17,11 +17,10 @@ function LoadingSpinner() {
   );
 }
 
-
-
 function SideBar() {
   const [activePage, setActivePage] = useState('dashboard');
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handlePageChange = (page) => {
     setLoading(true); // Start loading
@@ -31,14 +30,16 @@ function SideBar() {
     }, 500); // Simulate a delay of 500ms
   };
 
-  const navigate = useNavigate();
-
   const handleLogout = () => {
-    // Clear local storage
-    localStorage.clear();
+    setLoading(true); // Start loading
+    setTimeout(() => {
+      // Clear local storage
+      localStorage.clear();
 
-    // Navigate to the sign-in page
-    navigate('/SignIn');
+      // Navigate to the sign-in page
+      navigate('/SignIn');
+      setLoading(false); // Stop loading after navigation
+    }, 500); // Simulate a delay for the logout process
   };
 
   const drName = localStorage.getItem("drName");
