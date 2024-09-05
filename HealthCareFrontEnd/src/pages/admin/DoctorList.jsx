@@ -73,7 +73,7 @@ function DoctorList() {
     };
 
     const handleDelete = (drRegNo) => {
-        axios.delete(`http://localhost:8080/api/v1/doctor/delete?drRegNo=${drRegNo}`)
+        axios.delete(`http://localhost:8088/api/v1/doctor/delete?drRegNo=${drRegNo}`)
             .then(() => {
                 toast.success('Doctor deleted successfully!');
                 setDoctors(doctors.filter((doctor) => doctor.drRegNo !== drRegNo));
@@ -92,6 +92,8 @@ function DoctorList() {
     
         navigate('/EditDoctor', { state: { drRegNo } });
       };
+
+      
 
 
 
