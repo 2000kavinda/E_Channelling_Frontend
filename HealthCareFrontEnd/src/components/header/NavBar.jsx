@@ -16,9 +16,11 @@ function NavBar() {
   };
 
   return (
-    <div className='sticky justify-between w-screen'>
+
+    <div className='sticky top-0 w-screen '>
       {/* navigation bar */}
-      <div className='flex flex-row items-center justify-between w-screen h-20 px-10 shadow-lg'>
+      <div className=' bg-white flex flex-row items-center justify-between w-screen h-20 px-10 shadow-lg'>
+
         <div className='flex flex-row justify-center h-full px-5 py-2 bg-white'>
           <img src={logo} alt='logo icon' className='rounded-lg' />
         </div>
@@ -32,7 +34,9 @@ function NavBar() {
             Home
           </Link>
           <Link
-            to="#"
+
+            to="/BookAnAppoinment"
+
             className={`px-2 py-2 no-underline ${activeLink === 'Doctors' ? 'text-[#005F7E]' : 'text-gray-800'
               } hover:text-[#005F7E]`}
             onClick={() => handleLinkClick('Doctors')}
@@ -40,20 +44,49 @@ function NavBar() {
             Doctors
           </Link>
           <Link
-            to="#"
+
+            to="/BookDetail"
+
             className={`px-2 py-2 no-underline ${activeLink === 'Laboratory' ? 'text-[#005F7E]' : 'text-gray-800'
               } hover:text-[#005F7E]`}
             onClick={() => handleLinkClick('Laboratory')}
           >
-            Laboratory
+
+            BookAnAppoinment
           </Link>
           <Link
-            to="#"
+            to="/PatientBookHistory"
             className={`px-2 py-2 no-underline ${activeLink === 'About' ? 'text-[#005F7E]' : 'text-gray-800'
               } hover:text-[#005F7E]`}
             onClick={() => handleLinkClick('About')}
           >
-            About
+           BookHistory
+          </Link>
+          <Link
+            to="/PatientDashboard"
+            className={`px-2 py-2 no-underline ${activeLink === 'About' ? 'text-[#005F7E]' : 'text-gray-800'
+              } hover:text-[#005F7E]`}
+            onClick={() => handleLinkClick('About')}
+          >
+          P-Dashboard
+          </Link> <Link
+            to="/PatientNotifications"
+            className={`px-2 py-2 no-underline ${activeLink === 'About' ? 'text-[#005F7E]' : 'text-gray-800'
+              } hover:text-[#005F7E]`}
+            onClick={() => handleLinkClick('About')}
+          >
+          p-Notification
+          </Link>
+          <Link
+            to="/ViewSelectedDoctorDetail"
+
+            className={`px-2 py-2 no-underline ${activeLink === 'About' ? 'text-[#005F7E]' : 'text-gray-800'
+              } hover:text-[#005F7E]`}
+            onClick={() => handleLinkClick('About')}
+          >
+
+          P-DocDeatils
+
           </Link>
         </div>
 
@@ -81,4 +114,6 @@ function NavBar() {
   );
 }
 
+
 export default NavBar;
+

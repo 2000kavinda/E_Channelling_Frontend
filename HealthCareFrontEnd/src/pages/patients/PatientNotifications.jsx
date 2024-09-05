@@ -7,6 +7,8 @@ import { useEffect, useRef, useState } from 'react';
 import { listNotifications, deleteNotification } from "../../service/PNotificationServices";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import NavBar from '../../components/header/NavBar';
+
 
 function PatientNotifications() {
   const divRef = useRef(null);
@@ -46,6 +48,8 @@ function PatientNotifications() {
   };
 
   return (
+    <div className='flex flex-col w-screen h-full'>
+        <NavBar/>
     <div className="flex flex-col px-10 pt-10">
       <ToastContainer />
       <div className="flex flex-row justify-between w-full">
@@ -143,6 +147,8 @@ function PatientNotifications() {
         </div>
       </div>
     </div>
+    </div>
+    
   );
 }
 
