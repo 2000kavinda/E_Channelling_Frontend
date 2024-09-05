@@ -4,12 +4,16 @@ import { IoSettingsOutline } from "react-icons/io5";
 import { BsPeople } from "react-icons/bs";
 import { AiOutlineFieldTime } from "react-icons/ai";
 import { BiCabinet } from "react-icons/bi";
-import { useRef } from 'react';
+import { useRef,useEffect,useState } from 'react';
 import DoctorPicture from '../../assets/Images/Ellipse34.png';
+import { AllScheduleList } from "../../service/AdminScheduleService";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function AdminDashboard() {
     const divRef = useRef(null);
     const bottomRef = useRef(null);
+    const [schedule, setSchedule] = useState([]);
 
     const getCurrentGreeting = () => {
         const currentHour = new Date().getHours();
@@ -23,8 +27,27 @@ function AdminDashboard() {
         }
     };
 
+    useEffect(() => {
+        const toastId = 'unique-toast-id';
+        AllScheduleList()
+            .then((response) => {
+                console.log(response.data);
+                setSchedule(response.data);
+                if (!toast.isActive(toastId)) {
+                    // toast.success('Registration successful!', { toastId });
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+                if (!toast.isActive(toastId)) {
+                    toast.error('No Schedules available!', { toastId });
+                }
+            });
+    }, []);
+
     return (
         <div className="flex flex-col px-10 pt-10">
+            <ToastContainer />
             {/* Top bar */}
             <div className="flex flex-row justify-between w-full">
                 {/* Greeting message */}
@@ -114,96 +137,42 @@ function AdminDashboard() {
                             style={{ overflowY: 'scroll', height: '320px' }}
                         >
 
-                            {/* Schedule Cards */}
-                            <div className="h-[100px] w-full bg-white flex flex-row items-center pr-4 rounded-xl justify-between mb-2">
-                                {/* Doctor Picture */}
-                                <div className="flex w-[120px] h-full flex-col bg-[#00394C] justify-center items-center rounded-l-xl">
-                                    <div className="text-base text-white">Room</div>
-                                    <div className="text-2xl font-bold text-white">01</div>
-                                </div>
-                                {/* Patients Details */}
-                                <div className="flex flex-col w-2/3 pl-2">
-                                    <div className="text-lg font-semibold text-[#414141]">Dr.Hiran Welagedara</div>
-                                    <div className="flex flex-row">
-                                        <div className="text-sm text-[#414141]">Patients Count -</div>
-                                        <div className="text-sm text-[#414141]"> 22</div>
-                                    </div>
-                                    <div className="flex flex-row gap-4">
-                                        <div className="flex flex-row text-sm text-[#414141]">
-                                            <div>08.00am - 12.00pm</div>
+                            {
+                                schedule && schedule.length > 0 ? (
+                                    schedule.map((scheduleItem) => (
+                                        <div
+                                            key={scheduleItem.sId}
+                                            className="h-[100px] w-full bg-white flex flex-row items-center pr-4 rounded-xl justify-between mb-2"
+                                        >
+                                            <div className="flex w-[120px] h-full flex-col bg-[#00394C] justify-center items-center rounded-l-xl">
+                                                <div className="text-base text-white">Room</div>
+                                                <div className="text-2xl font-bold text-white">{scheduleItem.roomNo}</div>
+                                            </div>
+                                            {/* Patients Details */}
+                                            <div className="flex flex-col w-2/3 pl-2">
+                                                <div className="text-lg font-semibold text-[#414141]">{scheduleItem.drName}</div>
+                                                <div className="flex flex-row">
+                                                    <div className="text-sm text-[#414141]">Date: -</div>
+                                                    <div className="text-sm text-[#414141]"> {scheduleItem.date}</div>
+                                                </div>
+                                                <div className="flex flex-row gap-4">
+                                                    <div className="flex flex-row text-sm text-[#414141]">
+                                                        <div>{scheduleItem.start} - {scheduleItem.end}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            {/* Schedule Cards */}
-                            <div className="h-[100px] w-full bg-white flex flex-row items-center pr-4 rounded-xl justify-between mb-2">
-                                {/* Doctor Picture */}
-                                <div className="flex w-[120px] h-full flex-col bg-[#00394C] justify-center items-center rounded-l-xl">
-                                    <div className="text-base text-white">Room</div>
-                                    <div className="text-2xl font-bold text-white">01</div>
-                                </div>
-                                {/* Patients Details */}
-                                <div className="flex flex-col w-2/3 pl-2">
-                                    <div className="text-lg font-semibold text-[#414141]">Dr.Hiran Welagedara</div>
-                                    <div className="flex flex-row">
-                                        <div className="text-sm text-[#414141]">Patients Count -</div>
-                                        <div className="text-sm text-[#414141]"> 22</div>
-                                    </div>
-                                    <div className="flex flex-row gap-4">
-                                        <div className="flex flex-row text-sm text-[#414141]">
-                                            <div>08.00am - 12.00pm</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
+                                    ))
+                                ) : (
+                                    <div className="flex flex-col justify-center w-full h-full text-lg text-center text-[#005F7E] font-semibold">No schedules available</div>
+                                )
+                            }
 
                             {/* Schedule Cards */}
-                            <div className="h-[100px] w-full bg-white flex flex-row items-center pr-4 rounded-xl justify-between mb-2">
-                                {/* Doctor Picture */}
-                                <div className="flex w-[120px] h-full flex-col bg-[#00394C] justify-center items-center rounded-l-xl">
-                                    <div className="text-base text-white">Room</div>
-                                    <div className="text-2xl font-bold text-white">01</div>
-                                </div>
-                                {/* Patients Details */}
-                                <div className="flex flex-col w-2/3 pl-2">
-                                    <div className="text-lg font-semibold text-[#414141]">Dr.Hiran Welagedara</div>
-                                    <div className="flex flex-row">
-                                        <div className="text-sm text-[#414141]">Patients Count -</div>
-                                        <div className="text-sm text-[#414141]"> 22</div>
-                                    </div>
-                                    <div className="flex flex-row gap-4">
-                                        <div className="flex flex-row text-sm text-[#414141]">
-                                            <div>08.00am - 12.00pm</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            
 
 
-                            {/* Schedule Cards */}
-                            <div className="h-[100px] w-full bg-white flex flex-row items-center pr-4 rounded-xl justify-between mb-2">
-                                {/* Doctor Picture */}
-                                <div className="flex w-[120px] h-full flex-col bg-[#00394C] justify-center items-center rounded-l-xl">
-                                    <div className="text-base text-white">Room</div>
-                                    <div className="text-2xl font-bold text-white">01</div>
-                                </div>
-                                {/* Patients Details */}
-                                <div className="flex flex-col w-2/3 pl-2">
-                                    <div className="text-lg font-semibold text-[#414141]">Dr.Hiran Welagedara</div>
-                                    <div className="flex flex-row">
-                                    <div className="text-sm text-[#414141]">Patients Count -</div>
-                                        <div className="text-sm text-[#414141]"> 22</div>
-                                    </div>
-                                    <div className="flex flex-row gap-4">
-                                        <div className="flex flex-row text-sm text-[#414141]">
-                                            <div>08.00am - 12.00pm</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            
 
                             <div ref={bottomRef}></div>
                         </div>
