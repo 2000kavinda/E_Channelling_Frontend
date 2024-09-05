@@ -38,9 +38,10 @@ function SignIn() {
                 navigate('/SideBar');
                 // navigate('/NavBar');
             } else if (role === "LAB_PERSON") {
-                navigate('/LabPersonDashboard');
+                navigate('/SideBarLabPerson');
             } else if (role === "PATIENT") {
-                navigate('/PatientDashboard');
+                navigate('/SideBarLabPerson ');
+                // /PatientDashboard
             } else if (role === "ADMIN") {
                 navigate('/AdminSideBar');
             } 

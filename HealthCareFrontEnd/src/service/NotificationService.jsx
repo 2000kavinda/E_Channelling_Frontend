@@ -1,23 +1,36 @@
+// src/services/notificationService.js
 import axios from 'axios';
 
-const REST_API_BASE_URL = "http://localhost:8080"; 
 
-// Fetch all notifications
-export const viewNotification = () => {
-  return axios.get(`${REST_API_BASE_URL}/api/notification`);
+//unwadted file ************
+const API_BASE_URL = '/api/notifications';
+
+export const getNotificationsByPatientId = async (patientId) => {
+    try {
+        const response = await axios.get(`${API_BASE_URL}/view/${patientId}`);
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching notifications:', error);
+        throw error;
+    }
 };
 
-// Create a new notification
-export const createNotification = (notificationData) => {
-  return axios.post(`${REST_API_BASE_URL}/api/notification`, notificationData);
+export const deleteNotification = async (notificationId) => {
+    try {
+        await axios.delete(`${API_BASE_URL}/delete/${notificationId}`);
+    } catch (error) {
+        console.error('Error deleting notification:', error);
+        throw error;
+    }
 };
 
-// Edit (Mark as Read) an existing notification
-export const editNotification = (id, notificationData) => {
-  return axios.put(`${REST_API_BASE_URL}/api/notification/${id}`, notificationData);
+export const markNotificationAsFavorite = async (notificationId) => {
+    try {
+        await axios.put(`${API_BASE_URL}/markAsFavorite/${notificationId}`);
+    } catch (error) {
+        console.error('Error marking notification as favorite:', error);
+        throw error;
+    }
 };
 
-// Delete a notification
-export const deleteNotification = (id) => {
-  return axios.delete(`${REST_API_BASE_URL}/api/notification/${id}`);
-};
+// Add more service functions as needed
