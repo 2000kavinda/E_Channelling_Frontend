@@ -30,6 +30,7 @@ function SchedulePage() {
     navigate('/EditSchedule', { state: { id } });
   };
   
+  
 
   useEffect(() => {
     const drRegNo = localStorage.getItem("regNo");

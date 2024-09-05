@@ -20,6 +20,15 @@ function PatientsList() {
         navigate('/AddPatients');
     };
 
+    const handleEdit = (PatientsList) => {
+        console.log(PatientsList);
+
+        const pId = PatientsList.pId;
+        console.log(pId);
+
+        navigate('/EditPatient', { state: { pId } });
+    };
+
 
     useEffect(() => {
         const toastId = 'unique-toast-id';
@@ -184,7 +193,7 @@ function PatientsList() {
                                         </div>
 
                                         <div className="flex flex-row gap-5">
-                                            <button className="px-10 rounded-lg text-white text-sm font-medium py-2 bg-[#005F7E]">Edit</button>
+                                            <button className="px-10 rounded-lg text-white text-sm font-medium py-2 bg-[#005F7E]" onClick={() => handleEdit(PatientsList)}>Edit</button>
                                             <button className="px-10 rounded-lg text-white text-sm font-medium py-2 bg-[#FF6464]" onClick={() => handleDelete(PatientsList.pId)}>Delete</button>
                                         </div>
                                     </div>

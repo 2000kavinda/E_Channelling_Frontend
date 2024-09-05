@@ -84,6 +84,15 @@ function DoctorList() {
             });
     };
 
+    const handleEdit = (DoctorsList) => {
+        console.log(DoctorsList);
+    
+        const drRegNo = DoctorsList.drRegNo;
+        console.log(drRegNo);
+    
+        navigate('/EditDoctor', { state: { drRegNo } });
+      };
+
 
 
 
@@ -181,7 +190,7 @@ function DoctorList() {
                                         </div>
 
                                         <div className="flex flex-row gap-5">
-                                            <button className="px-10 rounded-lg text-white text-sm font-medium py-2 bg-[#005F7E]">Edit</button>
+                                            <button className="px-10 rounded-lg text-white text-sm font-medium py-2 bg-[#005F7E]"   onClick={() => handleEdit(DoctorsList)}>Edit</button>
                                             <button className="px-10 rounded-lg text-white text-sm font-medium py-2 bg-[#FF6464]"  
                                             onClick={() => handleDelete(DoctorsList.drRegNo)}>Delete</button>
                                         </div>

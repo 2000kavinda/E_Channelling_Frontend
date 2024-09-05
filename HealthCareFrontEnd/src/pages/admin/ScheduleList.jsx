@@ -40,6 +40,15 @@ function ScheduleList() {
             });
     }, []);
 
+    const handleEdit = (scheduleItem) => {
+        console.log(scheduleItem);
+
+        const id = scheduleItem.sid;
+        console.log(id);
+
+        navigate('/EditAdminSchedule', { state: { id } });
+    };
+
 
     const handleSearch = () => {
         if (searchQuery.trim() === '') {
@@ -192,7 +201,7 @@ function ScheduleList() {
                                         </div>
 
                                         <div className="flex flex-row gap-5">
-                                            <button className="px-10 rounded-lg text-white text-sm font-medium py-2 bg-[#005F7E]">Edit</button>
+                                            <button className="px-10 rounded-lg text-white text-sm font-medium py-2 bg-[#005F7E]" onClick={() => handleEdit(scheduleItem)}>Edit</button>
                                             <button className="px-10 rounded-lg text-white text-sm font-medium py-2 bg-[#FF6464]" onClick={() => handleDelete(scheduleItem.sId)}>Delete</button>
                                         </div>
                                     </div>
