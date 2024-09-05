@@ -1,6 +1,9 @@
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { useNavigate } from 'react-router-dom';
 import ImageUpload from "../../components/admin/ImageUpload";
+import { useState } from "react";
+import axios from 'axios';
+// import { DoctorsAdd } from "../../service/AuthenticationService";
 
 function AddDoctor() {
     const navigate = useNavigate();
@@ -8,6 +11,48 @@ function AddDoctor() {
     const handleAddNewClick = () => {
         navigate('/AdminSideBar');
     };
+
+    const [url, setUrl] = useState('');
+
+    const [formData, setFormData] = useState({
+        regNo : '',
+        email : '',
+        password : "",
+        role : "DOCTOR",
+        drName : "",
+        specialize : "",
+        type : "",
+        profileImage : "",
+        drQualification : ""
+    });
+    const handleChange = async (event) => {
+        const { name, value } = event.target;
+        setFormData({ ...formData, [name]: value }); 
+    }
+
+    const REST_API_BASE_URL = `http://localhost:8081/api/v1/auth/register`;
+
+    
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        
+        // set url
+        const photoUrl = localStorage.getItem('url')
+        
+        const updatedFormData = { ...formData,profileImage: photoUrl}
+
+        try {
+            const response = await axios.post(REST_API_BASE_URL, updatedFormData);
+            console.log("API response:", response);
+            alert("Successfully Registered");
+        } catch (error) {
+            console.error("There was an error making the request:", error);
+        }
+    }
+
+
+
 
     return (
         <div className="flex flex-col items-center justify-center w-full h-[860px] py-10 bg-white">
@@ -23,26 +68,34 @@ function AddDoctor() {
             <div className="w-11/12 h-full bg-[#c9e2eb] rounded-lg px-10 py-10 flex flex-col">
 
                 {/* Profile Picture */}
-                <ImageUpload/>
+                  <ImageUpload setUrl={setUrl} url={url} />
 
-
+                <form onSubmit={handleSubmit}>
                 {/* Text Boxes */}
                 <div className="flex flex-col items-center gap-5 pt-10">
                     {/* Input Row */}
                     <div className="flex flex-row gap-16">
                         <div className="flex flex-col gap-1">
-                            <div className="text-normal text-[#1b5f75] font-semibold">First name</div>
+                            <div className="text-normal text-[#1b5f75] font-semibold">Doctor name</div>
                             <input type="text"
-                                placeholder="First name..."
-                                className="px-4 py-2 bg-[#f1f1f1] text-gray-800 text-sm w-[400px] h-[45px] rounded-md focus:outline-none focus:ring-1 focus:ring-[#00394C]" />
+                                name="drName"
+                                placeholder="Doctor name..."
+                                className="px-4 py-2 bg-[#f1f1f1] text-gray-800 text-sm w-[400px] h-[45px] rounded-md focus:outline-none focus:ring-1 focus:ring-[#00394C]" 
+                                value={formData.drName}
+                                onChange={handleChange}
+                                />
                         </div>
 
 
                         <div className="flex flex-col gap-1">
-                            <div className="text-normal text-[#1b5f75] font-semibold">Second name</div>
+                            <div className="text-normal text-[#1b5f75] font-semibold">Email address</div>
                             <input type="text"
-                                placeholder="Second name..."
-                                className="px-4 py-2 bg-[#f1f1f1] text-gray-800 text-sm w-[400px] h-[45px] rounded-md focus:outline-none focus:ring-1 focus:ring-[#00394C]" />
+                                name="email"
+                                placeholder="Email address..."
+                                className="px-4 py-2 bg-[#f1f1f1] text-gray-800 text-sm w-[400px] h-[45px] rounded-md focus:outline-none focus:ring-1 focus:ring-[#00394C]" 
+                                value={formData.email}
+                                onChange={handleChange}
+                                />
                         </div>
                     </div>
 
@@ -50,35 +103,76 @@ function AddDoctor() {
                     <div className="flex flex-row gap-16">
                         <div className="flex flex-col gap-1">
                             <div className="text-normal text-[#1b5f75] font-semibold">Registration number</div>
-                            <input type="text"
+                            <input 
+                                type="text"
+                                name="regNo"
                                 placeholder="Registration number..."
-                                className="px-4 py-2 bg-[#f1f1f1] text-gray-800 text-sm w-[400px] h-[45px] rounded-md focus:outline-none focus:ring-1 focus:ring-[#00394C]" />
+                                className="px-4 py-2 bg-[#f1f1f1] text-gray-800 text-sm w-[400px] h-[45px] rounded-md focus:outline-none focus:ring-1 focus:ring-[#00394C]"
+                                value={formData.regNo}
+                                onChange={handleChange} />
                         </div>
 
 
                         <div className="flex flex-col gap-1">
-                            <div className="text-normal text-[#1b5f75] font-semibold">NIC number</div>
-                            <input type="text"
-                                placeholder="NIC number..."
-                                className="px-4 py-2 bg-[#f1f1f1] text-gray-800 text-sm w-[400px] h-[45px] rounded-md focus:outline-none focus:ring-1 focus:ring-[#00394C]" />
+                            <div className="text-normal text-[#1b5f75] font-semibold">Role</div>
+                            <input 
+                                type="text"
+                                name="role"
+                                placeholder="Role..."
+                                className="px-4 py-2 bg-[#f1f1f1] text-gray-800 text-sm w-[400px] h-[45px] rounded-md focus:outline-none focus:ring-1 focus:ring-[#00394C]"
+                            
+                                />
                         </div>
                     </div>
 
                     {/* Input Row */}
                     <div className="flex flex-row gap-16">
                         <div className="flex flex-col gap-1">
-                            <div className="text-normal text-[#1b5f75] font-semibold">Age</div>
+                            <div className="text-normal text-[#1b5f75] font-semibold">Password</div>
                             <input type="text"
-                                placeholder="Age..."
-                                className="px-4 py-2 bg-[#f1f1f1] text-gray-800 text-sm w-[400px] h-[45px] rounded-md focus:outline-none focus:ring-1 focus:ring-[#00394C]" />
+                                name="password"
+                                placeholder="Password..."
+                                className="px-4 py-2 bg-[#f1f1f1] text-gray-800 text-sm w-[400px] h-[45px] rounded-md focus:outline-none focus:ring-1 focus:ring-[#00394C]"
+                                value={formData.password}
+                                onChange={handleChange}
+                                />
                         </div>
 
 
                         <div className="flex flex-col gap-1">
-                            <div className="text-normal text-[#1b5f75] font-semibold">Graduate from</div>
+                            <div className="text-normal text-[#1b5f75] font-semibold">Confirm Password</div>
                             <input type="text"
-                                placeholder="Graduate from..."
-                                className="px-4 py-2 bg-[#f1f1f1] text-gray-800 text-sm w-[400px] h-[45px] rounded-md focus:outline-none focus:ring-1 focus:ring-[#00394C]" />
+                                name="confirmPassword"
+                                placeholder="Confirm password..."
+                                className="px-4 py-2 bg-[#f1f1f1] text-gray-800 text-sm w-[400px] h-[45px] rounded-md focus:outline-none focus:ring-1 focus:ring-[#00394C]"
+                                
+                                />
+                        </div>
+                    </div>
+
+                    {/* Input Row */}
+                    <div className="flex flex-row gap-16">
+                        <div className="flex flex-col gap-1">
+                            <div className="text-normal text-[#1b5f75] font-semibold">gender</div>
+                            <input type="text"
+                                name="gender"
+                                placeholder="Gender..."
+                                className="px-4 py-2 bg-[#f1f1f1] text-gray-800 text-sm w-[400px] h-[45px] rounded-md focus:outline-none focus:ring-1 focus:ring-[#00394C]" 
+                                
+                                />
+                        </div>
+
+
+                        <div className="flex flex-col gap-1">
+                            <div className="text-normal text-[#1b5f75] font-semibold">Qualifications</div>
+                            <input 
+                                type="text"
+                                name="drQualification"
+                                placeholder="Qualifications..."
+                                className="px-4 py-2 bg-[#f1f1f1] text-gray-800 text-sm w-[400px] h-[45px] rounded-md focus:outline-none focus:ring-1 focus:ring-[#00394C]" 
+                                value={formData.drQualification}
+                                onChange={handleChange}
+                                />
                         </div>
                     </div>
 
@@ -86,9 +180,14 @@ function AddDoctor() {
                     <div className="flex flex-row justify-center w-full gap-16">
                         <div className="flex flex-col gap-1">
                             <div className="text-normal text-[#1b5f75] font-semibold">Specialist area</div>
-                            <input type="text"
+                            <input 
+                                type="text"
+                                name="specialize"
                                 placeholder="Age..."
-                                className="px-4 py-2 bg-[#f1f1f1] text-gray-800 text-sm w-[866px] h-[45px] rounded-md focus:outline-none focus:ring-1 focus:ring-[#00394C]" />
+                                className="px-4 py-2 bg-[#f1f1f1] text-gray-800 text-sm w-[866px] h-[45px] rounded-md focus:outline-none focus:ring-1 focus:ring-[#00394C]" 
+                                value={formData.specialize}
+                                onChange={handleChange}
+                                />
                         </div>
                     </div>
 
@@ -99,7 +198,7 @@ function AddDoctor() {
                         </div>
                     </div>
                 </div>
-
+                </form>
 
             </div>
 

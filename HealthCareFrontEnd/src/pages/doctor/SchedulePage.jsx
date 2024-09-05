@@ -2,26 +2,43 @@ import { IoNotificationsOutline } from "react-icons/io5";
 import { FaQuestion } from "react-icons/fa6";
 import { IoSettingsOutline } from "react-icons/io5";
 import DoctorPicture from '../../assets/Images/Ellipse34.png';
-import { GrNext } from "react-icons/gr";
 import { useEffect, useRef } from 'react';
 import { useState } from "react";
 import { listSchedules } from "../../service/DoctorScheduleServices";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 
 function SchedulePage() {
   const divRef = useRef(null);
   const bottomRef = useRef(null);
+  const navigate = useNavigate();
 
   const [schedule,setSchedule]= useState([]);
+  const handleAddNewClick = () => {
+    navigate('/AddDoctorSchedule');
+  };
+  
+
+  const handleEdit = (scheduleItem) => {
+    console.log(scheduleItem);
+
+    const id = scheduleItem.sid;
+    console.log(id);
+
+    navigate('/EditSchedule', { state: { id } });
+  };
+  
+  
 
   useEffect(() => {
-    const drRegNo = 6;
+    const drRegNo = localStorage.getItem("regNo");
     const toastId = 'unique-toast-id';
     listSchedules(drRegNo)
       .then((response) => {
-        console.log(response.data); // Check the data structure
+        console.log(response.data); 
         setSchedule(response.data);
         if (!toast.isActive(toastId)) {
           // toast.success('Registration successful!', { toastId });
@@ -35,15 +52,30 @@ function SchedulePage() {
       });
   }, []);
 
+  
+  const handleDelete = (sId) => {
+    axios.delete(`http://localhost:8080/api/v1/schedule/delete?id=${sId}`)
+      .then(() => {
+        toast.success('Patient deleted successfully!');
+        setSchedule(schedule.filter((schedule) => schedule.sId !== sId));
+      })
+      .catch((error) => {
+        console.error(error);
+        toast.error('Failed to delete Patient.');
+      });
+  };
+
+
 
 
   return (
     <div className="flex flex-col px-10 pt-10">
       <ToastContainer/>
+
       <div className="flex flex-row justify-between w-full">
         {/* Greeting message */}
         <div className="flex flex-col">
-          <div className="text-3xl font-bold text-[#00394C]">Today Schedule List</div>
+          <div className="text-3xl font-bold text-[#00394C]">Today Schedule Details</div>
         </div>
 
         {/* Buttons */}
@@ -69,8 +101,12 @@ function SchedulePage() {
 
       </div>
 
+      <div className="flex flex-row items-center justify-end w-full h-[45px]">
+        <button className="w-[150px] h-full bg-[#007F6D] mt-10 rounded-lg text-white font-semibold" onClick={handleAddNewClick}>Add New +</button>
+      </div>
+
       {/* Search bar */}
-      <div className="flex flex-row items-center gap-6 pt-10">
+      {/* <div className="flex flex-row items-center gap-6 pt-10">
         <input
           type="text"
           placeholder="Search Patients..."
@@ -82,7 +118,7 @@ function SchedulePage() {
         >
           Search
         </button>
-      </div>
+      </div> */}
      
 
       {/* Schedule List */}
@@ -91,7 +127,7 @@ function SchedulePage() {
         <div className="flex flex-col  w-full h-full bg-[#E6F2F6] rounded-xl px-4 py-4">
           <div
             ref={divRef}
-            style={{ overflowY: 'scroll', height: '480px' }}
+            style={{ overflowY: 'scroll', height: '560px' }}
           >
 
 
@@ -137,7 +173,11 @@ function SchedulePage() {
                       </div>
                     </div>
 
-                    <GrNext />
+                    <div className="flex flex-row gap-5">
+                      <button className="px-10 rounded-lg text-white text-sm font-medium py-2 bg-[#005F7E]"  onClick={() => handleEdit(scheduleItem)}>Edit</button>
+                      <button className="px-10 rounded-lg text-white text-sm font-medium py-2 bg-[#FF6464]"
+                       onClick={() => handleDelete(scheduleItem.sid)}>Delete</button>
+                    </div>
                   </div>
                 ))
               ) : (

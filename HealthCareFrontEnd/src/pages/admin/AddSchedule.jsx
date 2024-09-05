@@ -1,5 +1,7 @@
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { useNavigate } from 'react-router-dom';
+import { useState } from "react";
+import axios from 'axios';
 
 
 function AddSchedule() {
@@ -8,6 +10,37 @@ function AddSchedule() {
     const handleAddNewClick = () => {
         navigate('/AdminSideBar');
     };
+
+
+    const [formData, setFormData] = useState({
+        drRegNo: '',
+        date: '',
+        start: "",
+        end: "",
+        roomNo: "",
+    });
+    const handleChange = async (event) => {
+        const { name, value } = event.target;
+        setFormData({ ...formData, [name]: value });
+    }
+
+    const REST_API_BASE_URL = `http://localhost:8088/api/v1/schedule/save`;
+
+
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+
+        const updatedFormData = { ...formData }
+
+        try {
+            const response = await axios.post(REST_API_BASE_URL, updatedFormData);
+            console.log("API response:", response);
+            alert("Successfully Registered!");
+        } catch (error) {
+            console.error("There was an error making the request:", error);
+        }
+    }
 
     return (
         <div className="flex flex-col items-center justify-center w-full h-[700px] py-10 bg-white">
@@ -22,6 +55,8 @@ function AddSchedule() {
             {/* Details Pages */}
             <div className="w-11/12 h-[800px] bg-[#c9e2eb] rounded-lg px-10 py-10 flex flex-col">
 
+                <form onSubmit={handleSubmit}>
+
                 {/* Text Boxes */}
                 <div className="flex flex-col items-center gap-5 pt-10">
                     {/* Input Row */}
@@ -30,43 +65,63 @@ function AddSchedule() {
                             <div className="text-normal text-[#1b5f75] font-semibold">Room number</div>
                             <input type="text"
                                 placeholder="First name..."
-                                className="px-4 py-2 bg-[#f1f1f1] text-gray-800 text-sm w-[400px] h-[45px] rounded-md focus:outline-none focus:ring-1 focus:ring-[#00394C]" />
+                                className="px-4 py-2 bg-[#f1f1f1] text-gray-800 text-sm w-[400px] h-[45px] rounded-md focus:outline-none focus:ring-1 focus:ring-[#00394C]" 
+                                    name="roomNo"
+                                    value={formData.roomNo}
+                                    onChange={handleChange}
+                                />
                         </div>
 
 
                         <div className="flex flex-col gap-1">
-                            <div className="text-normal text-[#1b5f75] font-semibold">Doctor name</div>
+                            <div className="text-normal text-[#1b5f75] font-semibold">Doctor Registration Number</div>
                             <input type="text"
-                                placeholder="Second name..."
-                                className="px-4 py-2 bg-[#f1f1f1] text-gray-800 text-sm w-[400px] h-[45px] rounded-md focus:outline-none focus:ring-1 focus:ring-[#00394C]" />
+                                placeholder="Doctor Registration number..."
+                                className="px-4 py-2 bg-[#f1f1f1] text-gray-800 text-sm w-[400px] h-[45px] rounded-md focus:outline-none focus:ring-1 focus:ring-[#00394C]" 
+                                    name="drRegNo"
+                                    value={formData.drRegNo}
+                                    onChange={handleChange}
+                                />
                         </div>
                     </div>
 
                     {/* Input Row */}
                     <div className="flex flex-row gap-16">
                         <div className="flex flex-col gap-1">
-                            <div className="text-normal text-[#1b5f75] font-semibold">Time Period</div>
+                            <div className="text-normal text-[#1b5f75] font-semibold">Start Time</div>
                             <input type="time"
-                                placeholder="Registration number..."
-                                className="px-4 py-2 bg-[#f1f1f1] text-gray-800 text-sm w-[400px] h-[45px] rounded-md focus:outline-none focus:ring-1 focus:ring-[#00394C]" />
+                                placeholder="Start time..."
+                                className="px-4 py-2 bg-[#f1f1f1] text-gray-800 text-sm w-[400px] h-[45px] rounded-md focus:outline-none focus:ring-1 focus:ring-[#00394C]" 
+                                    name="start"
+                                    value={formData.start}
+                                    onChange={handleChange}
+                                />
                         </div>
 
 
                         <div className="flex flex-col gap-1">
-                            <div className="text-normal text-[#1b5f75] font-semibold">Date</div>
-                            <input type="date"
-                                placeholder="NIC number..."
-                                className="px-4 py-2 bg-[#f1f1f1] text-gray-800 text-sm w-[400px] h-[45px] rounded-md focus:outline-none focus:ring-1 focus:ring-[#00394C]" />
+                            <div className="text-normal text-[#1b5f75] font-semibold">End Time</div>
+                            <input type="time"
+                                placeholder="End time..."
+                                className="px-4 py-2 bg-[#f1f1f1] text-gray-800 text-sm w-[400px] h-[45px] rounded-md focus:outline-none focus:ring-1 focus:ring-[#00394C]" 
+                                    name="end"
+                                    value={formData.end}
+                                    onChange={handleChange}
+                                />
                         </div>
                     </div>
 
                     {/* Input Row */}
                     <div className="flex flex-row justify-center w-full gap-16">
                         <div className="flex flex-col gap-1">
-                            <div className="text-normal text-[#1b5f75] font-semibold">Specific Area</div>
-                            <input type="text"
-                                placeholder="Age..."
-                                className="px-4 py-2 bg-[#f1f1f1] text-gray-800 text-sm w-[860px] h-[50px] rounded-md focus:outline-none focus:ring-1 focus:ring-[#00394C]" />
+                            <div className="text-normal text-[#1b5f75] font-semibold">Date</div>
+                            <input type="date"
+                                placeholder="Date..."
+                                className="px-4 py-2 bg-[#f1f1f1] text-gray-800 text-sm w-[860px] h-[50px] rounded-md focus:outline-none focus:ring-1 focus:ring-[#00394C]" 
+                                    name="date"
+                                    value={formData.date}
+                                    onChange={handleChange}
+                                />
                         </div>
                     </div>
 
@@ -77,6 +132,8 @@ function AddSchedule() {
                         </div>
                     </div>
                 </div>
+
+                </form>
 
 
             </div>

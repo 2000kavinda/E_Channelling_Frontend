@@ -9,10 +9,20 @@ import PatientsList from "./PatientsList";
 import DoctorList from "./DoctorList";
 import LabPersonList from "./LabPersonList";
 import ScheduleList from "./ScheduleList";
+import { useNavigate } from 'react-router-dom';
 
 function AdminSideBar() {
 
     const [activePage, setActivePage] = useState('dashboard');
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        // Clear local storage
+        localStorage.clear();
+
+        // Navigate to the sign-in page
+        navigate('/SignIn');
+    };
     
     return (
         <div className="flex flex-row flex-1 w-screen h-screen">
@@ -78,7 +88,8 @@ function AdminSideBar() {
 
                 {/* Log out Button */}
                 <div className='flex flex-col items-center justify-end w-full h-full'>
-                    <button className='w-full flex flex-row h-[60px] border-top border-[#D9D9D9] border-t-2 justify-center items-center text-white font-semibold hover:bg-[#E6F2F6] hover:text-[#00394C]'>
+                    <button className='w-full flex flex-row h-[60px] border-top border-[#D9D9D9] border-t-2 justify-center items-center text-white font-semibold hover:bg-[#E6F2F6] hover:text-[#00394C]'
+                        onClick={handleLogout}>
                         <div className='w-8'><TbLogout2 className='w-6 h-6' /></div>
                         <div className='pl-2 text-lg'>Logout</div>
 
