@@ -27,6 +27,7 @@ import EditLabPerson from './pages/admin/EditLabPerson';
 import PatientDetailsPage from './pages/doctor/PatientDetailsPage';
 import SideBarLabPerson from './pages/labPerson/SideBarLabPerson';
 import MedicalDashboard from './pages/patients/PatientDashboard';
+import PatientLabDashboard from './pages/patients/PatientLabDashboard';
 
 function App() {
 
@@ -63,6 +64,7 @@ function App() {
           <Route path='/PatientDetailsPage' element={<PatientDetailsPage />} />
           <Route path='/SideBarLabPerson' element={<SideBarLabPerson />} />
           <Route path='/MedicalDashboard' element={<MedicalDashboard />} />
+          <Route path='/PatientLabDashboard' element={<PatientLabDashboard/>}/>
 
         </Routes>
 
