@@ -22,7 +22,7 @@ function LabPersonList() {
     };
 
     const handleDelete = (lPRegNo) => {
-        axios.delete(`http://localhost:8080/api/v1/labperson/delete?lPRegNo=${lPRegNo}`)
+        axios.delete(`http://localhost:8088/api/v1/labperson/delete?lPRegNo=${lPRegNo}`)
             .then(() => {
                 toast.success('Doctor deleted successfully!');
                 setLabPerson(labPerson.filter((labPerson) => labPerson.lPRegNo !== lPRegNo));
