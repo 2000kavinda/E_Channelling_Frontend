@@ -136,10 +136,10 @@ function PatientsListPage() {
                   >
                     <div className="flex flex-row gap-5">
                       <div className="flex w-[70px] h-[70px] bg-black rounded-full">
-                        <img src={patientsItem.profileImage} alt="ProfileImage" className="w-full h-full" />
+                        <img src={patientsItem.profileImage} alt="ProfileImage" className="w-full h-full rounded-full" />
                       </div>
                       <div className="flex flex-col">
-                        <div className="text-lg font-semibold text-[#666767]">{patientsItem.pName}</div>
+                        <div className="flex flex-row gap-4 text-lg font-bold text-[#666767]">{patientsItem.pName}</div>
                         <div className="flex flex-row gap-4 text-sm text-[#666767]">
                           <div className="flex flex-row">
                             <div className="pr-1">Age: </div>
