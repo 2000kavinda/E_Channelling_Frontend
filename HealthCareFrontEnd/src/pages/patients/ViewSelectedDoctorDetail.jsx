@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getDoctorDetails } from '../../service/pDoctorDeatilService';
+import NavBar from '../../components/header/NavBar';
 
 const DoctorDetails = () => {
     const [doctor, setDoctor] = useState(null);
@@ -17,6 +18,8 @@ const DoctorDetails = () => {
     }
 
     return (
+        <div className='flex flex-col w-screen h-full'>
+        <NavBar/>
         
         <div style={styles.container}>
             <img src={doctor.profilepic} alt="Doctor Profile" style={styles.profilePic} />
@@ -31,6 +34,7 @@ const DoctorDetails = () => {
             <p>Email: {doctor.email}</p>
             <p>Phone: {doctor.phone}</p>
             <p>Office Address: {doctor.address}</p>
+        </div>
         </div>
     );
 };

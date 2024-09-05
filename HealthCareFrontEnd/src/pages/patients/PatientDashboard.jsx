@@ -1,4 +1,5 @@
 import axios from 'axios';
+import NavBar from '../../components/header/NavBar';
 
 const REST_API_BASE_URL = "http://localhost:8080";
 
@@ -105,6 +106,8 @@ function MedicalDashboard() {
   };
 
   return (
+    <div className='flex flex-col w-screen h-full'>
+        <NavBar/>
     <div className="flex flex-col items-center p-6 bg-gray-100 min-h-screen">
       {/* Profile section */}
       <div className="flex items-center space-x-6 mb-8">
@@ -258,6 +261,7 @@ function MedicalDashboard() {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 }

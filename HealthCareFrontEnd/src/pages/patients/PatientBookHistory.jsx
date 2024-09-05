@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { fetchAllAppointments } from '../../service/PBookingService';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import NavBar from '../../components/header/NavBar';
 
 function PatientBookHistory() {
   const [appointments, setAppointments] = useState([]);
@@ -44,6 +45,8 @@ function PatientBookHistory() {
   }, []);
 
   return (
+    <div className='flex flex-col w-screen h-full'>
+        <NavBar/>
     <div className="flex flex-col p-10">
       <ToastContainer />
       <div className="flex justify-between items-center w-full">
@@ -137,6 +140,7 @@ function PatientBookHistory() {
           )}
         </div>
       </div>
+    </div>
     </div>
   );
 }
