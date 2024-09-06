@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../../assets/Images/Logo.png';
+import { useNavigate } from 'react-router-dom';
 
 function HomeNavBar() {
     const [openDropdown, setOpenDropdown] = useState(null);
     const [activeLink, setActiveLink] = useState('Home');
+    const navigate = useNavigate();
 
     const toggleDropdown = (dropdown) => {
         setOpenDropdown(openDropdown === dropdown ? null : dropdown);
@@ -13,6 +15,11 @@ function HomeNavBar() {
     const handleLinkClick = (link) => {
         setActiveLink(link);
     };
+
+    const handleAddNewClick = () => {
+        navigate('/AdminSideBar');
+    };
+
 
     return (
         <div className='sticky top-0 z-50 w-screen'>
@@ -62,7 +69,7 @@ function HomeNavBar() {
                     </button>
 
                     <div className='relative'>
-                        <button className='px-8 rounded-lg py-2 bg-[#005F7E] font-bold h-12 text-white' onClick={() => toggleDropdown('Select')}>
+                        <button className='px-8 rounded-lg py-2 bg-[#005F7E] font-bold h-12 text-white' onClick={handleAddNewClick}>
                             Sign in
                         </button>
                     </div>
