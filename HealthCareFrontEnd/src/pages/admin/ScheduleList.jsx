@@ -82,11 +82,13 @@ function ScheduleList() {
         }
     };
 
-    const handleDelete = (sId) => {
-        axios.delete(`http://localhost:8080/api/v1/schedule/delete?id=${sId}`)
+    const handleDelete = (scheduleItem) => {
+        const sid = scheduleItem.sid;
+        console.log(sid);
+        axios.delete(`http://localhost:8080/api/v1/schedule/delete?id=${sid}`)
             .then(() => {
                 toast.success('Schedule deleted successfully!');
-                setSchedule(schedule.filter((schedule) => schedule.sId !== sId));
+                setSchedule(schedule.filter((schedule) => schedule.sid !== sid));
             })
             .catch((error) => {
                 console.error(error);
@@ -178,8 +180,8 @@ function ScheduleList() {
                                             {/* Patient Details */}
                                             <div className="flex flex-col">
                                                 <div className="text-lg font-semibold text-[#666767] flex flex-row gap-2">
-                                                    <div>Room No:</div>
-                                                    {scheduleItem.roomNo}
+                                                    <div>Doctor Name:</div>
+                                                    {scheduleItem.drName}
                                                 </div>
                                                 <div className="flex flex-row gap-4 text-sm text-[#666767]">
                                                     <div className="flex flex-row">
@@ -202,7 +204,7 @@ function ScheduleList() {
 
                                         <div className="flex flex-row gap-5">
                                             <button className="px-10 rounded-lg text-white text-sm font-medium py-2 bg-[#005F7E]" onClick={() => handleEdit(scheduleItem)}>Edit</button>
-                                            <button className="px-10 rounded-lg text-white text-sm font-medium py-2 bg-[#FF6464]" onClick={() => handleDelete(scheduleItem.sId)}>Delete</button>
+                                            <button className="px-10 rounded-lg text-white text-sm font-medium py-2 bg-[#FF6464]" onClick={() => handleDelete(scheduleItem)}>Delete</button>
                                         </div>
                                     </div>
                                 ))
