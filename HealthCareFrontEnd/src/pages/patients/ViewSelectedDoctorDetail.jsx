@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getDoctorDetails } from '../../service/pDoctorDeatilService';
 import NavBar from '../../components/header/NavBar';
-
+import selecteddoctor from '../../assets/Images/selecteddoctor.png';
 const DoctorDetails = () => {
     const [doctor, setDoctor] = useState(null);
 
@@ -20,6 +20,10 @@ const DoctorDetails = () => {
     return (
         <div className='flex flex-col w-screen h-full'>
         <NavBar/>
+         {/* Add the image here */}
+<div className="flex justify-center mt-6">
+<img src={selecteddoctor} alt="Doctor Booking Details" className="w-full h-auto"/>
+</div>
         
         <div style={styles.container}>
             <img src={doctor.profilepic} alt="Doctor Profile" style={styles.profilePic} />

@@ -5,7 +5,7 @@ import { bookAppointment } from '../../service/PAppointmentService';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import NavBar from '../../components/header/NavBar';
-
+import Appoinmentpic from '../../assets/Images/Appoinmentpic.png';
 function AppointmentForm() {
     // State variables for form fields
     const [doctorID, setDoctorID] = useState("");
@@ -98,6 +98,10 @@ function AppointmentForm() {
     return (
         <div className='flex flex-col w-screen h-full'>
         <NavBar/>
+        {/* Add the image here */}
+<div className="flex justify-center mt-6">
+<img src={Appoinmentpic} alt="Doctor Booking Details" className="w-full h-auto"/>
+</div>
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
             <ToastContainer />
              {/* Updated Header Section */}
