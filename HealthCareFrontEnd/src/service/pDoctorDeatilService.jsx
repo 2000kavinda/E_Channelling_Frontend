@@ -1,6 +1,8 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8090/api/doctor-details/17';
+const drRegNo = localStorage.getItem("drR");
+
+const API_URL = `http://localhost:8090/api/doctor-details/${drRegNo}`;
 
 export const getDoctorDetails = () => {
     return axios.get(API_URL)

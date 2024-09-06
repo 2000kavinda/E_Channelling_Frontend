@@ -35,6 +35,7 @@ import AboutUs from './pages/home/AboutUs';
 import ContactUs from './pages/home/ContactUs';
 import HomePageInner from './pages/home/HomePageInner';
 import BookAnAppointment from './pages/patients/BookAnAppoinment';
+import DoctorDetails from './pages/patients/ViewSelectedDoctorDetail';
 // import Chat from './components/chat/chat';
 
 function App() {
@@ -80,6 +81,7 @@ function App() {
           <Route path='/ContactUs' element={<ContactUs />} />
           <Route path='/HomePageInner' element={<HomePageInner />} />
           <Route path='/BookAnAppointment' element={<BookAnAppointment />} />
+          <Route path='/DoctorDetails' element={<DoctorDetails />} />
 
         </Routes>
 

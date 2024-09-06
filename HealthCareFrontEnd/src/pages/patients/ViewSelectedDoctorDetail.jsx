@@ -2,43 +2,53 @@ import React, { useEffect, useState } from 'react';
 import { getDoctorDetails } from '../../service/pDoctorDeatilService';
 import NavBar from '../../components/header/NavBar';
 import selecteddoctor from '../../assets/Images/selecteddoctor.png';
+import { useLocation } from 'react-router-dom';
+
 const DoctorDetails = () => {
-    const [doctor, setDoctor] = useState(null);
+    const location = useLocation();
+    const { doctor } = location.state || {};
+    const [doctors, setDoctors] = useState(null);
+
+    // Log to check if doctor is coming from location.state
+    console.log("Doctor from location:", doctor);
+
+    localStorage.setItem("drR", doctor?.drRegNo);
 
     useEffect(() => {
         getDoctorDetails()
-            .then(data => setDoctor(data))
+            .then(data => {
+                console.log("Doctor Details Data:", data); // Check what data is returned
+                setDoctors(data);
+            })
             .catch(error => console.error(error));
     }, []);
 
-    if (!doctor) {
-        return <div>Loading...
-            
-        </div>;
+    // Check for both doctor and doctors before rendering
+    if (!doctor || !doctors) {
+        return <div>Loading...</div>;
     }
 
     return (
         <div className='flex flex-col w-screen h-full'>
-        <NavBar/>
-         {/* Add the image here */}
-<div className="flex justify-center mt-6">
-<img src={selecteddoctor} alt="Doctor Booking Details" className="w-full h-auto"/>
-</div>
-        
-        <div style={styles.container}>
-            <img src={doctor.profilepic} alt="Doctor Profile" style={styles.profilePic} />
-            <h1 style={styles.name}>{doctor.name}</h1>
-            <h2 style={styles.specialization}>{doctor.specialization.toUpperCase()}</h2>
-            <h3 style={styles.regNo}>Reg No {doctor.doctorRegNo}</h3>
-            <div style={styles.sectionTitle}>Biography</div>
-            <p style={styles.biography}>{doctor.biography}</p>
-            <div style={styles.sectionTitle}>Credentials</div>
-            <p style={styles.credentials}>{doctor.credentials}</p>
-            <div style={styles.sectionTitle}>Contact Information</div>
-            <p>Email: {doctor.email}</p>
-            <p>Phone: {doctor.phone}</p>
-            <p>Office Address: {doctor.address}</p>
-        </div>
+            <NavBar />
+            <div className="flex justify-center mt-6">
+                <img src={selecteddoctor} alt="Doctor Booking Details" className="w-full h-auto" />
+            </div>
+
+            <div style={styles.container}>
+                <img src={doctors.profilepic} alt="Doctor Profile" style={styles.profilePic} />
+                <h1 style={styles.name}>{doctors.name}</h1>
+                <h2 style={styles.specialization}>{doctors.specialization?.toUpperCase()}</h2>
+                <h3 style={styles.regNo}>Reg No {doctors.doctorRegNo}</h3>
+                <div style={styles.sectionTitle}>Biography</div>
+                <p style={styles.biography}>{doctors.biography}</p>
+                <div style={styles.sectionTitle}>Credentials</div>
+                <p style={styles.credentials}>{doctors.credentials}</p>
+                <div style={styles.sectionTitle}>Contact Information</div>
+                <p>Email: {doctors.email}</p>
+                <p>Phone: {doctors.phone}</p>
+                <p>Office Address: {doctors.address}</p>
+            </div>
         </div>
     );
 };
