@@ -95,7 +95,7 @@ function LabAppointment() {
             setUrl(downloadURL);
             // Prepare data for backend POST request
             const postData = {
-              pid: selectedService.pacientId, 
+              pid: selectedService.pacientId,
               serviceName: selectedService.service,
               pdflink: downloadURL,
               uploadpdfname: pdf.name,
@@ -168,8 +168,8 @@ function LabAppointment() {
           Search
         </button>
       </div>
- {/* Progress Bar */}
- {isUploading && (
+      {/* Progress Bar */}
+      {isUploading && (
         <div className="flex flex-col items-center mt-4">
           <div className="text-sm text-gray-700">Uploading: {uploadProgress}%</div>
           <div className="w-full bg-gray-200 rounded-full mt-2">
@@ -194,15 +194,10 @@ function LabAppointment() {
                   <div className="flex flex-col">
                     <div className="text-lg font-semibold text-[#666767]">{service.name}</div>
                     <div className="flex flex-row gap-9 text-sm text-[#666767]">
-                      <div className="flex flex-row">
-                        <div className="pr-1">Email: </div>
-                        <div>{service.email}</div>
-                      </div>
-
-                      <div className="flex flex-row">
-                        <div className="pr-1">Service: </div>
-                        <div>{service.service}</div>
-                      </div>
+                    <div className="flex flex-row">
+                      <div className="pr-1 font-semibold text-[#666767]">Service: </div>
+                      <div className=" font-semibold text-[#666767]">{service.service}</div>
+                    </div>
                       <div className="flex flex-row">
                         <div className="pr-1">Time: </div>
                         <div>{service.time}</div>
@@ -217,13 +212,21 @@ function LabAppointment() {
                       <div className="pr-1">Appointment No: </div>
                       <div>{service.appointmentNumber}</div>
                     </div>
-                    <div className="flex flex-row">
+                    <div className="flex flex-row gap-9 text-sm text-[#666767]">
+                      <div className="flex flex-row">
                         <div className="pr-1">Contact: </div>
-                        <div>{service.contactNumber}</div>
+                        <div>{service.contact}</div>
                       </div>
+                      
+                    <div className="flex flex-row">
+                        <div className="pr-1">Email: </div>
+                        <div>{service.email}</div>
+                      </div>
+                    </div>
+                    
                   </div>
                 </div>
-                
+
                 {/* Action buttons */}
                 <div className="flex flex-row gap-4">
                   {/* Upload Report button */}
@@ -259,7 +262,7 @@ function LabAppointment() {
         onChange={handleChange}
         accept=".pdf"
       />
- 
+
       <ToastContainer />
     </div>
   );

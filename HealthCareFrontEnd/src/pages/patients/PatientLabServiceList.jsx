@@ -53,7 +53,7 @@ function PatientLabServiceList() {
 
 
     return (
-        <div className="flex flex-col px-10 pt-10">
+        <div className="flex flex-col pt-10">
             <NavBar />
             {/* Image Section */}
             <div className="flex justify-center my-8">
