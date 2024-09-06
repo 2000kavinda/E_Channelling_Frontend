@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { viewNotification, deleteNotification as deleteNotificationService, editNotification as markNotificationAsReadService } from '../../service/NotificationService'; // Import services
+import { viewNotification, editNotification as markNotificationAsReadService } from '../../service/NotificationServiceAll'; 
 import NavBar from '../../components/header/NavBar';
-
 
 function PatientNotificationPage() {
   const [notifications, setNotifications] = useState([]);
@@ -27,7 +26,7 @@ function PatientNotificationPage() {
       // Find the notification to mark as read
       const notificationToUpdate = notifications.find(notification => notification.nid === id);
       if (notificationToUpdate && !notificationToUpdate.read) {
-        const updatedNotification = { ...notificationToUpdate, read: true }; // Update the 'read' field to true
+        const updatedNotification = { ...notificationToUpdate, read: true }; 
         
         // Send a PUT request to the backend to update the notification's read status
         const response = await markNotificationAsReadService(id, updatedNotification);
@@ -46,21 +45,10 @@ function PatientNotificationPage() {
     }
   };
 
-  // Function to delete a notification using the notification service
-  const deleteNotification = async (id) => {
-    try {
-      // Send a DELETE request to the backend to remove the notification
-      const response = await deleteNotificationService(id);
-
-      if (response.status === 200) {
-        // Remove the notification from the frontend
-        setNotifications(notifications.filter(notification => notification.nid !== id));
-      } else {
-        console.error('Failed to delete notification');
-      }
-    } catch (error) {
-      console.error('Error:', error);
-    }
+  // Function to delete a notification only on the frontend
+  const deleteNotification = (id) => {
+    // Remove the notification from the frontend by filtering it out from the state
+    setNotifications(notifications.filter(notification => notification.nid !== id));
   };
 
   // Function to load more notifications
@@ -89,144 +77,143 @@ function PatientNotificationPage() {
 
   return (
     <div className='flex flex-col w-screen h-full'>
-  
-  <NavBar/>
-    <div style={{ padding: '40px 20px' }}>
-      <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '20px' }}>
-        NOTIFICATION
-      </h2>
-      <div style={{
-        backgroundColor: 'black',
-        color: 'white',
-        padding: '15px 20px',
-        borderRadius: '4px',
-        display: 'flex',
-        alignItems: 'center',
-        marginBottom: '20px',
-      }}>
-        <h3 style={{ margin: 0, marginRight: '10px', fontSize: '20px' }}>Patient Notification</h3>
-        <span style={{ marginLeft: 'auto', fontSize: '16px' }}>🔔 {notifications.length}</span>
-      </div>
+      <NavBar/>
+      <div style={{ padding: '40px 20px' }}>
+        <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '20px' }}>
+          NOTIFICATION
+        </h2>
+        <div style={{
+          backgroundColor: 'black',
+          color: 'white',
+          padding: '15px 20px',
+          borderRadius: '4px',
+          display: 'flex',
+          alignItems: 'center',
+          marginBottom: '20px',
+        }}>
+          <h3 style={{ margin: 0, marginRight: '10px', fontSize: '20px' }}>Patient Notification</h3>
+          <span style={{ marginLeft: 'auto', fontSize: '16px' }}>🔔 {notifications.length}</span>
+        </div>
 
-      {notifications.slice(0, displayedNotifications).map(notification => (
-        <div 
-          key={notification.nid} 
-          style={{
-            border: '2px solid #ADD8E6',
+        {notifications.slice(0, displayedNotifications).map(notification => (
+          <div 
+            key={notification.nid} 
+            style={{
+              border: '2px solid #005F7E',
+              borderRadius: '8px',
+              padding: '20px',
+              marginBottom: '20px',
+              backgroundColor: notification.read ? '#FFFFFF' : '#f0f0f0', // White background if read
+              position: 'relative',
+              cursor: 'pointer'
+            }}
+            onClick={() => openModal(notification)} // Open the modal when the card is clicked
+          >
+            <p style={{
+              fontSize: '16px',
+              margin: 0,
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+              maxWidth: '80%',
+            }}>
+              {truncateMessage(notification.msg)} {/* Show only the first 7 words */}
+            </p>
+            <div style={{ position: 'absolute', top: '20px', right: '20px' }}>
+              <button onClick={(e) => { e.stopPropagation(); markAsRead(notification.nid); }} style={{
+                backgroundColor: '#005F7E',
+                color: 'white',
+                padding: '5px 10px',
+                border: 'none',
+                borderRadius: '4px',
+                marginRight: '10px',
+                fontSize: '14px',
+                cursor: 'pointer',
+              }}>
+                Mark as Read
+              </button>
+              <button onClick={(e) => { e.stopPropagation(); deleteNotification(notification.nid); }} style={{
+                backgroundColor: '#DC3545',
+                color: 'white',
+                padding: '5px 10px',
+                border: 'none',
+                borderRadius: '4px',
+                fontSize: '14px',
+                cursor: 'pointer',
+              }}>
+                Delete
+              </button>
+            </div>
+            <p style={{
+              marginTop: '10px',
+              fontSize: '12px',
+              color: '#888',
+            }}>
+              {new Date(notification.timeStamp).toLocaleString()} {/* Date and time inside the card */}
+            </p>
+          </div>
+        ))}
+
+        {notifications.length > displayedNotifications && (
+          <div style={{ textAlign: 'center', marginTop: '20px' }}>
+            <button onClick={loadMore} style={{
+              backgroundColor: '#005F7E',
+              color: 'white',
+              padding: '10px 20px',
+              border: 'none',
+              borderRadius: '4px',
+              fontSize: '16px',
+              cursor: 'pointer',
+            }}>
+              See More
+            </button>
+          </div>
+        )}
+
+        {/* Modal for viewing full notification */}
+        {isModalOpen && selectedNotification && (
+          <div style={{
+            position: 'fixed',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            backgroundColor: 'white',
+            border: '3px solid #ADD8E6',
             borderRadius: '8px',
             padding: '20px',
-            marginBottom: '20px',
-            backgroundColor: notification.read ? '#FFFFFF' : '#f0f0f0', // White background if read
-            position: 'relative',
-            cursor: 'pointer'
-          }}
-          onClick={() => openModal(notification)} // Open the modal when the card is clicked
-        >
-          <p style={{
-            fontSize: '16px',
-            margin: 0,
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            whiteSpace: 'nowrap',
-            maxWidth: '80%',
+            zIndex: 1000,
+            width: '40%',
+            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)'
           }}>
-            {truncateMessage(notification.msg)} {/* Show only the first 7 words */}
-          </p>
-          <div style={{ position: 'absolute', top: '20px', right: '20px' }}>
-            <button onClick={(e) => { e.stopPropagation(); markAsRead(notification.nid); }} style={{
-              backgroundColor: '#007BFF',
-              color: 'white',
-              padding: '5px 10px',
-              border: 'none',
-              borderRadius: '4px',
-              marginRight: '10px',
-              fontSize: '14px',
-              cursor: 'pointer',
-            }}>
-              Mark as Read
-            </button>
-            <button onClick={(e) => { e.stopPropagation(); deleteNotification(notification.nid); }} style={{
-              backgroundColor: '#DC3545',
-              color: 'white',
-              padding: '5px 10px',
-              border: 'none',
-              borderRadius: '4px',
-              fontSize: '14px',
-              cursor: 'pointer',
-            }}>
-              Delete
-            </button>
+            <h3>Notification Message</h3>
+            <p>{selectedNotification.msg}</p>
+            <div style={{ textAlign: 'right' }}>
+              <button onClick={closeModal} style={{
+                backgroundColor: '#DC3545', 
+                color: 'white',
+                padding: '10px 15px',
+                border: 'none',
+                borderRadius: '4px',
+                fontSize: '14px',
+                cursor: 'pointer',
+              }}>
+                Close
+              </button>
+            </div>
           </div>
-          <p style={{
-            marginTop: '10px',
-            fontSize: '12px',
-            color: '#888',
-          }}>
-            {new Date(notification.timeStamp).toLocaleString()} {/* Date and time inside the card */}
-          </p>
-        </div>
-      ))}
+        )}
 
-      {notifications.length > displayedNotifications && (
-        <div style={{ textAlign: 'center', marginTop: '20px' }}>
-          <button onClick={loadMore} style={{
-            backgroundColor: '#007BFF',
-            color: 'white',
-            padding: '10px 20px',
-            border: 'none',
-            borderRadius: '4px',
-            fontSize: '16px',
-            cursor: 'pointer',
-          }}>
-            See More
-          </button>
-        </div>
-      )}
-
-      {/* Modal for viewing full notification */}
-      {isModalOpen && selectedNotification && (
-        <div style={{
+        {/* Overlay to make the background darker when modal is open */}
+        {isModalOpen && <div style={{
           position: 'fixed',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          backgroundColor: 'white',
-          border: '3px solid #ADD8E6', // Baby blue border
-          borderRadius: '8px',
-          padding: '20px',
-          zIndex: 1000,
-          width: '40%',
-          boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)'
-        }}>
-          <h3>Notification Message</h3>
-          <p>{selectedNotification.msg}</p>
-          <div style={{ textAlign: 'right' }}>
-            <button onClick={closeModal} style={{
-              backgroundColor: '#DC3545', // Red close button
-              color: 'white',
-              padding: '10px 15px',
-              border: 'none',
-              borderRadius: '4px',
-              fontSize: '14px',
-              cursor: 'pointer',
-            }}>
-              Close
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* Overlay to make the background darker when modal is open */}
-      {isModalOpen && <div style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
-        zIndex: 999
-      }} onClick={closeModal}></div>}
-    </div>
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          zIndex: 999
+        }} onClick={closeModal}></div>}
+      </div>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { viewNotification, deleteNotification as deleteNotificationService, editNotification as markNotificationAsReadService } from '../../service/NotificationService'; // Import services
+import { viewNotification, editNotification as markNotificationAsReadService } from '../../service/NotificationServiceAll'; // Import services
 import NavBar from '../../components/header/NavBar'; 
 
 function LabPersonNotification() {
@@ -47,21 +47,10 @@ function LabPersonNotification() {
     }
   };
 
-  // Function to delete a notification using the notification service
-  const deleteNotification = async (id) => {
-    try {
-      // Send a DELETE request to the backend to remove the notification
-      const response = await deleteNotificationService(id);
-
-      if (response.status === 200) {
-        // Remove the notification from the frontend
-        setNotifications(notifications.filter(notification => notification.nid !== id));
-      } else {
-        console.error('Failed to delete notification');
-      }
-    } catch (error) {
-      console.error('Error:', error);
-    }
+  // Function to delete a notification only on the frontend
+  const deleteNotification = (id) => {
+    // Remove the notification from the frontend by filtering it out from the state
+    setNotifications(notifications.filter(notification => notification.nid !== id));
   };
 
   // Function to load more notifications
@@ -114,7 +103,7 @@ function LabPersonNotification() {
         <div 
           key={notification.nid} 
           style={{
-            border: '2px solid #ADD8E6',
+            border: '2px solid #005F7E',
             borderRadius: '8px',
             padding: '20px',
             marginBottom: '20px',
@@ -136,7 +125,7 @@ function LabPersonNotification() {
           </p>
           <div style={{ position: 'absolute', top: '20px', right: '20px' }}>
             <button onClick={(e) => { e.stopPropagation(); markAsRead(notification.nid); }} style={{
-              backgroundColor: '#007BFF',
+              backgroundColor: '#005F7E',
               color: 'white',
               padding: '5px 10px',
               border: 'none',
@@ -193,7 +182,7 @@ function LabPersonNotification() {
           left: '50%',
           transform: 'translate(-50%, -50%)',
           backgroundColor: 'white',
-          border: '3px solid #ADD8E6', // Baby blue border
+          border: '3px solid #005F7E', 
           borderRadius: '8px',
           padding: '20px',
           zIndex: 1000,
@@ -204,7 +193,7 @@ function LabPersonNotification() {
           <p>{selectedNotification.msg}</p>
           <div style={{ textAlign: 'right' }}>
             <button onClick={closeModal} style={{
-              backgroundColor: '#DC3545', // Red close button
+              backgroundColor: '#DC3545', 
               color: 'white',
               padding: '10px 15px',
               border: 'none',

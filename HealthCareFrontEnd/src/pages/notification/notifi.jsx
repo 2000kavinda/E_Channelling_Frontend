@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
-import { createNotification } from '../../service/NotificationService'; 
+import { createNotification } from '../../service/NotificationServiceAll'; 
 import NavBar from '../../components/header/NavBar';
 
 function Notifi() {
@@ -68,7 +68,7 @@ function Notifi() {
       </h3>
 
       <div style={{
-        border: '2px solid #ADD8E6',
+        border: '2px solid #005F7E',
         borderRadius: '8px',
         padding: '30px',
         backgroundColor: '#f0f0f0',
@@ -93,7 +93,7 @@ function Notifi() {
           type="text"
           value={patientCode}
           onChange={(e) => setPatientCode(e.target.value)}
-          placeholder="Enter Patient Code"
+          placeholder="Enter Patient/Lab/Doctor Code"
           style={{
             width: '100%',
             padding: '10px',
@@ -121,7 +121,7 @@ function Notifi() {
 
       <div style={{ textAlign: 'center', marginTop: '20px' }}>
         <button onClick={handleCreateNotification} style={{
-          backgroundColor: '#007BFF',
+          backgroundColor: '#005F7E',
           color: 'white',
           padding: '10px 20px',
           border: 'none',

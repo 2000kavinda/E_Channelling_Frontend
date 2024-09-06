@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { viewNotification, deleteNotification, editNotification } from '../../service/NotificationService'; // Import necessary services
+import { viewNotification, deleteNotification, editNotification } from '../../service/NotificationServiceAll'; 
+
 import NavBar from '../../components/header/NavBar'; 
 
 function NotificationList() {
@@ -106,7 +107,7 @@ function NotificationList() {
         ) : (
           notifications.map(notification => (
             <div key={notification.nid} style={{
-              border: '2px solid #ADD8E6',
+              border: '2px solid #005F7E',
               borderRadius: '8px',
               padding: '20px',
               marginBottom: '20px',
@@ -129,7 +130,7 @@ function NotificationList() {
               </p>
               <div style={{ position: 'absolute', top: '20px', right: '20px' }}>
                 <button onClick={() => handleEditNotification(notification)} style={{
-                  backgroundColor: '#007BFF',
+                  backgroundColor: '#005F7E',
                   color: 'white',
                   padding: '5px 10px',
                   border: 'none',
@@ -165,7 +166,7 @@ function NotificationList() {
           left: '50%',
           transform: 'translate(-50%, -50%)',
           backgroundColor: 'white',
-          border: '3px solid #ADD8E6', // Baby blue border
+          border: '3px solid #005F7E', 
           borderRadius: '8px',
           padding: '20px',
           zIndex: 1000,
@@ -181,7 +182,7 @@ function NotificationList() {
           />
           <div style={{ textAlign: 'right' }}>
             <button onClick={handleUpdateNotification} style={{
-              backgroundColor: '#007BFF', // Blue update button
+              backgroundColor: '#005F7E', 
               color: 'white',
               padding: '10px 15px',
               border: 'none',
@@ -193,7 +194,7 @@ function NotificationList() {
               Update
             </button>
             <button onClick={handleCancel} style={{
-              backgroundColor: '#DC3545', // Red cancel button
+              backgroundColor: '#DC3545', 
               color: 'white',
               padding: '10px 15px',
               border: 'none',
