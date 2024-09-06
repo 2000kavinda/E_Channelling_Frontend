@@ -30,6 +30,7 @@ import MedicalDashboard from './pages/patients/PatientDashboard';
 import PatientLabDashboard from './pages/patients/PatientLabDashboard';
 import HomePage from './pages/home/HomePage';
 import Footer from './components/footer/Footer';
+import HomeNavBar from './components/header/HomeNavBar';
 // import Chat from './components/chat/chat';
 
 function App() {
@@ -40,7 +41,7 @@ function App() {
       <Router>
         <Routes>
 
-          <Route exact path='/' element={<HomePage />} />
+          <Route exact path='/' element={<HomeNavBar />} />
           <Route path='/' element={<SignIn />} />
           <Route path='/DrAdmin' element={<DrAdmin />} />
           <Route path='/AddSchedule' element={<AddSchedule />} />
@@ -69,6 +70,8 @@ function App() {
           <Route path='/MedicalDashboard' element={<MedicalDashboard />} />
           <Route path='/PatientLabDashboard' element={<PatientLabDashboard/>}/>
           <Route path='/Footer' element={<Footer />} />
+          <Route path='/HomePage' element={<HomePage />} />
+          <Route path='/HomeNavBar' element={<HomeNavBar />} />
 
         </Routes>
 

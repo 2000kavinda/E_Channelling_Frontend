@@ -20,13 +20,15 @@ import { GiDna2 } from "react-icons/gi";
 import { GiBrain } from "react-icons/gi";
 import Footer from '../../components/footer/Footer.jsx';
 import Chat from '../../components/chat/chat.jsx';
+import HomeNavBar from '../../components/header/HomeNavBar.jsx';
 
 function HomePage() {
 
   
 
   return (
-    <div className="flex flex-col w-screen pt-24">
+    <div className="flex flex-col w-screen">
+    <HomeNavBar/>
 
         {/* Banner */}
           <div className="flex flex-row w-full h-[600px] bg-gradient-to-r from-[#79B4AD] to-[#E6F6F4] pt-10 px-20 overflow-hidden">
@@ -46,7 +48,7 @@ function HomePage() {
               <div className='text-base font-semibold mt-4 text-[#767777] w-2/3 text-center'>Maintaining good health is essential for a balanced life</div>
               {/* Icon slider start */}
               <div className="justify-center hidden ml-10 mr-10 bg-white sm:grid lg:flex md:w-[1440px] mt-20">
-                  <Marquee direction="left" speed={20} gradient gradientColor="white" className='mb-8'>
+                  <Marquee direction="left" speed={20} gradient gradientColor="white" className='z-20 mb-8'>
 
                       <img src={Image1} alt="" className="w-32 h-32 mx-8" />
                       <img src={Image2} alt="" className="w-32 h-32 mx-8" />

@@ -19,14 +19,14 @@ function NavBar() {
 
     <div className='sticky top-0 w-screen '>
       {/* navigation bar */}
-      <div className=' bg-white flex flex-row items-center justify-between w-screen h-20 px-10 shadow-lg'>
+      <div className='flex flex-row items-center justify-between w-screen h-20 px-10 bg-white shadow-lg '>
 
         <div className='flex flex-row justify-center h-full px-5 py-2 bg-white'>
           <img src={logo} alt='logo icon' className='rounded-lg' />
         </div>
         <div className='flex flex-row items-center justify-start h-full gap-4 text-lg font-semibold bg-white'>
           <Link
-            to="#"
+            to="/HomePage"
             className={`px-2 py-2 no-underline ${activeLink === 'Home' ? 'text-[#005F7E]' : 'text-gray-800'
               } hover:text-[#005F7E]`}
             onClick={() => handleLinkClick('Home')}
