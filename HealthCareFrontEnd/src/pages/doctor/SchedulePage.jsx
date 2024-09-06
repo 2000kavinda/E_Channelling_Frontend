@@ -2,43 +2,48 @@ import { IoNotificationsOutline } from "react-icons/io5";
 import { FaQuestion } from "react-icons/fa6";
 import { IoSettingsOutline } from "react-icons/io5";
 import DoctorPicture from '../../assets/Images/Ellipse34.png';
-import { useEffect, useRef } from 'react';
-import { useState } from "react";
+import { useEffect, useRef, useState } from 'react';
 import { listSchedules } from "../../service/DoctorScheduleServices";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-
+import LoadingSpinner from '../../components/loadingSpinner/LoadingSpinner'; // Import the LoadingSpinner component
 
 function SchedulePage() {
   const divRef = useRef(null);
   const bottomRef = useRef(null);
   const navigate = useNavigate();
 
-  const [schedule,setSchedule]= useState([]);
+  const [schedule, setSchedule] = useState([]);
+  const [loading, setLoading] = useState(false);
+
   const handleAddNewClick = () => {
-    navigate('/AddDoctorSchedule');
+    setLoading(true); // Set loading state to true
+    // Navigate to the AddDoctorSchedule page
+    setTimeout(() => {
+      navigate('/AddDoctorSchedule');
+      setLoading(false); // Set loading state to false after navigation
+    }, 1000); // Simulate a delay for demonstration
   };
-  
 
   const handleEdit = (scheduleItem) => {
-    console.log(scheduleItem);
+    setLoading(true); // Set loading state to true
 
     const id = scheduleItem.sid;
-    console.log(id);
 
-    navigate('/EditSchedule', { state: { id } });
+    // Simulate a delay before navigation
+    setTimeout(() => {
+      setLoading(false); // Set loading state to false
+      navigate('/EditSchedule', { state: { id } });
+    }, 1000); // Adjust the delay as needed
   };
-  
-  
 
   useEffect(() => {
     const drRegNo = localStorage.getItem("regNo");
     const toastId = 'unique-toast-id';
     listSchedules(drRegNo)
       .then((response) => {
-        console.log(response.data); 
         setSchedule(response.data);
         if (!toast.isActive(toastId)) {
           // toast.success('Registration successful!', { toastId });
@@ -52,7 +57,6 @@ function SchedulePage() {
       });
   }, []);
 
-  
   const handleDelete = (sId) => {
     axios.delete(`http://localhost:8080/api/v1/schedule/delete?id=${sId}`)
       .then(() => {
@@ -65,12 +69,9 @@ function SchedulePage() {
       });
   };
 
-
-
-
   return (
     <div className="flex flex-col px-10 pt-10">
-      <ToastContainer/>
+      <ToastContainer />
 
       <div className="flex flex-row justify-between w-full">
         {/* Greeting message */}
@@ -82,54 +83,40 @@ function SchedulePage() {
         <div className="flex flex-row gap-10">
           {/* Single Button */}
           <button className="flex flex-row items-center gap-2">
-            <div className="w-8 h-8 rounded-full bg-[#e0e0e0] flex flex-col items-center justify-center"><IoNotificationsOutline className="w-5 h-5 text-[#00394C]" /></div>
+            <div className="w-8 h-8 rounded-full bg-[#e0e0e0] flex flex-col items-center justify-center">
+              <IoNotificationsOutline className="w-5 h-5 text-[#00394C]" />
+            </div>
             <div className="text-base font-semibold text-[#00394C]">Alerts</div>
           </button>
 
           {/* Single Button */}
           <button className="flex flex-row items-center gap-2">
-            <div className="w-8 h-8 rounded-full bg-[#e0e0e0] flex flex-col items-center justify-center"><FaQuestion className="w-5 h-5 text-[#00394C]" /></div>
-            <div className="text-base font-semibold text-[#00394C]">help</div>
+            <div className="w-8 h-8 rounded-full bg-[#e0e0e0] flex flex-col items-center justify-center">
+              <FaQuestion className="w-5 h-5 text-[#00394C]" />
+            </div>
+            <div className="text-base font-semibold text-[#00394C]">Help</div>
           </button>
 
           {/* Single Button */}
           <button className="flex flex-row items-center gap-2">
-            <div className="w-8 h-8 rounded-full bg-[#e0e0e0] flex flex-col items-center justify-center"><IoSettingsOutline className="w-5 h-5 text-[#00394C]" /></div>
-            <div className="text-base font-semibold text-[#00394C]">settings</div>
+            <div className="w-8 h-8 rounded-full bg-[#e0e0e0] flex flex-col items-center justify-center">
+              <IoSettingsOutline className="w-5 h-5 text-[#00394C]" />
+            </div>
+            <div className="text-base font-semibold text-[#00394C]">Settings</div>
           </button>
         </div>
-
       </div>
 
       <div className="flex flex-row items-center justify-end w-full h-[45px]">
         <button className="w-[150px] h-full bg-[#007F6D] mt-10 rounded-lg text-white font-semibold" onClick={handleAddNewClick}>Add New +</button>
       </div>
 
-      {/* Search bar */}
-      {/* <div className="flex flex-row items-center gap-6 pt-10">
-        <input
-          type="text"
-          placeholder="Search Patients..."
-          className="px-4 py-2 bg-[#f1f1f1] text-gray-800 text-sm w-[400px] h-[45px] rounded-md focus:outline-none focus:ring-1 focus:ring-[#00394C]"
-        />
-        <button
-          type="submit"
-          className="px-10 py-2 text-white bg-[#005F7E] rounded-md hover:bg-[#3392b1] h-[45px] text-sm"
-        >
-          Search
-        </button>
-      </div> */}
-     
-
       {/* Schedule List */}
-      <div className="flex flex-col pt-10 ">
-
-        <div className="flex flex-col  w-full h-full bg-[#E6F2F6] rounded-xl px-4 py-4">
-          <div
-            ref={divRef}
-            style={{ overflowY: 'scroll', height: '560px' }}
-          >
-
+      <div className="flex flex-col pt-10">
+        <div className="flex flex-col w-full h-full bg-[#E6F2F6] rounded-xl px-4 py-4">
+          <div ref={divRef} style={{ overflowY: 'scroll', height: '560px' }}>
+            {/* Loading Spinner */}
+            {loading && <LoadingSpinner />}
 
             {/* Card */}
             {
@@ -174,28 +161,23 @@ function SchedulePage() {
                     </div>
 
                     <div className="flex flex-row gap-5">
-                      <button className="px-10 rounded-lg text-white text-sm font-medium py-2 bg-[#005F7E]"  onClick={() => handleEdit(scheduleItem)}>Edit</button>
+                      <button className="px-10 rounded-lg text-white text-sm font-medium py-2 bg-[#005F7E]" onClick={() => handleEdit(scheduleItem)}>Edit</button>
                       <button className="px-10 rounded-lg text-white text-sm font-medium py-2 bg-[#FF6464]"
-                       onClick={() => handleDelete(scheduleItem.sid)}>Delete</button>
+                        onClick={() => handleDelete(scheduleItem.sid)}>Delete</button>
                     </div>
                   </div>
                 ))
               ) : (
-                  <div className="flex flex-col justify-center w-full h-full text-lg text-center text-[#005F7E] font-semibold">No schedules available</div>
+                <div className="flex flex-col justify-center w-full h-full text-lg text-center text-[#005F7E] font-semibold">No schedules available</div>
               )
             }
-
-            
-
 
             <div ref={bottomRef}></div>
           </div>
         </div>
       </div>
-
-
     </div>
-  )
+  );
 }
 
-export default SchedulePage
+export default SchedulePage;

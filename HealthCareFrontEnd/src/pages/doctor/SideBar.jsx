@@ -12,16 +12,15 @@ import { useNavigate } from 'react-router-dom';
 function LoadingSpinner() {
   return (
     <div className="flex items-center justify-center w-full h-full">
-      <div className="w-32 h-32 border-t-4 border-b-4 border-blue-500 rounded-full animate-spin"></div>
+      <div className="w-16 h-16 border-t-4 border-b-4 border-blue-500 rounded-full animate-spin"></div>
     </div>
   );
 }
 
-
-
 function SideBar() {
   const [activePage, setActivePage] = useState('dashboard');
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handlePageChange = (page) => {
     setLoading(true); // Start loading
@@ -31,14 +30,16 @@ function SideBar() {
     }, 500); // Simulate a delay of 500ms
   };
 
-  const navigate = useNavigate();
-
   const handleLogout = () => {
-    // Clear local storage
-    localStorage.clear();
+    setLoading(true); // Start loading
+    setTimeout(() => {
+      // Clear local storage
+      localStorage.clear();
 
-    // Navigate to the sign-in page
-    navigate('/SignIn');
+      // Navigate to the sign-in page
+      navigate('/SignIn');
+      setLoading(false); // Stop loading after navigation
+    }, 500); // Simulate a delay for the logout process
   };
 
   const drName = localStorage.getItem("drName");
