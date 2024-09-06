@@ -54,7 +54,7 @@ function NavBar() {
            BookHistory
           </Link>
           <Link
-            to="/PatientDashboard"
+            to="/MedicalDashboard"
             className={`px-2 py-2 no-underline ${activeLink === 'About' ? 'text-[#005F7E]' : 'text-gray-800'
               } hover:text-[#005F7E]`}
             onClick={() => handleLinkClick('About')}

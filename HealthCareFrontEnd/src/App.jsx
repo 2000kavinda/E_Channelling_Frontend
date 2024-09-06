@@ -36,6 +36,9 @@ import ContactUs from './pages/home/ContactUs';
 import HomePageInner from './pages/home/HomePageInner';
 import BookAnAppointment from './pages/patients/BookAnAppoinment';
 import DoctorDetails from './pages/patients/ViewSelectedDoctorDetail';
+import AppointmentForm from './pages/patients/BookDetail';
+import PatientBookHistory from './pages/patients/PatientBookHistory';
+import PatientNotifications from './pages/patients/PatientNotifications';
 // import Chat from './components/chat/chat';
 
 function App() {
@@ -82,6 +85,11 @@ function App() {
           <Route path='/HomePageInner' element={<HomePageInner />} />
           <Route path='/BookAnAppointment' element={<BookAnAppointment />} />
           <Route path='/DoctorDetails' element={<DoctorDetails />} />
+          <Route path='/AppointmentForm' element={<AppointmentForm/>}/>
+          <Route path='/PatientBookHistory' element={<PatientBookHistory/>}/>
+          <Route path='/MedicalDashboard' element={<MedicalDashboard/>}/>
+          <Route path='/PatientNotifications' element={<PatientNotifications/>}/>
+          
 
         </Routes>
 

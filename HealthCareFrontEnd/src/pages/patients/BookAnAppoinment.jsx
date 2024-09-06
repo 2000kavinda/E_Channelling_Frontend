@@ -19,6 +19,10 @@ function BookAnAppointment() {
         console.log(doctor)
         navigate('/DoctorDetails', { state: { doctor } });
     };
+
+    const handleBookNow = () => {
+        navigate('/AppointmentForm');
+    };
    
 
     useEffect(() => {
@@ -121,7 +125,7 @@ function BookAnAppointment() {
                             <button className="px-4 py-2 bg-[#005F7E] text-white text-sm rounded-md" onClick={() => handleViewDoctor(doctor)}>
                                 View Profile
                             </button>
-                            <button className="px-4 py-2 bg-[#28a745] text-white text-sm rounded-md">
+                            <button className="px-4 py-2 bg-[#28a745] text-white text-sm rounded-md" onClick={handleBookNow}>
                                 Book Now
                             </button>
                         </div>

@@ -6,6 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import NavBar from '../../components/header/NavBar';
 import Appoinmentpic from '../../assets/Images/Appoinmentpic.png';
+import { useNavigate } from 'react-router-dom';
 function AppointmentForm() {
     // State variables for form fields
     const [doctorID, setDoctorID] = useState("");
@@ -16,6 +17,11 @@ function AppointmentForm() {
     const [age, setAge] = useState("");
     const [bookingDate, setBookingDate] = useState("");
     const [additionalInfo, setAdditionalInfo] = useState("");
+    const navigate = useNavigate();
+
+    const handleGoBack = () => {
+        navigate('/BookAnAppointment');
+    };
 
     // State to manage form validation errors
     const [errors, setErrors] = useState({});
@@ -95,6 +101,7 @@ function AppointmentForm() {
         }
     };
 
+    
     return (
         <div className='flex flex-col w-screen h-full'>
         <NavBar/>
@@ -105,17 +112,17 @@ function AppointmentForm() {
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
             <ToastContainer />
              {/* Updated Header Section */}
-             <div className="text-center mb-10">
+             <div className="mb-10 text-center">
               
             
-              <h1 className="text-3xl font-bold text-gray-800 mt-2">
+              <h1 className="mt-2 text-3xl font-bold text-gray-800">
                  Book an Appoinment
               </h1>
              
           </div>
             <form
                 onSubmit={handleSubmit}
-                className="w-full max-w-lg bg-white p-8 rounded-md shadow-md"
+                className="w-full max-w-lg p-8 bg-white rounded-md shadow-md"
             >
                 <h2 className="text-2xl font-bold text-center text-[#005F7E] mb-6">Appoinment Form</h2>
                 
@@ -129,7 +136,7 @@ function AppointmentForm() {
                         onChange={(e) => setDoctorID(e.target.value)}
                         className={`mt-1 p-2 w-full border ${errors.doctorID ? 'border-red-500' : 'border-[#005F7E]'} rounded-md focus:outline-none focus:ring-1 focus:ring-[#005F7E]`}
                     />
-                    {errors.doctorID && <p className="text-red-500 text-xs mt-1">{errors.doctorID}</p>}
+                    {errors.doctorID && <p className="mt-1 text-xs text-red-500">{errors.doctorID}</p>}
                 </div>
 
                 {/* First Name */}
@@ -142,7 +149,7 @@ function AppointmentForm() {
                         onChange={(e) => setFirstName(e.target.value)}
                         className={`mt-1 p-2 w-full border ${errors.firstName ? 'border-red-500' : 'border-[#005F7E]'} rounded-md focus:outline-none focus:ring-1 focus:ring-[#005F7E]`}
                     />
-                    {errors.firstName && <p className="text-red-500 text-xs mt-1">{errors.firstName}</p>}
+                    {errors.firstName && <p className="mt-1 text-xs text-red-500">{errors.firstName}</p>}
                 </div>
 
                 {/* Second Name */}
@@ -155,7 +162,7 @@ function AppointmentForm() {
                         onChange={(e) => setSecondName(e.target.value)}
                         className={`mt-1 p-2 w-full border ${errors.secondName ? 'border-red-500' : 'border-[#005F7E]'} rounded-md focus:outline-none focus:ring-1 focus:ring-[#005F7E]`}
                     />
-                    {errors.secondName && <p className="text-red-500 text-xs mt-1">{errors.secondName}</p>}
+                    {errors.secondName && <p className="mt-1 text-xs text-red-500">{errors.secondName}</p>}
                 </div>
 
                 {/* Email Address */}
@@ -168,7 +175,7 @@ function AppointmentForm() {
                         onChange={(e) => setEmail(e.target.value)}
                         className={`mt-1 p-2 w-full border ${errors.email ? 'border-red-500' : 'border-[#005F7E]'} rounded-md focus:outline-none focus:ring-1 focus:ring-[#005F7E]`}
                     />
-                    {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
+                    {errors.email && <p className="mt-1 text-xs text-red-500">{errors.email}</p>}
                 </div>
 
                 {/* Contact Number */}
@@ -181,7 +188,7 @@ function AppointmentForm() {
                         onChange={(e) => setContactNumber(e.target.value)}
                         className={`mt-1 p-2 w-full border ${errors.contactNumber ? 'border-red-500' : 'border-[#005F7E]'} rounded-md focus:outline-none focus:ring-1 focus:ring-[#005F7E]`}
                     />
-                    {errors.contactNumber && <p className="text-red-500 text-xs mt-1">{errors.contactNumber}</p>}
+                    {errors.contactNumber && <p className="mt-1 text-xs text-red-500">{errors.contactNumber}</p>}
                 </div>
 
                 {/* Age */}
@@ -194,7 +201,7 @@ function AppointmentForm() {
                         onChange={(e) => setAge(e.target.value)}
                         className={`mt-1 p-2 w-full border ${errors.age ? 'border-red-500' : 'border-[#005F7E]'} rounded-md focus:outline-none focus:ring-1 focus:ring-[#005F7E]`}
                     />
-                    {errors.age && <p className="text-red-500 text-xs mt-1">{errors.age}</p>}
+                    {errors.age && <p className="mt-1 text-xs text-red-500">{errors.age}</p>}
                 </div>
 
                 {/* Booking Date */}
@@ -207,7 +214,7 @@ function AppointmentForm() {
                         onChange={(e) => setBookingDate(e.target.value)}
                         className={`mt-1 p-2 w-full border ${errors.bookingDate ? 'border-red-500' : 'border-[#005F7E]'} rounded-md focus:outline-none focus:ring-1 focus:ring-[#005F7E]`}
                     />
-                    {errors.bookingDate && <p className="text-red-500 text-xs mt-1">{errors.bookingDate}</p>}
+                    {errors.bookingDate && <p className="mt-1 text-xs text-red-500">{errors.bookingDate}</p>}
                 </div>
 
                 {/* Additional Info */}
@@ -223,11 +230,11 @@ function AppointmentForm() {
                 </div>
 
                 {/* Buttons */}
-                <div className="flex justify-between items-center">
+                <div className="flex items-center justify-between">
                     <button
                         type="button"
                         className="px-6 py-2 text-[#005F7E] border border-[#005F7E] rounded-md hover:bg-[#005F7E] hover:text-white transition"
-                        onClick={() => window.history.back()}
+                        onClick={handleGoBack}
                         disabled={isLoading}
                     >
                         Go Back
