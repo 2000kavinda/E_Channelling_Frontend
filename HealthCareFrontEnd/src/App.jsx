@@ -29,6 +29,7 @@ import SideBarLabPerson from './pages/labPerson/SideBarLabPerson';
 import MedicalDashboard from './pages/patients/PatientDashboard';
 import PatientLabDashboard from './pages/patients/PatientLabDashboard';
 import HomePage from './pages/home/HomePage';
+import Footer from './components/footer/Footer';
 
 function App() {
 
@@ -66,6 +67,7 @@ function App() {
           <Route path='/SideBarLabPerson' element={<SideBarLabPerson />} />
           <Route path='/MedicalDashboard' element={<MedicalDashboard />} />
           <Route path='/PatientLabDashboard' element={<PatientLabDashboard/>}/>
+          <Route path='/Footer' element={<Footer />} />
 
         </Routes>
 

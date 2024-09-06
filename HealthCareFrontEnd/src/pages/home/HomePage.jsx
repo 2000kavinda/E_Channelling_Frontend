@@ -18,6 +18,7 @@ import { TbGenderAndrogyne } from "react-icons/tb";
 import { GiHeartOrgan } from "react-icons/gi";
 import { GiDna2 } from "react-icons/gi";
 import { GiBrain } from "react-icons/gi";
+import Footer from '../../components/footer/Footer.jsx';
 
 function HomePage() {
 
@@ -113,19 +114,19 @@ function HomePage() {
               <div className='text-[#0a232b] text-5xl font-bold text-center'>For Your Health</div>
 
               <div className='flex flex-row gap-4 mt-16 mb-5'>
-                  <div className='flex flex-row w-[450px] h-[200px] rounded-xl border-4 border-[#005F7E] items-center justify-center text-[#005F7E] gap-8'>
+                  <div className='flex flex-row w-[450px] h-[200px] rounded-xl border-4 border-[#005F7E] hover:bg-[#005F7E] hover:text-white items-center justify-center text-[#005F7E] gap-8'>
                       <FaBriefcaseMedical className='w-16 h-16'/>
                       <div className='flex flex-col text-2xl font-bold'>
                           <div>Emergency</div>
                           <div>Department</div></div>
                   </div>
-                  <div className='flex flex-row w-[450px] h-[200px] rounded-xl border-4 border-[#005F7E] items-center justify-center text-[#005F7E] gap-8'>
+                  <div className='flex flex-row w-[450px] h-[200px] rounded-xl border-4 border-[#005F7E] hover:bg-[#005F7E] hover:text-white items-center justify-center text-[#005F7E] gap-8'>
                       <SiUikit className='w-16 h-16' />
                       <div className='flex flex-col text-2xl font-bold'>
                           <div>Pediatric</div>
                           <div>Department</div></div>
                   </div>
-                  <div className='flex flex-row w-[450px] h-[200px] rounded-xl border-4 border-[#005F7E] items-center justify-center text-[#005F7E] gap-8'>
+                  <div className='flex flex-row w-[450px] h-[200px] rounded-xl border-4 border-[#005F7E] hover:bg-[#005F7E] hover:text-white items-center justify-center text-[#005F7E] gap-8'>
                       <TbGenderAndrogyne className='w-16 h-16' />
                       <div className='flex flex-col text-2xl font-bold'>
                           <div>Gynecology</div>
@@ -134,19 +135,19 @@ function HomePage() {
               </div>
 
               <div className='flex flex-row gap-4 mb-16'>
-                  <div className='flex flex-row w-[450px] h-[200px] rounded-xl border-4 border-[#005F7E] items-center justify-center text-[#005F7E] gap-8'>
+                  <div className='flex flex-row w-[450px] h-[200px] rounded-xl border-4 border-[#005F7E] hover:bg-[#005F7E] hover:text-white items-center justify-center text-[#005F7E] gap-8'>
                       <GiHeartOrgan className='w-16 h-16' />
                       <div className='flex flex-col text-2xl font-bold'>
                           <div>Cardiology</div>
                           <div>Department</div></div>
                   </div>
-                  <div className='flex flex-row w-[450px] h-[200px] rounded-xl border-4 border-[#005F7E] items-center justify-center text-[#005F7E] gap-8'>
+                  <div className='flex flex-row w-[450px] h-[200px] rounded-xl border-4 border-[#005F7E] hover:bg-[#005F7E] hover:text-white items-center justify-center text-[#005F7E] gap-8'>
                       <GiDna2 className='w-16 h-16' />
                       <div className='flex flex-col text-2xl font-bold'>
                           <div>Neurology</div>
                           <div>Department</div></div>
                   </div>
-                  <div className='flex flex-row w-[450px] h-[200px] rounded-xl border-4 border-[#005F7E] items-center justify-center text-[#005F7E] gap-8'>
+                  <div className='flex flex-row w-[450px] h-[200px] rounded-xl border-4 border-[#005F7E] hover:bg-[#005F7E] hover:text-white items-center justify-center text-[#005F7E] gap-8'>
                       <GiBrain className='w-16 h-16' />
                       <div className='flex flex-col text-2xl font-bold'>
                           <div>Psychiatry</div>
@@ -155,6 +156,8 @@ function HomePage() {
               </div>
               
           </div>
+
+          <Footer/>
     </div>
   )
 }
