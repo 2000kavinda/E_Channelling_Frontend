@@ -22,7 +22,7 @@ function PatientLabBook() {
     const [time, setTime] = useState('');
     const [date, setDate] = useState('');
     const [allergies, setAllergies] = useState('');
-    const [service, setService] = useState(passedServiceName); // Set the passed serviceName as the initial state
+    const [service, setService] = useState(passedServiceName); 
     const [error, setError] = useState(null);
 
     useEffect(() => {
@@ -97,7 +97,7 @@ const formatDate = (date) => {
 };
 
     return (
-        <div className="flex flex-col px-10 pt-10">
+        <div className="flex flex-col  pt-10">
             {/* Navigation Bar */}
             <NavBar />
 

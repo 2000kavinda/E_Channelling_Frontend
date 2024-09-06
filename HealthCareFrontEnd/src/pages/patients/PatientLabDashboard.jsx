@@ -10,7 +10,7 @@ function PatientLabDashboard() {
     const navigate = useNavigate();
 
     return (
-        <div className="flex flex-col px-10 pt-10">
+        <div className="flex flex-col pt-10">
             {/* Navigation Bar */}
             <NavBar />
 
