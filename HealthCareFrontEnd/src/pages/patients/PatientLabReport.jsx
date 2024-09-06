@@ -1,6 +1,6 @@
 
 import NavBar from '../../components/header/NavBar';
-import LabImage from '../../assets/Images/LabImage.png';
+import LabImage from '../../assets/Images/LabImage3.png';
 import axios from 'axios';
 import { useEffect, useState, useRef } from 'react';
 
@@ -10,11 +10,18 @@ function PatientLabReport() {
     const [services, setServices] = useState([]);
     const divRef = useRef(null);
     const bottomRef = useRef(null);
+    const [pacientId, setPacientId] = useState(''); 
 
+    // Fetch pacientId from localStorage on component mount
+    useEffect(() => {
+        const pid = localStorage.getItem("pid") || '';
+        setPacientId(pid);
+        console.log("Fetched pacientId from localStorage:", pid);
+    }, []);
 
     // Fetch all services from the API
     useEffect(() => {
-        axios.get('http://localhost:8080/labreports/getPatientReports?pId=3')
+        axios.get(`http://localhost:8080/labreports/getPatientReports?pId=${pacientId}`)
             .then((response) => {
                 console.log(response.data);
                 setServices(response.data);
@@ -22,7 +29,7 @@ function PatientLabReport() {
             .catch((error) => {
                 console.error("There was an error fetching the services!", error);
             });
-    }, []);
+    }, [pacientId]);
 // Fetch filtered services based on search input
 const handleSearch = () => {
     if (searchInput) {
@@ -36,7 +43,7 @@ const handleSearch = () => {
             });
     } else {
         // Fetch all services again if the search input is cleared
-        axios.get('http://localhost:8080/labreports/getPatientReports?pId=3')
+        axios.get(`http://localhost:8080/labreports/getPatientReports?pId=${pacientId}`)
             .then((response) => {
                 setServices(response.data);
             })
@@ -50,7 +57,7 @@ const handleSearch = () => {
 
 
     return (
-        <div className="flex flex-col px-10 pt-10">
+        <div className="flex flex-col  pt-10">
             <NavBar />
             {/* Image Section */}
             <div className="flex justify-center my-8">
@@ -60,7 +67,7 @@ const handleSearch = () => {
             <div className="flex flex-row justify-center items-center gap-6 pt-10">
                 <input
                     type="text"
-                    placeholder="Search service..."
+                    placeholder="Search report..."
                     className="px-4 py-2 bg-[#f1f1f1] text-gray-800 text-sm w-[400px] h-[45px] rounded-md focus:outline-none focus:ring-1 focus:ring-[#00394C]"
                     value={searchInput} // Bind search input to state
                     onChange={(e) => setSearchInput(e.target.value)} // Update state on input change
