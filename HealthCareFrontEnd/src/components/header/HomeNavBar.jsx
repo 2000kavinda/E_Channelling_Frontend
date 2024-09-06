@@ -4,20 +4,21 @@ import logo from '../../assets/Images/Logo.png';
 import { useNavigate } from 'react-router-dom';
 
 function HomeNavBar() {
-    const [openDropdown, setOpenDropdown] = useState(null);
     const [activeLink, setActiveLink] = useState('Home');
     const navigate = useNavigate();
 
-    const toggleDropdown = (dropdown) => {
-        setOpenDropdown(openDropdown === dropdown ? null : dropdown);
-    };
+    
 
     const handleLinkClick = (link) => {
         setActiveLink(link);
     };
 
     const handleAddNewClick = () => {
-        navigate('/AdminSideBar');
+        navigate('/SignIn');
+    };
+
+    const handleSignUp = () => {
+        navigate('/SignUp');
     };
 
 
@@ -37,34 +38,29 @@ function HomeNavBar() {
                     >
                         Home
                     </Link>
+                    
+                    
                     <Link
-                        to="/BookAnAppoinment"
-                        className={`px-2 py-2 no-underline ${activeLink === 'Doctors' ? 'text-[#005F7E]' : 'text-gray-800'
-                            } hover:text-[#005F7E]`}
-                        onClick={() => handleLinkClick('Doctors')}
-                    >
-                        Doctors
-                    </Link>
-                    <Link
-                        to="#"
-                        className={`px-2 py-2 no-underline ${activeLink === 'Laboratory' ? 'text-[#005F7E]' : 'text-gray-800'
-                            } hover:text-[#005F7E]`}
-                        onClick={() => handleLinkClick('Laboratory')}
-                    >
-                        Laboratory
-                    </Link>
-                    <Link
-                        to="#"
+                        to="/AboutUs"
                         className={`px-2 py-2 no-underline ${activeLink === 'About' ? 'text-[#005F7E]' : 'text-gray-800'
                             } hover:text-[#005F7E]`}
                         onClick={() => handleLinkClick('About')}
                     >
                         About
                     </Link>
+
+                    <Link
+                        to="/ContactUs"
+                        className={`px-2 py-2 no-underline ${activeLink === 'Contact us' ? 'text-[#005F7E]' : 'text-gray-800'
+                            } hover:text-[#005F7E]`}
+                        onClick={() => handleLinkClick('Contact us')}
+                    >
+                        Contact us
+                    </Link>
                 </div>
 
                 <div className='flex flex-row gap-6'>
-                    <button className='flex flex-row items-center h-12 gap-1 px-6 py-2 font-bold text-[#005F7E] border-2 border-[#005F7E] rounded-lg'>
+                    <button className='flex flex-row items-center h-12 gap-1 px-6 py-2 font-bold text-[#005F7E] border-2 border-[#005F7E] rounded-lg' onClick={handleSignUp}>
                          Sign up
                     </button>
 

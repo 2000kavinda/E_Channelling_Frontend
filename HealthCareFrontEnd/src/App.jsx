@@ -31,6 +31,8 @@ import PatientLabDashboard from './pages/patients/PatientLabDashboard';
 import HomePage from './pages/home/HomePage';
 import Footer from './components/footer/Footer';
 import HomeNavBar from './components/header/HomeNavBar';
+import AboutUs from './pages/home/AboutUs';
+import ContactUs from './pages/home/ContactUs';
 // import Chat from './components/chat/chat';
 
 function App() {
@@ -72,6 +74,8 @@ function App() {
           <Route path='/Footer' element={<Footer />} />
           <Route path='/HomePage' element={<HomePage />} />
           <Route path='/HomeNavBar' element={<HomeNavBar />} />
+          <Route path='/AboutUs' element={<AboutUs />} />
+          <Route path='/ContactUs' element={<ContactUs />} />
 
         </Routes>
 
