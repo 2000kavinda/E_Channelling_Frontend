@@ -27,7 +27,7 @@ function EditService() {
     }, [service, navigate]);
 
     const handleAddNewClick = () => {
-        navigate('/LabAdmin');
+        navigate('/SideBarLabPerson');
     };
 
     const handleSubmit = async (e) => {
@@ -50,7 +50,7 @@ function EditService() {
 
         try {
             // API call to update the service
-            await axios.put(`http://localhost:8080/LabService/update/${serviceNumber}`, serviceData);
+            await axios.put(`http://localhost:8085/LabService/update/${serviceNumber}`, serviceData);
 
             // Success toast message
             toast.success("Service updated successfully!");
@@ -139,7 +139,7 @@ function EditService() {
                     </div>
                 </div>
 
-                {error && <div className="text-red-600 mt-4">{error}</div>}
+                {error && <div className="mt-4 text-red-600">{error}</div>}
 
                 <div className="flex justify-center mt-10">
                     <button type="submit" className="px-10 py-3 bg-[#005F7E] text-white font-bold text-lg rounded-md">Update</button>

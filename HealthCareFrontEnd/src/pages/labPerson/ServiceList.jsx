@@ -18,7 +18,7 @@ function ServiceList() {
 
   // Fetch all services from the API
   useEffect(() => {
-    axios.get('http://localhost:8080/LabService/viewAll')
+    axios.get('http://localhost:8085/LabService/viewAll')
       .then((response) => {
         console.log(response.data);
         setServices(response.data);
@@ -31,7 +31,7 @@ function ServiceList() {
   // Fetch filtered services based on search input
   const handleSearch = () => {
     if (searchInput) {
-      axios.get(`http://localhost:8080/LabService/view/${searchInput}`)
+      axios.get(`http://localhost:8085/LabService/view/${searchInput}`)
         .then((response) => {
           console.log(response.data);
           setServices([response.data]); // Set filtered service
@@ -41,7 +41,7 @@ function ServiceList() {
         });
     } else {
       // Fetch all services again if the search input is cleared
-      axios.get('http://localhost:8080/LabService/viewAll')
+      axios.get('http://localhost:8085/LabService/viewAll')
         .then((response) => {
           setServices(response.data);
         })
@@ -55,7 +55,7 @@ function ServiceList() {
   const handleDelete = (serviceNumber) => {
     const confirmDelete = window.confirm("Are you sure you want to delete this service?");
     if (confirmDelete) {
-      axios.delete(`http://localhost:8080/LabService/delete/${serviceNumber}`)
+      axios.delete(`http://localhost:8085/LabService/delete/${serviceNumber}`)
         .then(() => {
           // Remove the deleted service from the list
           setServices(services.filter(service => service.serviceNumber !== serviceNumber));
@@ -155,15 +155,15 @@ function ServiceList() {
                   </div>
                 </div>
                 {/* Move buttons to the end of the row */}
-                <div className="ml-auto flex gap-2">
+                <div className="flex gap-2 ml-auto">
                   <button
-                    className="text-white bg-red-500 px-4 py-2 rounded-md"
+                    className="px-4 py-2 text-white bg-red-500 rounded-md"
                     onClick={() => handleDelete(service.serviceNumber)}
                   >
                     Delete
                   </button>
                   <button
-                    className="text-white bg-blue-500 px-4 py-2 rounded-md"
+                    className="px-4 py-2 text-white bg-blue-500 rounded-md"
                     onClick={() => handleEdit(service)}
                   >
                     Edit

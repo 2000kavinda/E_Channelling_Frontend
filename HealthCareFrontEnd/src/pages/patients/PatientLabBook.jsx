@@ -68,7 +68,7 @@ function PatientLabBook() {
         });
 
         try {
-            const response = await axios.post('http://localhost:8080/Laboratory/add', serviceData);
+            const response = await axios.post('http://localhost:8085/Laboratory/add', serviceData);
             console.log("Appointment added successfully:", response.data);
             toast.success("Appointment added successfully!");
            
@@ -97,7 +97,7 @@ const formatDate = (date) => {
 };
 
     return (
-        <div className="flex flex-col  pt-10">
+        <div className="flex flex-col pt-10">
             {/* Navigation Bar */}
             <NavBar />
 
@@ -112,11 +112,11 @@ const formatDate = (date) => {
                 <div className="flex flex-col items-center gap-5 pt-10">
                     {/* Input Row */}
                     <div className="flex flex-row gap-16">
-                        <div className="flex  flex-col gap-1">
+                        <div className="flex flex-col gap-1">
                             <div  style={{ fontSize: '30px' }} className="text-normal text-[#1b5f75] font-bold">Service:</div>
                             
                         </div>
-                        <div className="flex  flex-col gap-1">
+                        <div className="flex flex-col gap-1">
                           
                             <input
                                 type="text"
@@ -234,7 +234,7 @@ const formatDate = (date) => {
 
                     {/* Other form inputs remain unchanged */}
 
-                    {error && <div className="text-red-500 pt-4">{error}</div>}
+                    {error && <div className="pt-4 text-red-500">{error}</div>}
 
                     <div className="flex flex-row justify-center w-full gap-16 pt-10">
                         <div className="flex flex-row items-center justify-center gap-10">

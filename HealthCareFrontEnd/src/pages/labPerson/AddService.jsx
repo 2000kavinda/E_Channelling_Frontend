@@ -41,7 +41,7 @@ function AddService() {
         };
 
         try {
-            const response = await axios.post('http://localhost:8080/LabService/add', serviceData);
+            const response = await axios.post('http://localhost:8085/LabService/add', serviceData);
             console.log("Service added successfully:", response.data);
             toast.success("Service added successfully!");
             // navigate('/ServiceList'); // Navigate to another page after success
@@ -155,7 +155,7 @@ function AddService() {
                         </div>
                     </div>
 
-                    {error && <div className="text-red-500 pt-4">{error}</div>}
+                    {error && <div className="pt-4 text-red-500">{error}</div>}
 
                     <div className="flex flex-row justify-center w-full gap-16 pt-10">
                         <div className="flex flex-row items-center justify-center gap-10">

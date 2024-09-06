@@ -17,7 +17,7 @@ function PatientLabServiceList() {
 
     // Fetch all services from the API
     useEffect(() => {
-        axios.get('http://localhost:8080/LabService/viewAll')
+        axios.get('http://localhost:8085/LabService/viewAll')
             .then((response) => {
                 console.log(response.data);
                 setServices(response.data);
@@ -30,7 +30,7 @@ function PatientLabServiceList() {
     // Fetch filtered services based on search input
     const handleSearch = () => {
         if (searchInput) {
-            axios.get(`http://localhost:8080/LabService/view/${searchInput}`)
+            axios.get(`http://localhost:8085/LabService/view/${searchInput}`)
                 .then((response) => {
                     console.log(response.data);
                     setServices([response.data]); // Set filtered service
@@ -40,7 +40,7 @@ function PatientLabServiceList() {
                 });
         } else {
             // Fetch all services again if the search input is cleared
-            axios.get('http://localhost:8080/LabService/viewAll')
+            axios.get('http://localhost:8085/LabService/viewAll')
                 .then((response) => {
                     setServices(response.data);
                 })
@@ -62,7 +62,7 @@ function PatientLabServiceList() {
 
 
             {/* Search bar */}
-            <div className="flex flex-row justify-center items-center gap-6 pt-10">
+            <div className="flex flex-row items-center justify-center gap-6 pt-10">
                 <input
                     type="text"
                     placeholder="Search service..."

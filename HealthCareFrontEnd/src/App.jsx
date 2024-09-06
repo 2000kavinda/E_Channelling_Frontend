@@ -39,6 +39,10 @@ import DoctorDetails from './pages/patients/ViewSelectedDoctorDetail';
 import AppointmentForm from './pages/patients/BookDetail';
 import PatientBookHistory from './pages/patients/PatientBookHistory';
 import PatientNotifications from './pages/patients/PatientNotifications';
+import EditService from './pages/labPerson/EditService';
+import PatientLabReport from './pages/patients/PatientLabReport';
+import PatientLabServiceList from './pages/patients/PatientLabServiceList';
+import PatientLabBook from './pages/patients/PatientLabBook';
 // import Chat from './components/chat/chat';
 
 function App() {
@@ -89,6 +93,12 @@ function App() {
           <Route path='/PatientBookHistory' element={<PatientBookHistory/>}/>
           <Route path='/MedicalDashboard' element={<MedicalDashboard/>}/>
           <Route path='/PatientNotifications' element={<PatientNotifications/>}/>
+          <Route path='/EditService' element={<EditService />} />
+          <Route path='/SideBarLabPerson' element={<SideBarLabPerson/>}/>
+          <Route path='/PatientLabReport' element={<PatientLabReport />} />
+          <Route path='/PatientLabServiceList' element={<PatientLabServiceList />} />
+          <Route path='/PatientLabBook' element={<PatientLabBook />} />
+          
           
 
         </Routes>

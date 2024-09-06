@@ -33,7 +33,7 @@ function LabDashboard() {
 
   // Fetch all services initially
   useEffect(() => {
-    axios.get('http://localhost:8080/Laboratory/appointments')
+    axios.get('http://localhost:8085/Laboratory/appointments')
       .then((response) => {
         const data = response.data;
         setServices(data);
@@ -54,7 +54,7 @@ function LabDashboard() {
 
     // Fetch all services from the API
     useEffect(() => {
-        axios.get('http://localhost:8080/LabService/viewAll')
+        axios.get('http://localhost:8085/LabService/viewAll')
           .then((response) => {
             const data = response.data;
         labsetServices(data);

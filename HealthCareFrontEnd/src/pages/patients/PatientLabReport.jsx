@@ -21,7 +21,7 @@ function PatientLabReport() {
 
     // Fetch all services from the API
     useEffect(() => {
-        axios.get(`http://localhost:8080/labreports/getPatientReports?pId=${pacientId}`)
+        axios.get(`http://localhost:8085/labreports/getPatientReports?pId=${pacientId}`)
             .then((response) => {
                 console.log(response.data);
                 setServices(response.data);
@@ -33,7 +33,7 @@ function PatientLabReport() {
 // Fetch filtered services based on search input
 const handleSearch = () => {
     if (searchInput) {
-        axios.get(`http://localhost:8080/labreports/getSelectedReport?repoetid=${searchInput}`)
+        axios.get(`http://localhost:8085/labreports/getSelectedReport?repoetid=${searchInput}`)
             .then((response) => {
                 console.log(response.data);
                 setServices([response.data]); // Set filtered service
@@ -43,7 +43,7 @@ const handleSearch = () => {
             });
     } else {
         // Fetch all services again if the search input is cleared
-        axios.get(`http://localhost:8080/labreports/getPatientReports?pId=${pacientId}`)
+        axios.get(`http://localhost:8085/labreports/getPatientReports?pId=${pacientId}`)
             .then((response) => {
                 setServices(response.data);
             })
@@ -57,14 +57,14 @@ const handleSearch = () => {
 
 
     return (
-        <div className="flex flex-col  pt-10">
+        <div className="flex flex-col pt-10">
             <NavBar />
             {/* Image Section */}
             <div className="flex justify-center my-8">
                 <img src={LabImage} alt="Lab" className="w-full h-auto rounded-lg shadow-lg" />
             </div>
             {/* Search bar */}
-            <div className="flex flex-row justify-center items-center gap-6 pt-10">
+            <div className="flex flex-row items-center justify-center gap-6 pt-10">
                 <input
                     type="text"
                     placeholder="Search report..."

@@ -19,7 +19,7 @@ function LabAppointment() {
 
   // Fetch all services initially
   useEffect(() => {
-    axios.get('http://localhost:8080/Laboratory/appointments')
+    axios.get('http://localhost:8085/Laboratory/appointments')
       .then((response) => {
         console.log(response.data);
         setServices(response.data);
@@ -32,7 +32,7 @@ function LabAppointment() {
   // Fetch filtered services based on search input
   const handleSearch = () => {
     if (searchInput) {
-      axios.get(`http://localhost:8080/Laboratory/appointments/${searchInput}`)
+      axios.get(`http://localhost:8085/Laboratory/appointments/${searchInput}`)
         .then((response) => {
           console.log(response.data);
           setServices([response.data]); // Set filtered service
@@ -42,7 +42,7 @@ function LabAppointment() {
         });
     } else {
       // Fetch all services again if the search input is cleared
-      axios.get('http://localhost:8080/Laboratory/appointments')
+      axios.get('http://localhost:8085/Laboratory/appointments')
         .then((response) => {
           setServices(response.data);
         })
@@ -56,7 +56,7 @@ function LabAppointment() {
   const handleDelete = (serviceNumber) => {
     const confirmDelete = window.confirm("Are you sure you want to delete this service?");
     if (confirmDelete) {
-      axios.delete(`http://localhost:8080/Laboratory/appointments/${serviceNumber}`)
+      axios.delete(`http://localhost:8085/Laboratory/appointments/${serviceNumber}`)
         .then(() => {
           // Remove the deleted service from the list
           setServices(services.filter(service => service.serviceNumber !== serviceNumber));
@@ -102,7 +102,7 @@ function LabAppointment() {
               uploaddate: formattedDate,
             };
             // Post to backend
-            axios.post('http://localhost:8080/labreports/upload', postData)
+            axios.post('http://localhost:8085/labreports/upload', postData)
               .then(() => {
                 toast.success('Report uploaded and saved successfully!');
                 setIsUploading(false);
@@ -172,7 +172,7 @@ function LabAppointment() {
       {isUploading && (
         <div className="flex flex-col items-center mt-4">
           <div className="text-sm text-gray-700">Uploading: {uploadProgress}%</div>
-          <div className="w-full bg-gray-200 rounded-full mt-2">
+          <div className="w-full mt-2 bg-gray-200 rounded-full">
             <div
               className="bg-blue-500 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full"
               style={{ width: `${uploadProgress}%` }}
@@ -239,7 +239,7 @@ function LabAppointment() {
 
                   {/* Delete button */}
                   <button
-                    className="bg-red-500 text-white text-sm font-medium px-6 py-2 rounded-md hover:bg-red-700"
+                    className="px-6 py-2 text-sm font-medium text-white bg-red-500 rounded-md hover:bg-red-700"
                     onClick={() => handleDelete(service.serviceNumber)}
                   >
                     Delete
@@ -247,7 +247,7 @@ function LabAppointment() {
                 </div>
               </div>
             )) : (
-              <div className="text-center text-gray-500 py-4">No appointments found.</div>
+              <div className="py-4 text-center text-gray-500">No appointments found.</div>
             )}
           </div>
         </div>
