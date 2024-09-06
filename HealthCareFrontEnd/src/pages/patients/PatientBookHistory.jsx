@@ -7,6 +7,7 @@ import { fetchAllAppointments } from '../../service/PBookingService';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import NavBar from '../../components/header/NavBar';
+import bookhistorypic from '../../assets/Images/bookhistorypic.png';
 
 function PatientBookHistory() {
   const [appointments, setAppointments] = useState([]);
@@ -47,6 +48,10 @@ function PatientBookHistory() {
   return (
     <div className='flex flex-col w-screen h-full'>
         <NavBar/>
+ {/* Add the image here */}
+ <div className="flex justify-center mt-6">
+<img src={bookhistorypic} alt="Doctor Booking Details" className="w-full h-auto"/>
+</div>
     <div className="flex flex-col p-10">
       <ToastContainer />
       <div className="flex justify-between items-center w-full">

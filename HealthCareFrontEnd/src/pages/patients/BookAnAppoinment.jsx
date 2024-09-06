@@ -5,7 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import NavBar from '../../components/header/NavBar';
 
-
+import Appoinmentpic from '../../assets/Images/Appoinmentpic.png';
 
 function BookAnAppointment() {
     const [doctors, setDoctors] = useState([]);
@@ -34,6 +34,12 @@ function BookAnAppointment() {
   <div className='flex flex-col w-screen h-full'>
 
 <NavBar/>
+
+{/* Add the image here */}
+<div className="flex justify-center mt-6">
+<img src={Appoinmentpic} alt="Doctor Booking Details" className="w-full h-auto"/>
+</div>
+            
         <div className="flex flex-col px-10 pt-10">
             
             <ToastContainer />
@@ -123,7 +129,7 @@ function BookAnAppointment() {
                 </button>
             </div>
         </div>
-        
+
         </div>
     );
 }
