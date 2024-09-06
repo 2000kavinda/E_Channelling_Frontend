@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../../assets/Images/Logo.png';
-import { MdOutlineShoppingCart } from "react-icons/md";
 
 function HomeNavBar() {
     const [openDropdown, setOpenDropdown] = useState(null);
@@ -59,7 +58,7 @@ function HomeNavBar() {
 
                 <div className='flex flex-row gap-6'>
                     <button className='flex flex-row items-center h-12 gap-1 px-6 py-2 font-bold text-[#005F7E] border-2 border-[#005F7E] rounded-lg'>
-                        <MdOutlineShoppingCart className='w-5 h-5' /> Cart
+                         Sign up
                     </button>
 
                     <div className='relative'>
