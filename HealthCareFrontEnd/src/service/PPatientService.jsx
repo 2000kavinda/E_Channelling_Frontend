@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API_BASE_URL = 'http://localhost:8080/api/patients';
-const TIMELINE_API_BASE_URL = 'http://localhost:8080/api/timeline';
+const TIMELINE_API_BASE_URL = 'http://localhost:8090/api/timeline';
 
 const PatientService = {
   // Fetch all patients (if needed)

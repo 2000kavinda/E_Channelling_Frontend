@@ -47,7 +47,7 @@ function SignIn() {
                 localStorage.setItem("lpprofileImage", response.data.body.lpprofileImage);
                 localStorage.setItem("lpregNo", response.data.body.lpregNo);
             } else if (role === "PATIENT") {
-                navigate('/PatientLabDashboard');
+                navigate('/HomePageInner');
                 localStorage.setItem("pname", response.data.body.pname);
                 localStorage.setItem("pprofileImage", response.data.body.pprofileImage);
                 localStorage.setItem("pid", response.data.body.pid);

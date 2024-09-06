@@ -33,6 +33,8 @@ import Footer from './components/footer/Footer';
 import HomeNavBar from './components/header/HomeNavBar';
 import AboutUs from './pages/home/AboutUs';
 import ContactUs from './pages/home/ContactUs';
+import HomePageInner from './pages/home/HomePageInner';
+import BookAnAppointment from './pages/patients/BookAnAppoinment';
 // import Chat from './components/chat/chat';
 
 function App() {
@@ -43,7 +45,7 @@ function App() {
       <Router>
         <Routes>
 
-          <Route exact path='/' element={<HomeNavBar />} />
+          <Route exact path='/' element={<HomePage />} />
           <Route path='/' element={<SignIn />} />
           <Route path='/DrAdmin' element={<DrAdmin />} />
           <Route path='/AddSchedule' element={<AddSchedule />} />
@@ -76,6 +78,8 @@ function App() {
           <Route path='/HomeNavBar' element={<HomeNavBar />} />
           <Route path='/AboutUs' element={<AboutUs />} />
           <Route path='/ContactUs' element={<ContactUs />} />
+          <Route path='/HomePageInner' element={<HomePageInner />} />
+          <Route path='/BookAnAppointment' element={<BookAnAppointment />} />
 
         </Routes>
 

@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 // Base URL of your backend API
-const API_URL = 'http://localhost:8080/api/doctors'; // Adjust if necessary
+const API_URL = 'http://localhost:8090/api/doctors'; // Adjust if necessary
 
 export const PDoctorService = {
     searchDoctors: async (name, specialty, type) => {

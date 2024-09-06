@@ -4,7 +4,7 @@ import axios from 'axios';
 
 
 
-const REST_API_BASE_URL = "http://localhost:8080";
+const REST_API_BASE_URL = "http://localhost:8090";
 
 // Modify listSchedules to accept drRegNo as a parameter
 export const listNotifications = (doctorId) => {
