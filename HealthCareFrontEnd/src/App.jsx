@@ -28,9 +28,7 @@ import PatientDetailsPage from './pages/doctor/PatientDetailsPage';
 import SideBarLabPerson from './pages/labPerson/SideBarLabPerson';
 import MedicalDashboard from './pages/patients/PatientDashboard';
 import PatientLabDashboard from './pages/patients/PatientLabDashboard';
-import PatientLabReport from './pages/patients/PatientLabReport';
-import PatientLabServiceList from './pages/patients/PatientLabServiceList';
-import PatientLabBook from './pages/patients/PatientLabBook';
+import HomePage from './pages/home/HomePage';
 
 function App() {
 
@@ -40,7 +38,7 @@ function App() {
       <Router>
         <Routes>
 
-          <Route exact path='/' element={<SignIn />} />
+          <Route exact path='/' element={<HomePage />} />
           <Route path='/' element={<SignIn />} />
           <Route path='/DrAdmin' element={<DrAdmin />} />
           <Route path='/AddSchedule' element={<AddSchedule />} />
@@ -68,9 +66,6 @@ function App() {
           <Route path='/SideBarLabPerson' element={<SideBarLabPerson />} />
           <Route path='/MedicalDashboard' element={<MedicalDashboard />} />
           <Route path='/PatientLabDashboard' element={<PatientLabDashboard/>}/>
-          <Route path='/PatientLabReport' element={<PatientLabReport/>}/>
-          <Route path='/PatientLabServiceList' element={<PatientLabServiceList/>}/>
-          <Route path='/PatientLabBook' element={<PatientLabBook/>}/>
 
         </Routes>
 
