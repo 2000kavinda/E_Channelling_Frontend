@@ -1,4 +1,5 @@
 import SignInPic from '../../assets/Images/signIn.png';
+import { IoMdArrowRoundBack } from "react-icons/io";
 import Logo from '../../assets/Images/Logo.png';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
@@ -21,6 +22,9 @@ function SignIn() {
         setTimeout(() => {
             navigate('/Verification');
         }, 300);
+    };
+    const handleHomeNavigation = () => {
+        navigate('/HomePage');
     };
 
     async function login(event) {
@@ -64,6 +68,14 @@ function SignIn() {
 
     return (
         <div className="flex flex-col items-center justify-center w-screen h-screen">
+
+            <div className="flex flex-row justify-start w-full gap-8 px-16 pb-5">
+                <button className="w-[120px] py-2 bg-[#005F7E] text-white rounded-lg flex flex-row items-center gap-1 font-semibold text-lg justify-center" onClick={handleHomeNavigation}>
+                    <IoMdArrowRoundBack />
+                    <div>Home</div>
+                </button>
+            </div>
+
             <div className="flex flex-row w-4/6 h-5/6 bg-slate-200 rounded-2xl">
                 <div className="flex flex-col w-1/2 h-full rounded-l-2xl bg-[#94dbf2] overflow-hidden px-6 pt-5">
                     <div className='flex flex-row w-full h-16'>

@@ -2,7 +2,7 @@ import Logo from '../../assets/Images/FooterLogo.png'
 
 function Footer() {
   return (
-    <div className="flex flex-col w-screen h-[480px] bg-[#002C3B] px-10 py-10">
+    <div className="flex flex-col w-screen h-[480px] bg-[#002C3B] px-10 py-10 mt-10">
       <div className="flex flex-row justify-start w-full">
         <img src={Logo} alt="" className='w-[200px] h-[100px]'/>
       </div>
