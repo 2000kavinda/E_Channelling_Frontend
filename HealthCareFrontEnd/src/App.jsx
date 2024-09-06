@@ -30,6 +30,7 @@ import MedicalDashboard from './pages/patients/PatientDashboard';
 import PatientLabDashboard from './pages/patients/PatientLabDashboard';
 import HomePage from './pages/home/HomePage';
 import Footer from './components/footer/Footer';
+// import Chat from './components/chat/chat';
 
 function App() {
 

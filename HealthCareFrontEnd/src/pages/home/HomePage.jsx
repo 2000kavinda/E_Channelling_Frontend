@@ -11,7 +11,7 @@ import Image8 from '../../assets/Images/8.png'
 import Image9 from '../../assets/Images/9.png'
 import Image10 from '../../assets/Images/10.png'
 import Banner from '../../assets/Images/banner.jpg'
-import FloatingButton from '../../components/FloatingButton/FloatingButton.jsx'
+// import FloatingButton from '../../components/FloatingButton/FloatingButton.jsx'
 import { FaBriefcaseMedical } from "react-icons/fa6";
 import { SiUikit } from "react-icons/si";
 import { TbGenderAndrogyne } from "react-icons/tb";
@@ -19,12 +19,11 @@ import { GiHeartOrgan } from "react-icons/gi";
 import { GiDna2 } from "react-icons/gi";
 import { GiBrain } from "react-icons/gi";
 import Footer from '../../components/footer/Footer.jsx';
+import Chat from '../../components/chat/chat.jsx';
 
 function HomePage() {
 
-    const handleClick = () => {
-        alert('Floating Button Clicked!');
-    };
+  
 
   return (
     <div className="flex flex-col w-screen pt-24">
@@ -106,7 +105,7 @@ function HomePage() {
 
 
           {/* Floating Button */}
-          <FloatingButton onClick={handleClick} />
+          <Chat/>
 
           {/* Our Department */}
           <div className='flex flex-col items-center w-full mt-16'>

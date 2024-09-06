@@ -17,7 +17,7 @@ function Footer() {
         </div>
 
         <div className='flex flex-col w-[200px] gap-6'>
-          <div className='text-lg  text-[#CFCFCF]'>FQA's</div>
+          <div className='text-lg  text-[#CFCFCF]'>FQAs</div>
           <div className='text-lg  text-[#CFCFCF]'>Privacy Policy</div>
             <div className='text-lg  text-[#CFCFCF]'>Shipping and Returns</div>
             <div className='text-lg  text-[#CFCFCF]'>Terms & Conditions</div>
