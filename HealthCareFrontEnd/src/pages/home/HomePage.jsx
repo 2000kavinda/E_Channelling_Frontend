@@ -37,7 +37,7 @@ function HomePage() {
                   <div className='text-6xl font-black text-[#005F7E]'>Do not Let Your Health</div>
                   <div className='text-5xl font-black text-[#0c2d37]'>Take a Back Seat</div>
                   <div className='mt-4 text-[#07191f]'>Maintaining good health is essential for a balanced life, as it allows both the mind and body to function at their best, enabling us to pursue our goals with energy and resilience.</div>
-                  <div className='flex flex-row justify-start w-full mt-4'><button className='px-10 py-3 bg-[#005F7E] text-lg font-bold text-white rounded-lg hover:bg-[#0c2d37]'>Sign in</button></div>
+                  <div className='flex flex-row justify-start w-full mt-4'><button className='px-10 py-3 bg-[#005F7E] text-lg font-bold text-white rounded-lg hover:bg-[#0c2d37]'>More Details</button></div>
             </div>
               
           </div>
