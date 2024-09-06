@@ -3,9 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import ImageUpload from "../../components/admin/ImageUpload";
 import { useState } from "react";
 import axios from 'axios';
+import { useLocation } from 'react-router-dom';
 
-function AddLabPerson() {
+function EditLabPerson() {
     const navigate = useNavigate();
+
+    const location = useLocation();
+
+    const {lPRegNo} = location.state || {};
 
     const handleAddNewClick = () => {
         navigate('/AdminSideBar');
@@ -15,7 +20,7 @@ function AddLabPerson() {
     const [url, setUrl] = useState('');
 
     const [formData, setFormData] = useState({
-        regNo: '',
+        regNo: lPRegNo,
         email: '',
         password: "",
         role: "LAB_PERSON",
@@ -29,7 +34,7 @@ function AddLabPerson() {
         setFormData({ ...formData, [name]: value });
     }
 
-    const REST_API_BASE_URL = `http://localhost:8081/api/v1/auth/register`;
+    const REST_API_BASE_URL = `http://localhost:8088/api/v1/labperson/update`;
 
 
 
@@ -44,8 +49,9 @@ function AddLabPerson() {
         console.log(updatedFormData);
 
         try {
-            const response = await axios.post(REST_API_BASE_URL, updatedFormData);
+            const response = await axios.put(REST_API_BASE_URL, updatedFormData,{params:{lPRegNo} });
             console.log("API response:", response);
+            alert("Successfully Updated");
         } catch (error) {
             console.error("There was an error making the request:", error);
         }
@@ -166,4 +172,4 @@ function AddLabPerson() {
     )
 }
 
-export default AddLabPerson
+export default EditLabPerson
