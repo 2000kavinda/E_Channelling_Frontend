@@ -11,12 +11,14 @@ import 'react-toastify/dist/ReactToastify.css';
 import { AllDoctorsList } from '../../service/AdminDoctorService';
 import { MdNavigateNext } from "react-icons/md";
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function AdminDashboard() {
     const divRef = useRef(null);
     const bottomRef = useRef(null);
     const [schedule, setSchedule] = useState([]);
     const [doctors, setDoctors] = useState([]);
+    const navigate = useNavigate();
 
     const getCurrentGreeting = () => {
         const currentHour = new Date().getHours();
@@ -29,6 +31,10 @@ function AdminDashboard() {
         } else {
             return 'Good evening!';
         }
+    };
+
+    const handleCheckNotification = () => {
+        navigate('/Notifi');
     };
 
     const [doctorCount, setDoctorCount] = useState(0);
@@ -140,7 +146,7 @@ function AdminDashboard() {
                 {/* Buttons */}
                 <div className="flex flex-row gap-10">
                     {/* Single Button */}
-                    <button className="flex flex-row items-center gap-2">
+                    <button className="flex flex-row items-center gap-2" onClick={handleCheckNotification}>
                         <div className="w-8 h-8 rounded-full bg-[#e0e0e0] flex flex-col items-center justify-center"><IoNotificationsOutline className="w-5 h-5 text-[#00394C]" /></div>
                         <div className="text-base font-semibold text-[#00394C]">Alerts</div>
                     </button>

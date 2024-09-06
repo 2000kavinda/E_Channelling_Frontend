@@ -9,12 +9,18 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import NavBar from '../../components/header/NavBar';
 import notificationpic from '../../assets/Images/notificationpic.png';
+import { useNavigate } from 'react-router-dom';
 
 function PatientNotifications() {
   const divRef = useRef(null);
   const bottomRef = useRef(null);
+  const navigate = useNavigate();
 
   const [notifications, setNotifications] = useState([]);
+
+  const handlePatientNotifi = () => {
+    navigate('/PatientNotificationPage');
+  };
 
   useEffect(() => {
     const doctorId = 2;
@@ -65,7 +71,7 @@ function PatientNotifications() {
         {/* Buttons */}
         <div className="flex flex-row gap-10">
           {/* Single Button */}
-          <button className="flex flex-row items-center gap-2">
+            <button className="flex flex-row items-center gap-2" onClick={handlePatientNotifi}>
             <div className="w-8 h-8 rounded-full bg-[#e0e0e0] flex flex-col items-center justify-center"><IoNotificationsOutline className="w-5 h-5 text-[#00394C]" /></div>
             <div className="text-base font-semibold text-[#00394C]">Alerts</div>
           </button>

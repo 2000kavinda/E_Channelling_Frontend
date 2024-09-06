@@ -43,6 +43,11 @@ import EditService from './pages/labPerson/EditService';
 import PatientLabReport from './pages/patients/PatientLabReport';
 import PatientLabServiceList from './pages/patients/PatientLabServiceList';
 import PatientLabBook from './pages/patients/PatientLabBook';
+import Notifi from './pages/notification/notifi';
+import NotificationList from './pages/notification/NotificationList';
+import DoctorNotification from './pages/notification/DoctorNotification';
+import LabPersonNotification from './pages/notification/LabPersonNotification';
+import PatientNotificationPage from './pages/notification/PatientNotificationPage';
 // import Chat from './components/chat/chat';
 
 function App() {
@@ -98,6 +103,11 @@ function App() {
           <Route path='/PatientLabReport' element={<PatientLabReport />} />
           <Route path='/PatientLabServiceList' element={<PatientLabServiceList />} />
           <Route path='/PatientLabBook' element={<PatientLabBook />} />
+          <Route path='/Notifi' element={<Notifi />} />
+          <Route path='/NotificationList' element={<NotificationList/>}/>
+          <Route path='/DoctorNotification' element={<DoctorNotification/>}/>
+          <Route path='/LabPersonNotification' element={<LabPersonNotification/>}/>
+          <Route path='/PatientNotificationPage' element={<PatientNotificationPage />} />
           
           
 

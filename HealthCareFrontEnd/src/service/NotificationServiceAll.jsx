@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const REST_API_BASE_URL = "http://localhost:8080"; 
+const REST_API_BASE_URL = "http://localhost:8086"; 
 
 // Fetch all notifications
 export const viewNotification = () => {

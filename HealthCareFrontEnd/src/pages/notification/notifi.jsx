@@ -22,7 +22,7 @@ function Notifi() {
         empNic,
         patientCode,
         timeStamp,
-        message,  // Use `message` instead of `msg`
+        msg: message,  // Use `message` instead of `msg`
         isRead: false,
       };
 
@@ -36,7 +36,7 @@ function Notifi() {
         setErrorMessage('');
 
         // Redirect after a short delay to the notification list page
-        setTimeout(() => navigate('/notificationList'), 100); // Ensure the correct path
+        setTimeout(() => navigate('/NotificationList'), 100); // Ensure the correct path
       } catch (error) {
         setErrorMessage('Failed to create notification. Please try again.');
         console.error('Error:', error);

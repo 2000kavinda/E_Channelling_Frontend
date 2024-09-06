@@ -9,12 +9,14 @@ import DoctorPicture from '../../assets/Images/Ellipse34.png';
 import { Button } from "@headlessui/react";
 import { listPatients } from "../../service/PatientsBookingServices";
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function DoctorDashboard() {
 
   const divRef = useRef(null);
   const bottomRef = useRef(null);
   const [patients, setPatients] = useState([]);
+  const navigate = useNavigate();
 
   // const drRegNo = localStorage.getItem("regNo");
   // const date = new Date().toISOString().split('T')[0];
@@ -22,6 +24,10 @@ function DoctorDashboard() {
   const [totalAppointmentCount, setTotalAppointmentCount] = useState('');
   const [totalRoomCount, setTotalRoomCount] = useState('')
   const [totalTimeCount, setTotalTimeCount] = useState('')
+
+  const handleNavigateDocNoti = () => {
+    navigate('/DoctorNotification');
+  };
 
   const getCurrentGreeting = () => {
     const currentHour = new Date().getHours();
@@ -103,7 +109,7 @@ function DoctorDashboard() {
         {/* Buttons */}
         <div className="flex flex-row gap-10">
         {/* Single Button */}
-          <button className="flex flex-row items-center gap-2">
+          <button className="flex flex-row items-center gap-2" onClick={handleNavigateDocNoti}>
             <div className="w-8 h-8 rounded-full bg-[#e0e0e0] flex flex-col items-center justify-center"><IoNotificationsOutline className="w-5 h-5 text-[#00394C]"/></div>
             <div className="text-base font-semibold text-[#00394C]">Alerts</div>
           </button>

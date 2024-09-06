@@ -4,6 +4,7 @@ import { IoSettingsOutline } from "react-icons/io5";
 import { BsPeople } from "react-icons/bs";
 import { AiOutlineFieldTime } from "react-icons/ai";
 import { BiCabinet } from "react-icons/bi";
+import { useNavigate } from 'react-router-dom';
 
 
 import axios from 'axios';
@@ -18,6 +19,7 @@ function LabDashboard() {
   const [todayAppointments, setTodayAppointments] = useState(0);
   const divRef = useRef(null);
   const bottomRef = useRef(null);
+  const navigate = useNavigate();
 
   const getCurrentGreeting = () => {
     const currentHour = new Date().getHours();
@@ -29,6 +31,10 @@ function LabDashboard() {
     } else {
       return 'Good evening!';
     }
+  };
+
+  const handleALabNotifi = () => {
+    navigate('/LabPersonNotification');
   };
 
   // Fetch all services initially
@@ -79,7 +85,7 @@ function LabDashboard() {
 
         {/* Buttons */}
         <div className="flex flex-row gap-10">
-          <button className="flex flex-row items-center gap-2">
+          <button className="flex flex-row items-center gap-2" onClick={handleALabNotifi}>
             <div className="w-8 h-8 rounded-full bg-[#e0e0e0] flex flex-col items-center justify-center"><IoNotificationsOutline className="w-5 h-5 text-[#00394C]" /></div>
             <div className="text-base font-semibold text-[#00394C]">Alerts</div>
           </button>
